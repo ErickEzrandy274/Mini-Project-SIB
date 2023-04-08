@@ -1,9 +1,9 @@
 export interface ShapeProps {
-	top?: string;
-	left?: string;
-	right?: string;
-	bottom?: string;
-	height: string | number;
-	width: string | number;
+	top?: any;
+	left?: any;
+	right?: any;
+	bottom?: any;
+	height: any;
+	width: any;
 	rotate?: number;
 }
