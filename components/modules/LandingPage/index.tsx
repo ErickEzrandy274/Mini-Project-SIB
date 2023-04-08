@@ -1,7 +1,7 @@
-import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
+import React, { useMemo } from "react";
+import { Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { Circle, Square } from "@elements";
-import { useLandingPageStyle } from "@utils";
-import React from "react";
+import { LandingPageStyle } from "./constant";
 
 const LandingPage = () => {
 	const {
@@ -14,7 +14,7 @@ const LandingPage = () => {
 		firstBoxLeft,
 		secondBoxTop,
 		secondBoxRight,
-	} = useLandingPageStyle();
+	} = useMemo(() => LandingPageStyle, []);
 
 	return (
 		<Flex
@@ -29,8 +29,8 @@ const LandingPage = () => {
 				<Square
 					top={firstBoxTop}
 					left={firstBoxLeft}
-					height={squareSize ?? 150}
-					width={squareSize ?? 150}
+					height={squareSize}
+					width={squareSize}
 					rotate={150}
 				/>
 
@@ -76,8 +76,8 @@ const LandingPage = () => {
 				<Square
 					top={secondBoxTop}
 					right={secondBoxRight}
-					height={squareSize ?? 150}
-					width={squareSize ?? 150}
+					height={squareSize}
+					width={squareSize}
 					rotate={45}
 				/>
 
