@@ -6,8 +6,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { useMemo } from "react";
 import { useRouter } from "next/router";
 import { ProtectedRoute } from "@elements";
-import { AuthContextProvider } from "@context";
-import { theme } from "@utils";
+import { theme, AuthContextProvider } from "@utils";
 
 export default function App({ Component, pageProps }: AppProps) {
 	const { pathname } = useRouter();

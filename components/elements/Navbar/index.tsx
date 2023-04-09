@@ -14,7 +14,7 @@ import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { Links } from "./constant";
 import { useRouter } from "next/router";
 import { NavLinkProps } from "./interface";
-import { useAuth } from "@context";
+import { useAuth } from "@utils";
 import Link from "next/link";
 
 const NavLink = ({ children, href, pathname, onClose }: NavLinkProps) => {

@@ -9,7 +9,7 @@ import {
 	ModalOverlay,
 } from "@chakra-ui/react";
 import { LoginModalProps } from "./interface";
-import { ProviderType, useAuth } from "@context";
+import { ProviderType, useAuth } from "@utils";
 import { listButtons } from "./constant";
 import Router from "next/router";
 
