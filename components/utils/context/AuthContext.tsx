@@ -68,9 +68,8 @@ export const AuthContextProvider: React.FC<LayoutProps> = ({ children }) => {
 				signInWithPopup(auth, provider[userProvider])
 					.then(async ({ user }) => {
 						const { uid: id, displayName: name, email } = user;
-						const { data } = await getUserById({ variables: { id } });
-
 						toast.success("Successfully login!");
+						const { data } = await getUserById({ variables: { id } });
 
 						if (!data.user_by_pk) {
 							await createUser({
