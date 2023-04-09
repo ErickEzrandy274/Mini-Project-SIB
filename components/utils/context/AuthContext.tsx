@@ -16,9 +16,10 @@ import {
 	GithubAuthProvider,
 	FacebookAuthProvider,
 } from "firebase/auth";
-import { auth } from "@utils";
+import { CREATE_USER, GET_USER_BY_ID, auth } from "@utils";
 import { ProviderType } from "./interface";
 import { LayoutProps } from "@elements";
+import { useMutation, useLazyQuery } from "@apollo/client";
 import toast from "react-hot-toast";
 import Router from "next/router";
 
@@ -30,6 +31,8 @@ export const AuthContextProvider: React.FC<LayoutProps> = ({ children }) => {
 	const [user, setUser] = useState<any>(null);
 	const [errorAuth, setErrorAuth] = useState<string>("");
 	const [loading, setLoading] = useState(true);
+	const [getUserById] = useLazyQuery(GET_USER_BY_ID);
+	const [createUser] = useMutation(CREATE_USER);
 	const provider = useMemo(() => {
 		return {
 			Google: new GoogleAuthProvider(),
@@ -63,7 +66,16 @@ export const AuthContextProvider: React.FC<LayoutProps> = ({ children }) => {
 		async (userProvider: ProviderType) => {
 			setPersistence(auth, browserSessionPersistence).then(() => {
 				signInWithPopup(auth, provider[userProvider])
-					.then(() => {
+					.then(async ({ user }) => {
+						const { uid: id, displayName: name, email } = user;
+						const { data } = await getUserById({ variables: { id } });
+
+						if (!data.user_by_pk) {
+							await createUser({
+								variables: { object: { id, name, email } },
+							});
+						}
+
 						toast.success("Successfully login!");
 					})
 					.catch((err: any) => {
@@ -71,7 +83,7 @@ export const AuthContextProvider: React.FC<LayoutProps> = ({ children }) => {
 					});
 			});
 		},
-		[provider]
+		[provider, createUser, getUserById]
 	);
 
 	const logout = useCallback(async () => {
