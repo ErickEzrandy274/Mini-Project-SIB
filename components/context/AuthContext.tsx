@@ -61,8 +61,6 @@ export const AuthContextProvider: React.FC<LayoutProps> = ({ children }) => {
 
 	const loginWithProviders = useCallback(
 		async (userProvider: ProviderType) => {
-			// reference OAuth using facebook: https://www.youtube.com/watch?v=kEfe9u5F_L0
-
 			setPersistence(auth, browserSessionPersistence).then(() => {
 				signInWithPopup(auth, provider[userProvider])
 					.then(() => {
