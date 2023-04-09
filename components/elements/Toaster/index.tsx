@@ -5,10 +5,10 @@ const toastOptions = {
 		maxWidth: 600,
 		color: "white",
 		marginTop: "1rem",
-		fontSize: "1.25rem",
+		fontSize: "1.1rem",
 		letterSpacing: "0.2px",
 		borderRadius: "10px",
-		padding: ".7rem 1.25rem",
+		padding: ".5rem 1.25rem",
 	},
 	success: {
 		iconTheme: {
