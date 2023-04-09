@@ -70,13 +70,13 @@ export const AuthContextProvider: React.FC<LayoutProps> = ({ children }) => {
 						const { uid: id, displayName: name, email } = user;
 						const { data } = await getUserById({ variables: { id } });
 
+						toast.success("Successfully login!");
+
 						if (!data.user_by_pk) {
 							await createUser({
 								variables: { object: { id, name, email } },
 							});
 						}
-
-						toast.success("Successfully login!");
 					})
 					.catch((err: any) => {
 						toast.error(err.message);
