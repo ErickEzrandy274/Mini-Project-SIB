@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { Circle, Square } from "@elements";
 import { LandingPageStyle } from "./constant";
+import Router from "next/router";
 
 const LandingPage = () => {
 	const {
@@ -68,7 +69,12 @@ const LandingPage = () => {
 						</Text>
 					</Flex>
 
-					<Button p={6} colorScheme="red" borderRadius="xl">
+					<Button
+						p={6}
+						colorScheme="red"
+						borderRadius="xl"
+						onClick={() => Router.push("/jobs")}
+					>
 						Find Job Now
 					</Button>
 				</Flex>
