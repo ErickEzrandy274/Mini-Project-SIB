@@ -1,18 +1,43 @@
 import "@styles/globals.css";
-import { ChakraProvider } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import Layout from "components/elements/Layout";
+import { ChakraProvider } from "@chakra-ui/react";
+import { useMemo } from "react";
+import { useRouter } from "next/router";
+import { ProtectedRoute } from "@elements";
+import { AuthContextProvider } from "@context";
+import { theme } from "@utils";
 
 export default function App({ Component, pageProps }: AppProps) {
-	return (
-		<ChakraProvider>
-			<Head>
-				<title>Job Listing Vacancies</title>
-				<meta name="description" content="Job Listing Vacancies" />
-				<link rel="icon" href="/job-vacancy-logo.png" />
-			</Head>
+	const { pathname } = useRouter();
+	const noAuthURL = useMemo(() => ["/", "/jobs"], []);
 
-			<Component {...pageProps} />
-		</ChakraProvider>
+	return (
+		<AuthContextProvider>
+			<ChakraProvider theme={theme}>
+				<Head>
+					<title>Job Listing Vacancies</title>
+					<meta name="description" content="Job Listing Vacancies" />
+					<link rel="icon" href="/job-vacancy-logo.png" />
+				</Head>
+
+				{noAuthURL.includes(pathname) ? (
+					pathname === "/" ? (
+						<Component {...pageProps} />
+					) : (
+						<Layout>
+							<Component {...pageProps} />
+						</Layout>
+					)
+				) : (
+					<Layout>
+						<ProtectedRoute>
+							<Component {...pageProps} />
+						</ProtectedRoute>
+					</Layout>
+				)}
+			</ChakraProvider>
+		</AuthContextProvider>
 	);
 }
