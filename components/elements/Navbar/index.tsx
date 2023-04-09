@@ -61,7 +61,7 @@ const Navbar = () => {
 				<HStack spacing={8} alignItems={"center"}>
 					<Heading
 						as="h2"
-						fontSize={{ base: "3xl", md: "4xl" }}
+						fontSize={{ base: "2xl", sm: "4xl" }}
 						fontWeight="extrabold"
 						bgGradient="linear(to-r, #7928CA, #FF0080)"
 						bgClip="text"
