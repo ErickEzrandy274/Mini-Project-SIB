@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { LayoutProps, LoginModal } from "@elements";
-import { useAuth } from "@context";
+import { useAuth } from "@utils";
 import { useDisclosure } from "@chakra-ui/react";
 
 const ProtectedRoute: React.FC<LayoutProps> = ({ children }) => {

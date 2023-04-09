@@ -1,4 +1,4 @@
-import { ProviderType } from "@context";
+import { ProviderType } from "@utils";
 
 type ListButtonType = { name: ProviderType; color: string }[];
 

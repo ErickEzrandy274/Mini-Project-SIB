@@ -19,7 +19,6 @@
 			"@modules": ["components/modules"],
 			"@elements": ["components/elements"],
 			"@utils": ["components/utils"],
-			"@context": ["components/context"],
 			"@styles/*": ["styles/*"]
 		}
 	},
