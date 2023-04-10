@@ -31,9 +31,7 @@ import { useRouter } from "next/router";
 
 const NewJobForm = () => {
 	const { push } = useRouter();
-	const {
-		user: { uid },
-	} = useAuth();
+	const { user } = useAuth();
 	const { initialValues, validationSchema } = useMemo(() => {
 		return {
 			initialValues: NEW_JOB_INPUT,
@@ -51,7 +49,7 @@ const NewJobForm = () => {
 				try {
 					const finalValue = {
 						...values,
-						created_by: uid,
+						created_by: user?.uid,
 						created_at: new Date(),
 						salary: values.salary ? values.salary : null,
 					};
