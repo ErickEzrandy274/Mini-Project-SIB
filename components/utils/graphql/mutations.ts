@@ -9,3 +9,11 @@ export const CREATE_USER = gql`
 		}
 	}
 `;
+
+export const CREATE_NEW_JOB_VACANCY = gql`
+	mutation CreateNewJobVacancy($object: job_vacancy_insert_input!) {
+		insert_job_vacancy_one(object: $object) {
+			id
+		}
+	}
+`; 
