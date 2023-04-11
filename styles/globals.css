@@ -46,3 +46,11 @@
 .breakLabel {
 	letter-spacing: 2px;
 }
+
+@media screen and (max-width: 768px) {
+  .pagination {
+		font-size: 1rem;
+		display: flex;
+		gap: .3rem;
+	}
+}
