@@ -57,7 +57,7 @@ const NewJobForm = () => {
 					await createNewJobVacancy({ variables: { object: finalValue } });
 					toast.dismiss();
 					toast.success("Succesfully created a new job vacancy!");
-					push("/jobs");
+					push("/jobs/mine");
 				} catch (error) {
 					toast.dismiss();
 					console.log(error);
