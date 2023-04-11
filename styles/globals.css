@@ -21,3 +21,29 @@
 	background-color: #393e46;
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
+
+.pagination {
+	font-size: 1.5rem;
+	display: flex;
+	gap: 1rem;
+	list-style-type: none;  
+	margin: 0 auto;
+}
+
+.active, .page-item:hover {
+	background: #4b5563;
+	padding: 0 .5rem;
+	border-radius: 8px;
+	color: whitesmoke;
+	font-weight: bolder;
+}
+
+.page-item {
+	border: 1px solid #4b5563;
+	padding: 0 .5rem;
+	border-radius: 8px;
+}
+
+.breakLabel {
+	letter-spacing: 2px;
+}
