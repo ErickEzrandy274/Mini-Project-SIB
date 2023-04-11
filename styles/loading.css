@@ -1,0 +1,68 @@
+@-webkit-keyframes spin {
+	to {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes spin {
+	to {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+
+
+.different-directions {
+	position: relative;
+}
+
+.different-directions:after,
+.different-directions:before {
+	content: "";
+	display: block;
+	border-radius: 100%;
+	height: 8px;
+	width: 8px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: 5rem;
+}
+
+.different-directions:after {
+	animation: spin 1s infinite linear reverse;
+	-webkit-box-shadow: 20px 0px 0 0 #2D3748,
+		12.4698px 15.63663px 0 0 #2D3748,
+		-4.45042px 19.49856px 0 0 #2D3748,
+		-18.01938px 8.67767px 0 0 #2D3748,
+		-18.01938px -8.67767px 0 0 #2D3748,
+		-4.45042px -19.49856px 0 0 #2D3748,
+		12.4698px -15.63663px 0 0 #2D3748;
+	box-shadow: 20px 0px 0 0 #2D3748,
+		12.4698px 15.63663px 0 0 #2D3748,
+		-4.45042px 19.49856px 0 0 #2D3748,
+		-18.01938px 8.67767px 0 0 #2D3748,
+		-18.01938px -8.67767px 0 0 #2D3748,
+		-4.45042px -19.49856px 0 0 #2D3748,
+		12.4698px -15.63663px 0 0 #2D3748;
+}
+
+.different-directions:before {
+	-webkit-animation: spin 1s infinite linear;
+	animation: spin 1s infinite linear;
+	-webkit-box-shadow: 35px 0px 0 0 #2D3748,
+		21.82214px 27.3641px 0 0 #2D3748,
+		-7.78823px 34.12248px 0 0 #2D3748,
+		-31.53391px 15.18593px 0 0 #2D3748,
+		-31.53391px -15.18593px 0 0 #2D3748,
+		-7.78823px -34.12248px 0 0 #2D3748,
+		21.82214px -27.3641px 0 0 #2D3748;
+	box-shadow: 35px 0px 0 0 #2D3748,
+		21.82214px 27.3641px 0 0 #2D3748,
+		-7.78823px 34.12248px 0 0 #2D3748,
+		-31.53391px 15.18593px 0 0 #2D3748,
+		-31.53391px -15.18593px 0 0 #2D3748,
+		-7.78823px -34.12248px 0 0 #2D3748,
+		21.82214px -27.3641px 0 0 #2D3748;
+}
