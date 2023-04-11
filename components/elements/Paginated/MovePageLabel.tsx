@@ -10,7 +10,7 @@ const PreviousLabel: React.FC<MovePageProps> = ({ name }) => {
 			px={2}
 			py={1}
 			rounded="lg"
-			fontSize="xl"
+			fontSize={{ base: "xs", md: "xl" }}
 			bgGradient="linear(to-br, #7928CA, #FF0080)"
 		>
 			{name}
