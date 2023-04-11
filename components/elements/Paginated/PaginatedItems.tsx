@@ -2,9 +2,11 @@ import React, { useMemo, useState } from "react";
 import { Flex, Grid, GridItem } from "@chakra-ui/react";
 import { JobCard, MovePageLabel } from "@elements";
 import { PaginatedItemsProps } from "./interface";
+import { useWindowSize } from "@utils";
 import ReactPaginate from "react-paginate";
 
 const PaginatedItems = ({ itemsPerPage, items }: PaginatedItemsProps) => {
+	const { width } = useWindowSize();
 	const [itemOffset, setItemOffset] = useState(0);
 	const endOffset = useMemo(
 		() => itemOffset + itemsPerPage,
@@ -30,6 +32,7 @@ const PaginatedItems = ({ itemsPerPage, items }: PaginatedItemsProps) => {
 					lg: "repeat(3, 1fr)",
 					xl: "repeat(4, 1fr)",
 				}}
+				mx={{ base: 2, md: 0 }}
 				gap={6}
 				justifyContent="center"
 				alignContent="center"
@@ -47,8 +50,8 @@ const PaginatedItems = ({ itemsPerPage, items }: PaginatedItemsProps) => {
 				nextLabel={<MovePageLabel name="Next" />}
 				previousLabel={<MovePageLabel name="Previous" />}
 				onPageChange={handlePageClick}
-				pageRangeDisplayed={3}
-				marginPagesDisplayed={2}
+				pageRangeDisplayed={width >= 768 ? 3 : 1}
+				marginPagesDisplayed={width > 768 ? 2 : 1}
 				pageCount={pageCount}
 				containerClassName="pagination"
 				breakLabel="..."
