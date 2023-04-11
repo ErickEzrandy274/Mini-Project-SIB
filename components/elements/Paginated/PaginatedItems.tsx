@@ -50,13 +50,12 @@ const PaginatedItems = ({ itemsPerPage, items }: PaginatedItemsProps) => {
 				pageRangeDisplayed={3}
 				marginPagesDisplayed={2}
 				pageCount={pageCount}
-				pageClassName="page-item"
-				breakLabel="..."
-				breakClassName="page-item breakLabel"
 				containerClassName="pagination"
-				activeClassName="active"
+				breakLabel="..."
+				pageLinkClassName="page-item"
+				breakLinkClassName="page-item breakLabel"
+				activeLinkClassName="active"
 				renderOnZeroPageCount={null}
-				className="pagination"
 			/>
 		</Flex>
 	);
