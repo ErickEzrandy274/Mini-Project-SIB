@@ -1,12 +1,26 @@
 import { useSubscription } from "@apollo/client";
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import { PaginatedItems, PrimaryLoading } from "@elements";
-import { JOB_VACANCIES_SUBSCRIPTION, useAuth } from "@utils";
-import React from "react";
+import {
+	JOB_VACANCIES_SUBSCRIPTION,
+	JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER,
+	useAuth,
+} from "@utils";
+import React, { useMemo } from "react";
+import { JobListPageProps } from "./interface";
 
-const JobListPage = () => {
+const JobListPage: React.FC<JobListPageProps> = ({
+	isOwnedByCurrentUser = false,
+}) => {
 	const { user } = useAuth();
-	const { data, loading } = useSubscription(JOB_VACANCIES_SUBSCRIPTION, {
+	const subscription = useMemo(
+		() =>
+			isOwnedByCurrentUser
+				? JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER
+				: JOB_VACANCIES_SUBSCRIPTION,
+		[isOwnedByCurrentUser]
+	);
+	const { data, loading } = useSubscription(subscription, {
 		variables: { uid: user ? user.uid : "" },
 	});
 
