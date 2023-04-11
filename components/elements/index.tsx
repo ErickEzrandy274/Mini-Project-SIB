@@ -7,3 +7,7 @@ export * from "./Modal";
 export { default as Navbar } from "./Navbar";
 export { default as Footer } from "./Footer";
 export * from "./Form";
+export * from "./Card";
+export * from "./Icon";
+export * from "./Loading";
+export * from "./Paginated";
