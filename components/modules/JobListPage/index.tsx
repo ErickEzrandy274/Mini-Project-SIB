@@ -1,11 +1,14 @@
 import { useSubscription } from "@apollo/client";
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import { PaginatedItems, PrimaryLoading } from "@elements";
-import { JOB_VACANCIES_SUBSCRIPTION } from "@utils";
+import { JOB_VACANCIES_SUBSCRIPTION, useAuth } from "@utils";
 import React from "react";
 
 const JobListPage = () => {
-	const { data, loading } = useSubscription(JOB_VACANCIES_SUBSCRIPTION);
+	const { user } = useAuth();
+	const { data, loading } = useSubscription(JOB_VACANCIES_SUBSCRIPTION, {
+		variables: { uid: user ? user.uid : "" },
+	});
 
 	return (
 		<Flex flexDirection="column" align="center" justify="center" gap={5} p={5}>
