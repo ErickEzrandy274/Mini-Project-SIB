@@ -28,12 +28,11 @@
 	gap: 1rem;
 	list-style-type: none;  
 	margin: 0 auto;
+	align-items: center;
 }
 
 .active, .page-item:hover {
 	background: #4b5563;
-	padding: 0 .5rem;
-	border-radius: 8px;
 	color: whitesmoke;
 	font-weight: bolder;
 }
