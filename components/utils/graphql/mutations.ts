@@ -6,6 +6,7 @@ export const CREATE_USER = gql`
 			email
 			id
 			name
+			photoURL
 		}
 	}
 `;

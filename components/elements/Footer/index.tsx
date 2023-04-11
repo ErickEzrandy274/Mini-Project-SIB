@@ -10,7 +10,7 @@ const Footer = () => {
 			gap="2"
 			textAlign="center"
 			fontWeight="semibold"
-			fontSize={{ base: "sm", md: "lg" }}
+			fontSize={{ base: "sm", md: "md" }}
 		>
 			<Text>© 2022 Job Listing Vacancies</Text>
 			<Text>Created by Erick Ezrandy - University of Indonesia</Text>

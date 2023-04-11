@@ -1,14 +1,17 @@
+import { JobListPage } from "@modules";
 import Head from "next/head";
 import React from "react";
 
-const jobs = () => {
+const JobList = () => {
 	return (
 		<>
 			<Head>
-				<title>Job Listing Vacancies | List of Job Vacancies</title>
+				<title>Job Listing Vacancies | All Jobs</title>
 			</Head>
+
+			<JobListPage />
 		</>
 	);
 };
 
-export default jobs;
+export default JobList;

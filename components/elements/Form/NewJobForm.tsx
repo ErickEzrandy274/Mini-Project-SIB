@@ -69,21 +69,24 @@ const NewJobForm = () => {
 
 	return (
 		<Flex
+			my={5}
+			gap={5}
+			p={5}
 			flexDirection="column"
 			align="center"
 			justify="center"
-			my={5}
-			gap={5}
 			minH="100vh"
-			p={5}
 		>
 			<Heading
 				as="h2"
 				fontSize={{ base: "3xl", md: "4xl", xl: "5xl" }}
 				textAlign="center"
+				bgGradient="linear(to-br, messenger.500, facebook.700)"
+				bgClip="text"
 			>
 				New Job Vacancy Form
 			</Heading>
+
 			<Box bg="gray.100" p={6} rounded="xl" w={{ base: "full", md: "xl" }}>
 				<form onSubmit={formik.handleSubmit}>
 					<VStack spacing={10} align="flex-start">
