@@ -1,5 +1,5 @@
 export interface ModalProps {
-	id: string;
+	id?: string;
 	deletedName?: string;
 	isOpen: boolean;
 	onClose: () => void;
