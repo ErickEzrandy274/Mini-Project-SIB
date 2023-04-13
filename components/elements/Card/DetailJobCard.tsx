@@ -31,8 +31,8 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 }) => {
 	const { user } = useAuth();
 	const hasApplied = useMemo(() => {
-		return applicants.includes(user.uid);
-	}, [applicants, user.uid]);
+		return applicants.includes(user?.uid);
+	}, [applicants, user?.uid]);
 
 	const otherDetaillist = useMemo(
 		() => [
