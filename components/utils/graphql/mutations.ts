@@ -17,3 +17,12 @@ export const CREATE_NEW_JOB_VACANCY = gql`
 		}
 	}
 `; 
+
+
+export const DELETE_JOB_BY_ID = gql`
+	mutation DeleteJobById($id: uuid!) {
+		delete_job_vacancy_by_pk(id: $id) {
+			id
+		}
+	}
+`;
