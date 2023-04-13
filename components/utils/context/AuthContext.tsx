@@ -44,14 +44,13 @@ export const AuthContextProvider: React.FC<LayoutProps> = ({ children }) => {
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, async (user) => {
 			if (user) {
-				const { uid, email, displayName, refreshToken: token, photoURL } = user;
+				const { uid, email, displayName, refreshToken: token } = user;
 
 				setUser({
 					uid,
 					email,
 					token,
 					displayName,
-					photoURL,
 				});
 			} else {
 				setUser(null);
@@ -68,13 +67,13 @@ export const AuthContextProvider: React.FC<LayoutProps> = ({ children }) => {
 			setPersistence(auth, browserSessionPersistence).then(() => {
 				signInWithPopup(auth, provider[userProvider])
 					.then(async ({ user }) => {
-						const { uid: id, displayName: name, email, photoURL } = user;
+						const { uid: id, displayName: name, email } = user;
 						toast.success("Successfully login!");
 						const { data } = await getUserById({ variables: { id } });
 
 						if (!data.user_by_pk) {
 							await createUser({
-								variables: { object: { id, name, email, photoURL } },
+								variables: { object: { id, name, email } },
 							});
 						}
 					})

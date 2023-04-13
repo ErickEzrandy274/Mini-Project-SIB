@@ -10,6 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { LocationIcon, TimeIcon } from "@elements";
 import { JobCardProps } from "./interface";
+import { dateFormat, encode } from "@utils";
+import { useRouter } from "next/router";
 
 const JobCard: React.FC<JobCardProps> = ({
 	id,
@@ -18,6 +20,8 @@ const JobCard: React.FC<JobCardProps> = ({
 	location,
 	created_at,
 }) => {
+	const { push } = useRouter();
+
 	return (
 		<Card
 			bgGradient="linear(to-b, #334155, #1f2937)"
@@ -40,7 +44,7 @@ const JobCard: React.FC<JobCardProps> = ({
 
 				<Flex alignItems="center" gap={1}>
 					<TimeIcon />
-					<Text>{created_at}</Text>
+					<Text>{dateFormat(created_at)}</Text>
 				</Flex>
 			</CardBody>
 
@@ -52,6 +56,7 @@ const JobCard: React.FC<JobCardProps> = ({
 					rounded="xl"
 					letterSpacing="0.5px"
 					boxShadow="0 5px 20px 0px rgb(72 187 120 / 43%)"
+					onClick={() => push(`/jobs/detail/${encode(id)}`)}
 					_hover={{
 						bg: "green.500",
 					}}

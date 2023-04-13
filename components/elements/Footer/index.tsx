@@ -7,7 +7,6 @@ const Footer = () => {
 			bg={useColorModeValue("gray.200", "gray.900")}
 			color={useColorModeValue("gray.700", "gray.200")}
 			flexDirection="column"
-			gap="2"
 			textAlign="center"
 			fontWeight="semibold"
 			fontSize={{ base: "sm", md: "md" }}
