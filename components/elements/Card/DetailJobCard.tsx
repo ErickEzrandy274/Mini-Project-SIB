@@ -13,6 +13,7 @@ import { BriefcaseIcon, LocationIcon, SalaryIcon, TimeIcon } from "@elements";
 import { DetailJobCardProps } from "./interface";
 import { dateFormat, useAuth } from "@utils";
 import { useMemo } from "react";
+import { CheckIcon } from "@chakra-ui/icons";
 
 const DetailJobCard: React.FC<DetailJobCardProps> = ({
 	id,
@@ -29,6 +30,9 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 	onOpen,
 }) => {
 	const { user } = useAuth();
+	const hasApplied = useMemo(() => {
+		return applicants.includes(user.uid);
+	}, [applicants, user.uid]);
 
 	const otherDetaillist = useMemo(
 		() => [
@@ -73,17 +77,21 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 						<Text fontSize={{ base: "sm", md: "lg" }}>{company_name}</Text>
 					</Flex>
 
-					{user?.uid === ownerId ? (
+					{user?.uid === ownerId || hasApplied ? (
 						<Badge
+							display="flex"
+							gap={2}
+							alignItems="center"
 							w="fit-content"
 							h="fit-content"
 							rounded="md"
 							textTransform="capitalize"
 							px={3}
 							py={1}
-							colorScheme="cyan"
+							colorScheme={hasApplied ? "whiteAlpha" : "cyan"}
 						>
-							Jumlah pelamar : {applicants.length}
+							{hasApplied ? "Applied" : `Jumlah pelamar : ${applicants.length}`}
+							{hasApplied && <CheckIcon />}
 						</Badge>
 					) : (
 						<Button
