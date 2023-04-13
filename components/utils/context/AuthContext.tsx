@@ -44,14 +44,13 @@ export const AuthContextProvider: React.FC<LayoutProps> = ({ children }) => {
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, async (user) => {
 			if (user) {
-				const { uid, email, displayName, refreshToken: token, photoURL } = user;
+				const { uid, email, displayName, refreshToken: token } = user;
 
 				setUser({
 					uid,
 					email,
 					token,
 					displayName,
-					photoURL,
 				});
 			} else {
 				setUser(null);
