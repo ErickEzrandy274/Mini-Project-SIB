@@ -5,3 +5,12 @@ export interface JobCardProps {
 	location: string;
 	created_at: string;
 }
+
+export interface DetailJobCardProps extends JobCardProps {
+	applicants: any[];
+	description: string;
+	salary: number;
+	working_type: string;
+	ownerName: string;
+	ownerId: string;
+}
