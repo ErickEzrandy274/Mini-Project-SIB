@@ -8,12 +8,12 @@ import {
 	ModalHeader,
 	ModalOverlay,
 } from "@chakra-ui/react";
-import { LoginModalProps } from "./interface";
+import { ModalProps } from "./interface";
 import { ProviderType, useAuth } from "@utils";
 import { listButtons } from "./constant";
 import Router from "next/router";
 
-const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
+const LoginModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 	const { loginWithProviders } = useAuth();
 
 	const handleLogin = useCallback(
