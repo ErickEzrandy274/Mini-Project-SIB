@@ -26,6 +26,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 	working_type,
 	ownerName,
 	ownerId,
+	onOpen,
 }) => {
 	const { user } = useAuth();
 
@@ -139,6 +140,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 						_hover={{
 							bg: "red.700",
 						}}
+						onClick={() => onOpen()}
 					>
 						Delete
 					</Button>
