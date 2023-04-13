@@ -13,4 +13,5 @@ export interface DetailJobCardProps extends JobCardProps {
 	working_type: string;
 	ownerName: string;
 	ownerId: string;
+	onOpen: () => void;
 }
