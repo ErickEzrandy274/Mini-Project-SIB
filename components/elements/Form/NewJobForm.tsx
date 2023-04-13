@@ -19,12 +19,7 @@ import {
 	newJobInputValidation,
 	workingTypeOptions,
 } from "./constant";
-import {
-	CREATE_NEW_JOB_VACANCY,
-	splitText,
-	toCapitalize,
-	useAuth,
-} from "@utils";
+import { CREATE_NEW_JOB_VACANCY, splitText, useAuth } from "@utils";
 import { useMutation } from "@apollo/client";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
@@ -98,8 +93,8 @@ const NewJobForm = () => {
 										isRequired={required}
 										isInvalid={formik.touched[name] && !!formik.errors[name]}
 									>
-										<FormLabel htmlFor={name}>
-											{toCapitalize(splitText(name, "_"))}
+										<FormLabel htmlFor={name} textTransform="capitalize">
+											{splitText(name, "_")}
 										</FormLabel>
 
 										{type === "textarea" ? (
