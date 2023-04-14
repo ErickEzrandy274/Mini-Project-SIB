@@ -11,10 +11,11 @@ import {
 	Textarea,
 	FormErrorMessage,
 	Input,
+	FormControl,
 } from "@chakra-ui/react";
 import { BriefcaseIcon, LocationIcon, SalaryIcon, TimeIcon } from "@elements";
 import { DetailJobCardProps } from "./interface";
-import { UPDATE_JOB_BY_ID, dateFormat, useAuth } from "@utils";
+import { UPDATE_JOB_BY_ID, dateFormat, useAuth, useWindowSize } from "@utils";
 import { useMemo, useState } from "react";
 import { CheckIcon } from "@chakra-ui/icons";
 import { editJobInputValidation } from "./constant";
@@ -37,6 +38,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 	ownerId,
 	onOpen,
 }) => {
+	const { width } = useWindowSize();
 	const { user } = useAuth();
 	const [isEdited, setIsEdited] = useState(false);
 	const [updateJobById] = useMutation(UPDATE_JOB_BY_ID);
@@ -126,7 +128,11 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 					>
 						<Flex flexDirection="column" gap={isEdited ? 2 : 0}>
 							{isEdited ? (
-								<Flex flexDirection="column">
+								<FormControl
+									display="flex"
+									flexDirection="column"
+									isInvalid={formik.touched.name && !!formik.errors.name}
+								>
 									<Input
 										id="name"
 										name="name"
@@ -142,7 +148,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 											{formik.errors.name}
 										</FormErrorMessage>
 									)}
-								</Flex>
+								</FormControl>
 							) : (
 								<Heading as="h2" fontSize={{ base: "2xl", md: "3xl" }}>
 									{name}
@@ -215,8 +221,15 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 						<Heading as="h3" fontSize={{ base: "xl", md: "2xl" }}>
 							Description
 						</Heading>
+
 						{isEdited ? (
-							<Flex flexDirection="column">
+							<FormControl
+								display="flex"
+								flexDirection="column"
+								isInvalid={
+									formik.touched.description && !!formik.errors.description
+								}
+							>
 								<Textarea
 									id="description"
 									name="description"
@@ -224,7 +237,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 									onBlur={formik.handleBlur}
 									value={formik.values.description}
 									rounded="lg"
-									rows={5}
+									rows={width <= 768 ? 10 : 5}
 								/>
 
 								{formik.touched.description && formik.errors.description && (
@@ -232,7 +245,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 										{formik.errors.description}
 									</FormErrorMessage>
 								)}
-							</Flex>
+							</FormControl>
 						) : (
 							<Text fontSize={{ base: "sm", md: "md" }}>{description}</Text>
 						)}
