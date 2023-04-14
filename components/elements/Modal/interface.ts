@@ -1,6 +1,9 @@
 export interface ModalProps {
-	id?: string;
-	deletedName?: string;
 	isOpen: boolean;
 	onClose: () => void;
+}
+
+export interface ModifiedModalProps extends ModalProps {
+	id: string;
+	jobName: string;
 }
