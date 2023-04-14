@@ -8,17 +8,17 @@ import {
 	ModalHeader,
 	ModalOverlay,
 } from "@chakra-ui/react";
-import { ModalProps } from "./interface";
+import { ModifiedModalProps } from "./interface";
 import { toast } from "react-hot-toast";
-import Router from "next/router";
 import { useMutation } from "@apollo/client";
 import { DELETE_JOB_BY_ID } from "@utils";
+import Router from "next/router";
 
-const DeleteModal: React.FC<ModalProps> = ({
+const DeleteModal: React.FC<ModifiedModalProps> = ({
 	id,
 	isOpen,
 	onClose,
-	deletedName,
+	jobName,
 }) => {
 	const [deleteJob] = useMutation(DELETE_JOB_BY_ID, { variables: { id } });
 
@@ -27,13 +27,13 @@ const DeleteModal: React.FC<ModalProps> = ({
 		try {
 			await deleteJob();
 			toast.dismiss();
-			toast.success(`Successfully deleted ${deletedName ?? ""} job vacancy!`);
+			toast.success(`Successfully deleted ${jobName ?? ""} job vacancy!`);
 			Router.push("/jobs/mine");
 		} catch (error: any) {
 			toast.dismiss();
 			toast.error(error.message);
 		}
-	}, [deletedName, deleteJob]);
+	}, [jobName, deleteJob]);
 
 	return (
 		<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
