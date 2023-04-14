@@ -21,7 +21,6 @@ const JobCard: React.FC<JobCardProps> = ({
 	created_at,
 	edited_at,
 }) => {
-	console.log("edited_at:", edited_at);
 	const { push } = useRouter();
 
 	return (
