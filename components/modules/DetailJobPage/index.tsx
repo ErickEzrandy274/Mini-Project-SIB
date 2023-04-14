@@ -1,11 +1,12 @@
 import React from "react";
 import { DetailJobPageProps } from "./interface";
-import { GET_JOB_BY_ID, decode } from "@utils";
+import { GET_JOB_BY_ID, decode, useAuth } from "@utils";
 import { useQuery } from "@apollo/client";
 import { DeleteModal, DetailJobCard, PrimaryLoading } from "@elements";
-import { Flex, useDisclosure } from "@chakra-ui/react";
+import { Flex, Heading, useDisclosure } from "@chakra-ui/react";
 
 const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
+	const { user } = useAuth();
 	const { isOpen, onClose, onOpen } = useDisclosure();
 	const { data, loading } = useQuery(GET_JOB_BY_ID, {
 		variables: { id: decode(id) },
@@ -25,9 +26,20 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 		<Flex
 			flexDirection="column"
 			mx="auto"
+			my={{ base: 3, md: 5 }}
 			w={{ base: "full", md: "50%" }}
-			gap={3}
 		>
+			<Heading
+				as="h2"
+				textTransform="capitalize"
+				textAlign="center"
+				color="messenger.700"
+			>
+				{user?.uid === ownerId
+					? "Job vacancy details that you have created"
+					: "Job vacancy details"}
+			</Heading>
+
 			<DetailJobCard {...finalData} onOpen={onOpen} />
 
 			<DeleteModal
