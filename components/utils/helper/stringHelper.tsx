@@ -11,11 +11,9 @@ export const decode = (encoded: string) => {
 	return decodeURIComponent(window.atob(encoded));
 };
 
-export const dateFormat = (date: string) => {
-	return Intl.DateTimeFormat("en-GB", {
-		weekday: "long",
-		year: "numeric",
-		month: "long",
-		day: "numeric",
+export const dateFormat = (date: string, showingTime = false) => {
+	return Intl.DateTimeFormat("en-us", {
+		dateStyle: "long",
+		timeStyle: showingTime ? "short" : undefined,
 	}).format(new Date(date));
 };

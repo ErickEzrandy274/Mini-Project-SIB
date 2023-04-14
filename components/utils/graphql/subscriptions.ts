@@ -11,6 +11,7 @@ export const JOB_VACANCIES_SUBSCRIPTION = gql`
 			name
 			company_name
 			created_at
+			edited_at
 		}
 	}
 `;
@@ -26,6 +27,7 @@ export const JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER = gql`
 			name
 			company_name
 			created_at
+			edited_at
 		}
 	}
 `;

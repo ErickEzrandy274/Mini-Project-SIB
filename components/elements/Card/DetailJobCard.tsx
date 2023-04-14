@@ -21,6 +21,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 	company_name,
 	location,
 	created_at,
+	edited_at,
 	applicants,
 	description,
 	salary,
@@ -41,16 +42,16 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 				content: location,
 			},
 			{
-				icon: <TimeIcon />,
-				content: dateFormat(created_at),
-			},
-			{
 				icon: <SalaryIcon />,
 				content: salary ?? "Company doesn't display the salary",
 			},
 			{
 				icon: <BriefcaseIcon />,
 				content: working_type,
+			},
+			{
+				icon: <TimeIcon />,
+				content: `Created on ${dateFormat(created_at)}`,
 			},
 		],
 		[created_at, location, salary, working_type]
@@ -126,6 +127,13 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 							</Flex>
 						);
 					})}
+
+					{edited_at && (
+						<Flex alignItems="center" gap={2}>
+							<TimeIcon />
+							<Text>Updated on {dateFormat(edited_at, true)}</Text>
+						</Flex>
+					)}
 				</Flex>
 
 				<Flex flexDirection="column" gap={2}>
