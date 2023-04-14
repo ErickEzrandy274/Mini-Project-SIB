@@ -14,6 +14,7 @@ export const GET_JOB_BY_ID = gql`
 			applicants
 			company_name
 			created_at
+			edited_at
 			description
 			salary
 			name
