@@ -282,20 +282,18 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 							</Button>
 
 							<Button
-								type="submit"
 								w="fit-content"
-								bg={isEdited ? "green.500" : "red.500"}
 								color="white"
 								rounded="lg"
 								px={4}
 								letterSpacing="0.5px"
+								type={isEdited ? "submit" : "button"}
+								bg={isEdited ? "green.500" : "red.500"}
 								_hover={{
 									bg: isEdited ? "green.600" : "red.700",
 								}}
 								onClick={() => {
-									if (!isEdited) {
-										onOpen();
-									}
+									!isEdited && onOpen();
 								}}
 							>
 								{isEdited ? "Save" : "Delete"}
