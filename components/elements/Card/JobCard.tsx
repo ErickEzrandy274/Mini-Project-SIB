@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { LocationIcon, TimeIcon } from "@elements";
 import { JobCardProps } from "./interface";
-import { dateFormat, encode } from "@utils";
+import { dateFormat, encode, useWindowSize } from "@utils";
 import { useRouter } from "next/router";
 
 const JobCard: React.FC<JobCardProps> = ({
@@ -22,6 +22,7 @@ const JobCard: React.FC<JobCardProps> = ({
 	edited_at,
 }) => {
 	const { push } = useRouter();
+	const { width } = useWindowSize();
 
 	return (
 		<Card
@@ -50,7 +51,10 @@ const JobCard: React.FC<JobCardProps> = ({
 
 				{edited_at && (
 					<Flex alignItems="center" gap={1}>
-						<TimeIcon />
+						<TimeIcon
+							width={width <= 768 ? 30 : 20}
+							height={width <= 768 ? 30 : 20}
+						/>
 						<Text>Updated on {dateFormat(edited_at, true)}</Text>
 					</Flex>
 				)}

@@ -211,7 +211,10 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 
 						{edited_at && (
 							<Flex alignItems="center" gap={2}>
-								<TimeIcon />
+								<TimeIcon
+									width={width <= 768 ? 25 : 20}
+									height={width <= 768 ? 25 : 20}
+								/>
 								<Text>Updated on {dateFormat(edited_at, true)}</Text>
 							</Flex>
 						)}
