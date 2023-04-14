@@ -9,6 +9,7 @@ const toastOptions = {
 		letterSpacing: "0.2px",
 		borderRadius: "10px",
 		padding: ".5rem 1.25rem",
+		backgroundColor: "#eab308",
 	},
 	success: {
 		iconTheme: {
