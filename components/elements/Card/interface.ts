@@ -4,6 +4,7 @@ export interface JobCardProps {
 	company_name: string;
 	location: string;
 	created_at: string;
+	edited_at: string;
 }
 
 export interface DetailJobCardProps extends JobCardProps {

@@ -19,7 +19,9 @@ const JobCard: React.FC<JobCardProps> = ({
 	company_name,
 	location,
 	created_at,
+	edited_at,
 }) => {
+	console.log("edited_at:", edited_at);
 	const { push } = useRouter();
 
 	return (
@@ -44,8 +46,15 @@ const JobCard: React.FC<JobCardProps> = ({
 
 				<Flex alignItems="center" gap={1}>
 					<TimeIcon />
-					<Text>{dateFormat(created_at)}</Text>
+					<Text>Created on {dateFormat(created_at)}</Text>
 				</Flex>
+
+				{edited_at && (
+					<Flex alignItems="center" gap={1}>
+						<TimeIcon />
+						<Text>Updated on {dateFormat(edited_at, true)}</Text>
+					</Flex>
+				)}
 			</CardBody>
 
 			<CardFooter justify="space-between" flexWrap="wrap">
