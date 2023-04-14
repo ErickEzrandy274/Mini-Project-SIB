@@ -26,3 +26,22 @@ export const DELETE_JOB_BY_ID = gql`
 		}
 	}
 `;
+
+export const UPDATE_JOB_BY_ID = gql`
+	mutation UpdateJobById(
+		$id: uuid!
+		$name: String!
+		$description: String!
+		$edited_at: timestamptz!
+	) {
+		update_job_vacancy_by_pk(
+			pk_columns: { id: $id }
+			_set: { name: $name, description: $description, edited_at: $edited_at }
+		) {
+			id
+			name
+			description
+			edited_at
+		}
+	}
+`;
