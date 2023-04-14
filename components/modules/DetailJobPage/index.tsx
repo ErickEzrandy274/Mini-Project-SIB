@@ -3,7 +3,7 @@ import { DetailJobPageProps } from "./interface";
 import { GET_JOB_BY_ID, decode } from "@utils";
 import { useQuery } from "@apollo/client";
 import { DeleteModal, DetailJobCard, PrimaryLoading } from "@elements";
-import { Button, Flex, useDisclosure } from "@chakra-ui/react";
+import { Flex, useDisclosure } from "@chakra-ui/react";
 
 const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 	const { isOpen, onClose, onOpen } = useDisclosure();
@@ -34,7 +34,7 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 				id={finalData.id}
 				isOpen={isOpen}
 				onClose={onClose}
-				deletedName={finalData.name}
+				jobName={finalData.name}
 			/>
 		</Flex>
 	);
