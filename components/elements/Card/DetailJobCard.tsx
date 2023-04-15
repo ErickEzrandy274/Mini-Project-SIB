@@ -13,12 +13,12 @@ import {
 	Input,
 	FormControl,
 } from "@chakra-ui/react";
-import { BriefcaseIcon, LocationIcon, SalaryIcon, TimeIcon } from "@elements";
+import { TimeIcon } from "@elements";
 import { DetailJobCardProps } from "./interface";
 import { UPDATE_JOB_BY_ID, dateFormat, useAuth, useWindowSize } from "@utils";
 import { useMemo, useState } from "react";
 import { CheckIcon } from "@chakra-ui/icons";
-import { editJobInputValidation } from "./constant";
+import { OTHER_DETAIL_LIST, editJobInputValidation } from "./constant";
 import { useFormik } from "formik";
 import { toast } from "react-hot-toast";
 import { useMutation } from "@apollo/client";
@@ -50,27 +50,9 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 		return applicants.includes(user?.uid);
 	}, [applicants, user?.uid]);
 
-	const otherDetaillist = useMemo(
-		() => [
-			{
-				icon: <LocationIcon />,
-				content: location,
-			},
-			{
-				icon: <SalaryIcon />,
-				content: salary ?? "Company doesn't display the salary",
-			},
-			{
-				icon: <BriefcaseIcon />,
-				content: working_type,
-			},
-			{
-				icon: <TimeIcon />,
-				content: `Created on ${dateFormat(created_at)}`,
-			},
-		],
-		[created_at, location, salary, working_type]
-	);
+	const otherDetaillist = useMemo(() => {
+		return OTHER_DETAIL_LIST(location, working_type, salary, created_at);
+	}, [location, working_type, salary, created_at]);
 
 	const { validationSchema } = useMemo(() => {
 		return {
@@ -79,30 +61,41 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 	}, []);
 
 	const formik = useFormik({
-		initialValues: { name, description },
+		initialValues: { name, description, salary },
 
 		validationSchema,
-		onSubmit: async (values, { resetForm }) => {
-			if (values) {
-				if (values.name === name && values.description === description) {
+		onSubmit: async (values) => {
+			if (values.description && values.name) {
+				toast.loading("Processing your job updating...");
+				if (
+					values.name === name &&
+					values.description === description &&
+					values.salary === salary
+				) {
 					setIsEdited(false);
+					toast.dismiss();
 					return toast("Nothing has changed!", { duration: 2500 });
 				}
 
-				toast.loading("Processing your job updating...");
 				try {
-					await updateJobById({
-						variables: {
-							id,
-							name: values.name,
-							description: values.description,
-							edited_at: new Date().toISOString(),
-						},
-					});
+					if (!salary || (salary && values.salary)) {
+						await updateJobById({
+							variables: {
+								id,
+								name: values.name,
+								description: values.description,
+								salary: values.salary,
+								edited_at: new Date().toISOString(),
+							},
+						});
 
-					setIsEdited(false);
+						setIsEdited(false);
+						toast.dismiss();
+						return toast.success("Succesfully updated job vacancy!");
+					}
+
 					toast.dismiss();
-					toast.success("Succesfully updated job vacancy!");
+					return toast.error("Salary cannot be empty!");
 				} catch (error) {
 					toast.dismiss();
 					console.error(error);
@@ -123,7 +116,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 				<CardHeader pb={0}>
 					<Flex
 						justifyContent="space-between"
-						flexDirection={{ base: "column", md: "row" }}
+						flexDirection={{ base: "column", lg: "row" }}
 						gap={3}
 					>
 						<Flex flexDirection="column" gap={isEdited ? 2 : 0}>
@@ -200,11 +193,26 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 					pb={isOwnedByCurrentUser ? "auto" : 0}
 				>
 					<Flex flexDirection="column" gap={1.5}>
-						{otherDetaillist.map(({ icon, content }) => {
+						{otherDetaillist.map(({ icon, content, type }) => {
 							return (
 								<Flex key={content} alignItems="center" gap={2}>
 									{icon}
-									<Text fontSize={{ base: "sm", md: "md" }}>{content}</Text>
+									{isEdited && type === "salary" ? (
+										<FormControl display="flex" flexDirection="column">
+											<Input
+												id="salary"
+												name="salary"
+												type="number"
+												w={{ base: "full", sm: "40%", md: "50%", lg: "25%" }}
+												onChange={formik.handleChange}
+												onBlur={formik.handleBlur}
+												value={formik.values.salary}
+												rounded="lg"
+											/>
+										</FormControl>
+									) : (
+										<Text fontSize={{ base: "sm", md: "md" }}>{content}</Text>
+									)}
 								</Flex>
 							);
 						})}
