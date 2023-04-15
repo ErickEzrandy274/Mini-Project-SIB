@@ -66,6 +66,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 		validationSchema,
 		onSubmit: async (values) => {
 			if (values.description && values.name) {
+				toast.loading("Processing your job updating...");
 				if (
 					values.name === name &&
 					values.description === description &&
@@ -77,8 +78,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 				}
 
 				try {
-					if (values.salary) {
-						toast.loading("Processing your job updating...");
+					if (!salary || (salary && values.salary)) {
 						await updateJobById({
 							variables: {
 								id,
@@ -94,6 +94,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 						return toast.success("Succesfully updated job vacancy!");
 					}
 
+					toast.dismiss();
 					return toast.error("Salary cannot be empty!");
 				} catch (error) {
 					toast.dismiss();
