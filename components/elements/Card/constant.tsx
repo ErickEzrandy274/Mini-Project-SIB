@@ -1,4 +1,4 @@
-import { number, object, string } from "yup";
+import { object, string } from "yup";
 import { alphabetOnlyRegex } from "../Form";
 import { BriefcaseIcon, LocationIcon, SalaryIcon, TimeIcon } from "@elements";
 import { dateFormat } from "@utils";
