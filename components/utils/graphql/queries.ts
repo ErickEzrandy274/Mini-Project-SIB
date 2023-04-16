@@ -11,7 +11,6 @@ export const GET_USER_BY_ID = gql`
 export const GET_JOB_BY_ID = gql`
 	query GetJobById($id: uuid!) {
 		job_vacancy_by_pk(id: $id) {
-			applicants
 			company_name
 			created_at
 			edited_at
@@ -24,6 +23,9 @@ export const GET_JOB_BY_ID = gql`
 			user {
 				id
 				name
+			}
+			applicants {
+				userId
 			}
 		}
 	}
