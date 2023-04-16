@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { DetailJobPageProps } from "./interface";
 import { GET_JOB_BY_ID, decode, useAuth } from "@utils";
 import { useQuery } from "@apollo/client";
-import { DeleteModal, DetailJobCard, PrimaryLoading } from "@elements";
+import { CustomModal, DetailJobCard, PrimaryLoading } from "@elements";
 import { Flex, Heading, useDisclosure } from "@chakra-ui/react";
 
 const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 	const { user } = useAuth();
 	const { isOpen, onClose, onOpen } = useDisclosure();
+	const [isApplying, setIsApplying] = useState(false);
+
 	const { data, loading } = useQuery(GET_JOB_BY_ID, {
 		variables: { id: decode(id) },
 	});
@@ -40,13 +42,19 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 					: "Job vacancy details"}
 			</Heading>
 
-			<DetailJobCard {...finalData} onOpen={onOpen} />
+			<DetailJobCard
+				{...finalData}
+				onOpen={onOpen}
+				setIsApplying={setIsApplying}
+			/>
 
-			<DeleteModal
+			<CustomModal
 				id={finalData.id}
 				isOpen={isOpen}
 				onClose={onClose}
 				jobName={finalData.name}
+				modalType={isApplying ? "apply" : "delete"}
+				setIsApplying={setIsApplying}
 			/>
 		</Flex>
 	);
