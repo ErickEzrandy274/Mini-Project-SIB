@@ -122,7 +122,6 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 			color="gray.200"
 			rounded="2xl"
 			h="full"
-			m="1.2rem"
 		>
 			<form onSubmit={formik.handleSubmit}>
 				<CardHeader pb={0}>
@@ -286,6 +285,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 								rounded="lg"
 								px={4}
 								letterSpacing="0.5px"
+								size={{ base: "sm", md: "md" }}
 								_hover={{
 									bg: isEdited ? "gray.600" : "green.600",
 								}}
@@ -310,6 +310,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 								letterSpacing="0.5px"
 								type={isEdited ? "submit" : "button"}
 								bg={isEdited ? "green.500" : "red.500"}
+								size={{ base: "sm", md: "md" }}
 								_hover={{
 									bg: isEdited ? "green.600" : "red.700",
 								}}
