@@ -16,8 +16,7 @@ export const CREATE_NEW_JOB_VACANCY = gql`
 			id
 		}
 	}
-`; 
-
+`;
 
 export const DELETE_JOB_BY_ID = gql`
 	mutation DeleteJobById($id: uuid!) {
@@ -49,6 +48,27 @@ export const UPDATE_JOB_BY_ID = gql`
 			description
 			salary
 			edited_at
+		}
+	}
+`;
+
+export const INSERT_APPLICANTS = gql`
+	mutation InsertApplicants(
+		$jobVacancyId: uuid!
+		$link_url: String!
+		$userId: String!
+	) {
+		insert_applicant_one(
+			object: {
+				jobVacancyId: $jobVacancyId
+				link_url: $link_url
+				userId: $userId
+			}
+		) {
+			id
+			userId
+			jobVacancyId
+			link_url
 		}
 	}
 `;
