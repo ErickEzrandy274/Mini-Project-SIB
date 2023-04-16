@@ -15,4 +15,5 @@ export interface DetailJobCardProps extends JobCardProps {
 	ownerName: string;
 	ownerId: string;
 	onOpen: () => void;
+	setIsApplying: React.Dispatch<React.SetStateAction<boolean>>;
 }

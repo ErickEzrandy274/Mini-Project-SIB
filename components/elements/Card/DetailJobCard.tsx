@@ -37,6 +37,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 	ownerName,
 	ownerId,
 	onOpen,
+	setIsApplying,
 }) => {
 	const { width } = useWindowSize();
 	const { user } = useAuth();
@@ -46,8 +47,14 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 		() => user?.uid === ownerId,
 		[ownerId, user?.uid]
 	);
+
 	const hasApplied = useMemo(() => {
-		return applicants.includes(user?.uid);
+		if (!applicants.length) {
+			return false;
+		}
+
+		const index = applicants.findIndex(({ userId }) => userId === user?.uid);
+		return index !== -1;
 	}, [applicants, user?.uid]);
 
 	const otherDetaillist = useMemo(() => {
@@ -104,6 +111,11 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 		},
 	});
 
+	const handleStateApplying = () => {
+		setIsApplying(true);
+		onOpen();
+	};
+
 	return (
 		<Card
 			bgGradient="linear(to-b, #334155, #1f2937)"
@@ -152,16 +164,16 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 
 						{isOwnedByCurrentUser || hasApplied ? (
 							<Badge
-								display="flex"
+								px={3}
+								py={1}
 								gap={2}
+								display="flex"
 								alignItems="center"
 								w="fit-content"
 								h="fit-content"
 								rounded="md"
 								textTransform="capitalize"
-								px={3}
-								py={1}
-								colorScheme={hasApplied ? "whiteAlpha" : "cyan"}
+								colorScheme={hasApplied ? "teal" : "cyan"}
 							>
 								{hasApplied
 									? "Applied"
@@ -179,6 +191,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 								_hover={{
 									bg: "messenger.700",
 								}}
+								onClick={handleStateApplying}
 							>
 								Apply
 							</Button>

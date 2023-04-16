@@ -6,4 +6,6 @@ export interface ModalProps {
 export interface ModifiedModalProps extends ModalProps {
 	id: string;
 	jobName: string;
+	modalType: "delete" | "apply";
+	setIsApplying: React.Dispatch<React.SetStateAction<boolean>>;
 }
