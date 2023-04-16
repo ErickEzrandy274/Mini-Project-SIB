@@ -27,7 +27,7 @@ const NavLink = ({ children, href, pathname, onClose }: NavLinkProps) => {
 			px={2}
 			py={1}
 			borderRadius="lg"
-			fontSize={{ base: "sm", md: "lg" }}
+			fontSize="md"
 			fontWeight={isActive ? "semibold" : "medium"}
 			bgColor={isActive ? "gray.600" : ""}
 			letterSpacing={isActive ? "0.5px" : 0}
@@ -127,7 +127,7 @@ const Navbar = () => {
 
 						{user && (
 							<Flex flexDirection="column" gap={3} px={2}>
-								<Text fontWeight="semibold" fontSize="lg">
+								<Text fontWeight="semibold" fontSize="md">
 									Hello {user.displayName ?? user.email}
 								</Text>
 
@@ -135,6 +135,7 @@ const Navbar = () => {
 									w="fit-content"
 									borderRadius="lg"
 									colorScheme="red"
+									size={{ base: "sm", md: "md" }}
 									onClick={handleLogout}
 								>
 									LOGOUT
