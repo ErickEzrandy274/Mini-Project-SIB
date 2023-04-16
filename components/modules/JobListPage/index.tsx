@@ -55,7 +55,11 @@ const JobListPage: React.FC<JobListPageProps> = ({
 						color="gray.600"
 						fontSize={{ base: "xl", md: "2xl", xl: "3xl" }}
 					>
-						There are currently no job vacancies
+						{isMyApplication
+							? "You haven't applied for a job yet"
+							: isOwnedByCurrentUser
+							? "You have never posted a job posting before"
+							: "There are currently no job vacancies"}
 					</Heading>
 
 					<Text
@@ -63,7 +67,11 @@ const JobListPage: React.FC<JobListPageProps> = ({
 						color="gray.500"
 						fontSize={{ base: "md", md: "lg", xl: "xl" }}
 					>
-						please check our website regularly!
+						{isMyApplication
+							? "apply a job first!"
+							: isOwnedByCurrentUser
+							? "create a new job vacancy first!"
+							: "please check our website regularly!"}
 					</Text>
 				</Flex>
 			)}
