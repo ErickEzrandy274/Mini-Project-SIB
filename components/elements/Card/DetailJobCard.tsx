@@ -164,16 +164,16 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 
 						{isOwnedByCurrentUser || hasApplied ? (
 							<Badge
-								display="flex"
+								px={3}
+								py={1}
 								gap={2}
+								display="flex"
 								alignItems="center"
 								w="fit-content"
 								h="fit-content"
 								rounded="md"
 								textTransform="capitalize"
-								px={3}
-								py={1}
-								colorScheme={hasApplied ? "whiteAlpha" : "cyan"}
+								colorScheme={hasApplied ? "teal" : "cyan"}
 							>
 								{hasApplied
 									? "Applied"
