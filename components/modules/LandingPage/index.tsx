@@ -36,23 +36,23 @@ const LandingPage = () => {
 				/>
 
 				<Flex
+					zIndex={3}
+					gap={10}
+					p={padContent}
+					py={10}
 					mx="auto"
 					flexDirection="column"
 					alignItems="center"
 					justifyContent="center"
-					gap={10}
 					color="gray.700"
-					p={padContent}
-					py={10}
 					borderRadius="3xl"
 					backgroundColor="rgba(255, 255, 255, 0.4)"
 					boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
 					backdropFilter="blur(5px)"
-					zIndex={3}
 				>
 					<Heading
 						as="h1"
-						size="2xl"
+						size={{ base: "xl", md: "2xl" }}
 						bgGradient="linear-gradient(to-r, #9333ea, #6d28d9, #FF0080)"
 						bgClip="text"
 					>
@@ -60,17 +60,17 @@ const LandingPage = () => {
 					</Heading>
 
 					<Flex flexDirection="column" gap={gapText} fontWeight="medium">
-						<Text fontSize="xl">
+						<Text fontSize={{ base: "md", md: "xl" }}>
 							We help you discover exciting opportunities around the world
 						</Text>
 
-						<Text fontSize="xl">
+						<Text fontSize={{ base: "md", md: "xl" }}>
 							Make sure you know the latest jobs that suit you
 						</Text>
 					</Flex>
 
 					<Button
-						p={6}
+						p={{ base: "4", md: "6" }}
 						colorScheme="red"
 						borderRadius="xl"
 						onClick={() => Router.push("/jobs")}
