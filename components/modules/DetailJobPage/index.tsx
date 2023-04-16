@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import { DetailJobPageProps } from "./interface";
-import { GET_JOB_BY_ID, decode, useAuth } from "@utils";
+import { GET_JOB_BY_ID, SUBSCRIPTION_JOB_BY_ID, decode, useAuth } from "@utils";
 import { useQuery } from "@apollo/client";
 import { CustomModal, DetailJobCard, PrimaryLoading } from "@elements";
 import { Flex, Heading, useDisclosure } from "@chakra-ui/react";
@@ -10,9 +11,20 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 	const { isOpen, onClose, onOpen } = useDisclosure();
 	const [isApplying, setIsApplying] = useState(false);
 
-	const { data, loading } = useQuery(GET_JOB_BY_ID, {
+	const { data, loading, subscribeToMore } = useQuery(GET_JOB_BY_ID, {
 		variables: { id: decode(id) },
 	});
+
+	useEffect(() => {
+		subscribeToMore({
+			document: SUBSCRIPTION_JOB_BY_ID,
+			variables: { id: decode(id) },
+			// value document berupa subscription yang telah didefinisikan
+			updateQuery: (prev, { subscriptionData: { data } }) => {
+				return data;
+			},
+		});
+	}, []);
 
 	if (loading) {
 		return <PrimaryLoading />;
