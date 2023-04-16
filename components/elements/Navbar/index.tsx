@@ -9,6 +9,7 @@ import {
 	Heading,
 	Button,
 	Text,
+	VStack,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import { Links } from "./constant";
@@ -26,7 +27,7 @@ const NavLink = ({ children, href, pathname, onClose }: NavLinkProps) => {
 			px={2}
 			py={1}
 			borderRadius="lg"
-			fontSize="lg"
+			fontSize="md"
 			fontWeight={isActive ? "semibold" : "medium"}
 			bgColor={isActive ? "gray.600" : ""}
 			letterSpacing={isActive ? "0.5px" : 0}
@@ -61,7 +62,7 @@ const Navbar = () => {
 				<HStack spacing={8} alignItems={"center"}>
 					<Heading
 						as="h2"
-						fontSize={{ base: "2xl", sm: "4xl" }}
+						fontSize={{ base: "2xl", sm: "3xl" }}
 						fontWeight="extrabold"
 						bgGradient="linear(to-r, #7928CA, #FF0080)"
 						bgClip="text"
@@ -85,9 +86,15 @@ const Navbar = () => {
 
 				{user && (
 					<HStack display={{ base: "none", lg: "flex" }} spacing={5}>
-						<Text fontWeight="semibold" fontSize="xl">
-							Hello {user.displayName ?? user.email}
-						</Text>
+						<VStack
+							display={{ base: "none", lg: "flex" }}
+							spacing={0}
+							fontWeight="semibold"
+							fontSize="lg"
+						>
+							<Text>Hello</Text>
+							<Text>{user.displayName ?? user.email}</Text>
+						</VStack>
 
 						<Button borderRadius="lg" colorScheme="red" onClick={handleLogout}>
 							LOGOUT
@@ -106,7 +113,7 @@ const Navbar = () => {
 
 			{isOpen && (
 				<Box pb={4} display={{ lg: "none" }}>
-					<Stack as={"nav"} spacing={4}>
+					<Stack as={"nav"} spacing={3}>
 						{Links.map(({ name, href }) => (
 							<NavLink
 								key={name}
@@ -119,8 +126,8 @@ const Navbar = () => {
 						))}
 
 						{user && (
-							<Flex flexDirection="column" gap={3}>
-								<Text fontWeight="semibold" fontSize="xl">
+							<Flex flexDirection="column" gap={3} px={2}>
+								<Text fontWeight="semibold" fontSize="md">
 									Hello {user.displayName ?? user.email}
 								</Text>
 
@@ -128,6 +135,7 @@ const Navbar = () => {
 									w="fit-content"
 									borderRadius="lg"
 									colorScheme="red"
+									size={{ base: "sm", md: "md" }}
 									onClick={handleLogout}
 								>
 									LOGOUT

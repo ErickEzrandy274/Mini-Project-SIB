@@ -27,7 +27,7 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin-top: 5rem;
+	margin-top: 2rem;
 }
 
 .different-directions:after {
@@ -65,4 +65,11 @@
 		-31.53391px -15.18593px 0 0 #2D3748,
 		-7.78823px -34.12248px 0 0 #2D3748,
 		21.82214px -27.3641px 0 0 #2D3748;
+}
+
+@media screen and (max-width: 768px) {
+	.different-directions:after,
+	.different-directions:before {
+		margin-top: 1.5rem;
+	}
 }

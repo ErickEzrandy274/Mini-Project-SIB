@@ -19,7 +19,6 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 		subscribeToMore({
 			document: SUBSCRIPTION_JOB_BY_ID,
 			variables: { id: decode(id) },
-			// value document berupa subscription yang telah didefinisikan
 			updateQuery: (prev, { subscriptionData: { data } }) => {
 				return data;
 			},
@@ -42,6 +41,8 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 			mx="auto"
 			my={{ base: 3, md: 5 }}
 			w={{ base: "full", md: "50%" }}
+			gap={5}
+			px={5}
 		>
 			<Heading
 				as="h2"

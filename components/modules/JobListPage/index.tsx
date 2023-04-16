@@ -27,7 +27,6 @@ const JobListPage: React.FC<JobListPageProps> = ({
 	const { data, loading } = useSubscription(subscription, {
 		variables: { uid: user ? user.uid : "" },
 	});
-
 	return (
 		<Flex flexDirection="column" align="center" justify="center" gap={5} p={5}>
 			<Heading
@@ -36,6 +35,7 @@ const JobListPage: React.FC<JobListPageProps> = ({
 				textAlign="center"
 				bgGradient="linear(to-br, messenger.500, facebook.700)"
 				bgClip="text"
+				mt={loading ? -10 : 0}
 			>
 				{isMyApplication
 					? "List of Job Vacancies That I Have Applied for"

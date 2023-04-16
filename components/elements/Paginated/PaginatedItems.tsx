@@ -32,8 +32,7 @@ const PaginatedItems = ({ itemsPerPage, items }: PaginatedItemsProps) => {
 					lg: "repeat(3, 1fr)",
 					xl: "repeat(4, 1fr)",
 				}}
-				mx={{ base: 2, md: 0 }}
-				gap={6}
+				gap={5}
 				justifyContent="center"
 				alignContent="center"
 			>
