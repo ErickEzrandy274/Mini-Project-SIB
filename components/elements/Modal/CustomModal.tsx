@@ -29,7 +29,7 @@ import {
 	useAuth,
 	useWindowSize,
 } from "@utils";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { PDFIcon, UploadIcon } from "@elements";
 
 const CustomModal: React.FC<ModifiedModalProps> = ({
@@ -41,6 +41,7 @@ const CustomModal: React.FC<ModifiedModalProps> = ({
 	setIsApplying,
 }) => {
 	const { user } = useAuth();
+	const { push } = useRouter();
 	const { width } = useWindowSize();
 	const [document, setDocument] = useState<File | null>(null);
 	const [deleteJob] = useMutation(DELETE_JOB_BY_ID, { variables: { id } });
@@ -96,6 +97,7 @@ const CustomModal: React.FC<ModifiedModalProps> = ({
 
 					toast.dismiss();
 					toast.success("Succesfully upload your resume!");
+					push("/jobs/mine/application");
 				} catch (error: any) {
 					console.error(error);
 					toast.dismiss();
