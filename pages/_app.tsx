@@ -19,8 +19,8 @@ export default function App({ Component, pageProps }: AppProps) {
 			<AuthContextProvider>
 				<ChakraProvider theme={theme}>
 					<Head>
-						<title>Job Listing Vacancies</title>
-						<meta name="description" content="Job Listing Vacancies" />
+						<title>Job Career</title>
+						<meta name="description" content="Job Career" />
 						<link rel="icon" href="/job-vacancy-logo.png" />
 					</Head>
 
