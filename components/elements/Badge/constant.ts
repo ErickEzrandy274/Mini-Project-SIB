@@ -3,5 +3,4 @@ export const BadgeColorScheme = {
 	interviewing: "linkedin",
 	none: "cyan",
 	"under review": "yellow",
-	"position closed": "red",
 };
