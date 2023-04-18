@@ -21,7 +21,6 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
 	status,
 	name,
 	link_url,
-	userId,
 }) => {
 	const [newStatus, setNewStatus] = useState<
 		"none" | "applied" | "under review" | "interviewing"
@@ -35,7 +34,7 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
 
 	const handleSubmit = async (e: BaseSyntheticEvent) => {
 		e.preventDefault();
-		toast.loading("Updating applicant state...");
+		toast.loading("Updating applicant status...");
 		if (newStatus === status) {
 			toast.dismiss();
 			setIsUpdate(false);
@@ -45,7 +44,7 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
 		try {
 			await updateApplicantState({ variables: { id, status: newStatus } });
 			toast.dismiss();
-			toast.success(`Successfully update ${name}'s application status`);
+			toast.success(`Successfully updated ${name}'s application status`);
 		} catch (error: any) {
 			toast.dismiss();
 			toast.error(error.message);
