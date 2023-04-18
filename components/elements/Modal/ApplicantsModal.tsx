@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, useMemo } from "react";
+import React, { useMemo } from "react";
 import {
 	Box,
 	Modal,
@@ -22,69 +22,60 @@ const ApplicantsModal: React.FC<ApplicantsModalProps> = ({
 		onClose();
 	};
 
-	const handleChange = (e: BaseSyntheticEvent) => {};
-
-	const handleSubmit = async (e: BaseSyntheticEvent) => {
-		e.preventDefault();
-	};
-
 	return (
 		<Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay
 				backdropFilter="blur(10px)"
 				backgroundColor="rgba(0, 0, 0, 0.8)"
 			/>
-
-			<form onSubmit={handleSubmit}>
-				<ModalContent
-					my="auto"
-					mx={{ base: 5, md: 0 }}
-					py={10}
-					bg="white"
-					textAlign="center"
-					borderRadius="xl"
-					shadow="xl"
-					color="white"
-					bgGradient="linear-gradient(to-b, #718096, #4A5568)"
+			<ModalContent
+				my="auto"
+				mx={{ base: 5, md: 0 }}
+				py={10}
+				bg="white"
+				textAlign="center"
+				borderRadius="xl"
+				shadow="xl"
+				color="white"
+				bgGradient="linear-gradient(to-b, #718096, #4A5568)"
+			>
+				<ModalHeader
+					as="h1"
+					color="gray.200"
+					fontSize={{ base: "xl", md: "3xl" }}
+					fontWeight="bold"
+					p={2}
 				>
-					<ModalHeader
-						as="h1"
-						color="gray.200"
-						fontSize={{ base: "xl", md: "3xl" }}
-						fontWeight="bold"
-						p={2}
-					>
-						List of Applicants
-					</ModalHeader>
+					List of Applicants
+				</ModalHeader>
 
-					<ModalCloseButton fontWeight="bold" onClick={handleCloseModal} />
+				<ModalCloseButton fontWeight="bold" onClick={handleCloseModal} />
 
-					<Box
-						h={{
-							base: moreThanFive ? "70vh" : "auto",
-							md: moreThanFive ? "50vh" : "auto",
-						}}
-						overflowY="auto"
+				<Box
+					h={{
+						base: moreThanFive ? "70vh" : "auto",
+						md: moreThanFive ? "50vh" : "auto",
+					}}
+					overflowY="auto"
+				>
+					<ModalBody
+						px={{ base: 3, md: 10 }}
+						display="flex"
+						justifyContent="center"
+						flexDirection="column"
+						gap={3}
+						w="full"
+						mx={{ base: 0, md: "auto" }}
 					>
-						<ModalBody
-							px={{ base: 3, md: 10 }}
-							display="flex"
-							justifyContent="center"
-							flexDirection="column"
-							gap={3}
-							w="full"
-							mx={{ base: 0, md: "auto" }}
-						>
-							{applicants.map(
-								({ status, user: { name }, userId, link_url }) => {
-									const props = { status, userId, name, link_url };
-									return <ApplicantCard key={`${userId}-${name}`} {...props} />;
-								}
-							)}
-						</ModalBody>
-					</Box>
-				</ModalContent>
-			</form>
+						{applicants.map(
+							({ id, status, user: { name }, userId, link_url }) => {
+								const props = { id, status, userId, name, link_url };
+								return <ApplicantCard key={`${userId}-${name}`} {...props} />;
+							}
+						)}
+					</ModalBody>
+				</Box>
+			</ModalContent>
 		</Modal>
 	);
 };
