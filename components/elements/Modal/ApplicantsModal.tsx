@@ -67,12 +67,10 @@ const ApplicantsModal: React.FC<ApplicantsModalProps> = ({
 						w="full"
 						mx={{ base: 0, md: "auto" }}
 					>
-						{applicants.map(
-							({ id, status, user: { name }, userId, link_url }) => {
-								const props = { id, status, userId, name, link_url };
-								return <ApplicantCard key={`${userId}-${name}`} {...props} />;
-							}
-						)}
+						{applicants.map(({ id, status, user: { name }, link_url }) => {
+							const props = { id, status, name, link_url };
+							return <ApplicantCard key={id} {...props} />;
+						})}
 					</ModalBody>
 				</Box>
 			</ModalContent>

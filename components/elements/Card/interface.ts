@@ -23,6 +23,5 @@ export interface ApplicantCardProps {
 	id: string;
 	status: "none" | "applied" | "under review" | "interviewing";
 	name: string;
-	userId: string;
 	link_url: string;
 }
