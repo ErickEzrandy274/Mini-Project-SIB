@@ -121,14 +121,14 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 			color="gray.200"
 			rounded="2xl"
 			h="full"
-			w={{ base: "full", md: "50%" }}
+			w={{ base: "full", md: "75%", lg: "50%" }}
 			mx="auto"
 		>
 			<form onSubmit={formik.handleSubmit}>
 				<CardHeader pb={0}>
 					<Flex
 						justifyContent="space-between"
-						flexDirection={{ base: "column", lg: "row" }}
+						flexDirection={{ base: "column", md: "row" }}
 						gap={3}
 					>
 						<Flex flexDirection="column" gap={isEdited ? 2 : 0}>
