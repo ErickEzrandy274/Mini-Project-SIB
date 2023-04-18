@@ -20,12 +20,7 @@ export interface DetailJobCardProps extends JobCardProps {
 }
 
 export interface ApplicantCardProps {
-	status:
-		| "none"
-		| "applied"
-		| "under review"
-		| "interviewing"
-		| "position closed";
+	status: "none" | "applied" | "under review" | "interviewing";
 	name: string;
 	userId: string;
 	link_url: string;
