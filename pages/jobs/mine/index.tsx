@@ -6,7 +6,7 @@ const JobListMine = () => {
 	return (
 		<>
 			<Head>
-				<title>Job Listing Vacancies | My Job Vacancy</title>
+				<title>Job Career | My Job Vacancy</title>
 			</Head>
 
 			<JobListPage isOwnedByCurrentUser />

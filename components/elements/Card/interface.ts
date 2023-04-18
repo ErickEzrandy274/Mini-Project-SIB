@@ -15,5 +15,13 @@ export interface DetailJobCardProps extends JobCardProps {
 	ownerName: string;
 	ownerId: string;
 	onOpen: () => void;
+	onOpenApplicants: () => void;
 	setIsApplying: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface ApplicantCardProps {
+	id: string;
+	status: "none" | "applied" | "under review" | "interviewing";
+	name: string;
+	link_url: string;
 }

@@ -7,17 +7,15 @@ import {
 	Heading,
 	CardBody,
 	CardFooter,
-	Badge,
 	Textarea,
 	FormErrorMessage,
 	Input,
 	FormControl,
 } from "@chakra-ui/react";
-import { TimeIcon } from "@elements";
+import { StatusBadge, TimeIcon } from "@elements";
 import { DetailJobCardProps } from "./interface";
 import { UPDATE_JOB_BY_ID, dateFormat, useAuth, useWindowSize } from "@utils";
 import { useMemo, useState } from "react";
-import { CheckIcon } from "@chakra-ui/icons";
 import { OTHER_DETAIL_LIST, editJobInputValidation } from "./constant";
 import { useFormik } from "formik";
 import { toast } from "react-hot-toast";
@@ -37,6 +35,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 	ownerName,
 	ownerId,
 	onOpen,
+	onOpenApplicants,
 	setIsApplying,
 }) => {
 	const { width } = useWindowSize();
@@ -48,13 +47,13 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 		[ownerId, user?.uid]
 	);
 
-	const hasApplied = useMemo(() => {
+	const index = useMemo(() => {
 		if (!applicants.length) {
-			return false;
+			return -1;
 		}
 
 		const index = applicants.findIndex(({ userId }) => userId === user?.uid);
-		return index !== -1;
+		return index;
 	}, [applicants, user?.uid]);
 
 	const otherDetaillist = useMemo(() => {
@@ -122,12 +121,14 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 			color="gray.200"
 			rounded="2xl"
 			h="full"
+			w={{ base: "full", md: "75%", lg: isEdited ? "full" : "50%" }}
+			mx="auto"
 		>
 			<form onSubmit={formik.handleSubmit}>
 				<CardHeader pb={0}>
 					<Flex
 						justifyContent="space-between"
-						flexDirection={{ base: "column", lg: "row" }}
+						flexDirection={{ base: "column", md: "row" }}
 						gap={3}
 					>
 						<Flex flexDirection="column" gap={isEdited ? 2 : 0}>
@@ -161,24 +162,35 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 							<Text fontSize={{ base: "sm", md: "lg" }}>{company_name}</Text>
 						</Flex>
 
-						{isOwnedByCurrentUser || hasApplied ? (
-							<Badge
-								px={3}
-								py={1}
-								gap={2}
-								display="flex"
-								alignItems="center"
-								w="fit-content"
-								h="fit-content"
-								rounded="md"
-								textTransform="capitalize"
-								colorScheme={hasApplied ? "teal" : "cyan"}
+						{isOwnedByCurrentUser || index !== -1 ? (
+							<Flex
+								flexDirection="column"
+								alignItems={{ base: "flex-start", md: "flex-end" }}
+								gap={3}
 							>
-								{hasApplied
-									? "Applied"
-									: `Jumlah pelamar : ${applicants.length}`}
-								{hasApplied && <CheckIcon />}
-							</Badge>
+								<StatusBadge
+									status={
+										isOwnedByCurrentUser ? "none" : applicants[index].status
+									}
+									text={
+										isOwnedByCurrentUser
+											? `${applicants.length} applicants`
+											: undefined
+									}
+								/>
+
+								{isOwnedByCurrentUser && !!applicants.length && (
+									<Button
+										w="fit-content"
+										colorScheme="messenger"
+										letterSpacing="0.5px"
+										size="sm"
+										onClick={() => onOpenApplicants()}
+									>
+										See applicants
+									</Button>
+								)}
+							</Flex>
 						) : (
 							<Button
 								w="fit-content"

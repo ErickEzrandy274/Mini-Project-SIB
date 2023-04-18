@@ -66,8 +66,9 @@ const Navbar = () => {
 						fontWeight="extrabold"
 						bgGradient="linear(to-r, #7928CA, #FF0080)"
 						bgClip="text"
+						textTransform="uppercase"
 					>
-						JOB VACANCIES
+						Job Career
 					</Heading>
 
 					<HStack as={"nav"} spacing={4} display={{ base: "none", lg: "flex" }}>

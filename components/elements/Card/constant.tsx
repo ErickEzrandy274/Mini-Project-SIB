@@ -37,3 +37,6 @@ export const editJobInputValidation = object({
 		.matches(alphabetOnlyRegex, "Job name is not valid!"),
 	description: string().required("Please enter job description!"),
 });
+
+
+export const statusOptions = ["applied", "under review", "interviewing"];

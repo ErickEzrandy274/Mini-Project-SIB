@@ -51,7 +51,13 @@ export const SUBSCRIPTION_JOB_BY_ID = gql`
 				name
 			}
 			applicants {
+				id
 				userId
+				status
+				link_url
+				user {
+					name
+				}
 			}
 		}
 	}

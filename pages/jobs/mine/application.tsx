@@ -6,7 +6,7 @@ const MyJobApplication = () => {
 	return (
 		<>
 			<Head>
-				<title>Job Listing Vacancies | My Job Application</title>
+				<title>Job Career | My Job Application</title>
 			</Head>
 
 			<JobListPage isMyApplication />
