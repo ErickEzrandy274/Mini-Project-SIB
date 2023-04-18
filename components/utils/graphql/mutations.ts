@@ -57,18 +57,21 @@ export const INSERT_APPLICANTS = gql`
 		$jobVacancyId: uuid!
 		$link_url: String!
 		$userId: String!
+		$status: String!
 	) {
 		insert_applicant_one(
 			object: {
 				jobVacancyId: $jobVacancyId
 				link_url: $link_url
 				userId: $userId
+				status: $status
 			}
 		) {
 			id
 			userId
 			jobVacancyId
 			link_url
+			status
 		}
 	}
 `;
