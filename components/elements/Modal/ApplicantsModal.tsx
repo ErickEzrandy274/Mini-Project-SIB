@@ -67,12 +67,12 @@ const ApplicantsModal: React.FC<ApplicantsModalProps> = ({
 						overflowY="auto"
 					>
 						<ModalBody
-							p={2}
+							px={{ base: 3, md: 10 }}
 							display="flex"
 							justifyContent="center"
 							flexDirection="column"
 							gap={3}
-							w={{ base: "full", md: "fit-content" }}
+							w="full"
 							mx={{ base: 0, md: "auto" }}
 						>
 							{applicants.map(

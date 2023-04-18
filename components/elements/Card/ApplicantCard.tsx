@@ -16,29 +16,38 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
 			color="gray.200"
 			rounded="xl"
 		>
-			<CardBody display="flex" flexDirection="column" gap={2} p={3} w="full">
-				<Flex
-					flexDirection={{ base: "column", md: "row" }}
-					justifyContent="space-between"
-					alignItems="center"
-					gap={3}
-				>
-					<Text>{name}</Text>
+			<CardBody
+				display="flex"
+				flexDirection="column"
+				gap={2}
+				p={{ base: 3, md: 4 }}
+			>
+				<Flex justifyContent="space-between" alignItems="center" gap={3}>
+					<Text fontSize={{ base: "sm", md: "md" }}>{name}</Text>
 
-					<Flex alignItems="center" gap={3}>
-						<StatusBadge status={status} />
+					<Button
+						colorScheme="twitter"
+						letterSpacing="0.2px"
+						size="sm"
+						rounded="md"
+					>
+						<Link href={link_url} target="_blank">
+							Resume
+						</Link>
+					</Button>
+				</Flex>
 
-						<Button
-							colorScheme="twitter"
-							letterSpacing="0.1px"
-							size="sm"
-							rounded="md"
-						>
-							<Link href={link_url} target="_blank">
-								Resume
-							</Link>
-						</Button>
-					</Flex>
+				<Flex justifyContent="space-between" alignItems="center">
+					<StatusBadge status={status} />
+
+					<Button
+						colorScheme="facebook"
+						letterSpacing="0.2px"
+						size="sm"
+						rounded="md"
+					>
+						Update
+					</Button>
 				</Flex>
 			</CardBody>
 		</Card>
