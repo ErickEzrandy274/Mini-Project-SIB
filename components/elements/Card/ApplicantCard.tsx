@@ -17,6 +17,7 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
 			<CardBody display="flex" flexDirection="column" gap={2} p={3} w="full">
 				<Flex
 					flexDirection={{ base: "column", md: "row" }}
+					justifyContent="space-between"
 					alignItems="center"
 					gap={3}
 				>
