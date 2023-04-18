@@ -26,6 +26,10 @@ export const GET_JOB_BY_ID = gql`
 			}
 			applicants {
 				userId
+				status
+				user {
+					name
+				}
 			}
 		}
 	}
