@@ -75,3 +75,12 @@ export const INSERT_APPLICANTS = gql`
 		}
 	}
 `;
+
+export const UPDATE_STATUS_APPLICANT = gql`
+	mutation UpdateStatusApplicant($id: String!, $status: String!) {
+		update_applicant_by_pk(pk_columns: { id: $id }, _set: { status: $status }) {
+			id
+			status
+		}
+	}
+`;
