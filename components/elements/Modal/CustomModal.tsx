@@ -92,6 +92,7 @@ const CustomModal: React.FC<ModifiedModalProps> = ({
 							jobVacancyId: id,
 							link_url,
 							userId: user?.uid,
+							status: "applied",
 						},
 					});
 

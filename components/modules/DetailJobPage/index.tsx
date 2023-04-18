@@ -5,10 +5,16 @@ import { GET_JOB_BY_ID, SUBSCRIPTION_JOB_BY_ID, decode, useAuth } from "@utils";
 import { useQuery } from "@apollo/client";
 import { CustomModal, DetailJobCard, PrimaryLoading } from "@elements";
 import { Flex, Heading, useDisclosure } from "@chakra-ui/react";
+import ApplicantsModal from "components/elements/Modal/ApplicantsModal";
 
 const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 	const { user } = useAuth();
 	const { isOpen, onClose, onOpen } = useDisclosure();
+	const {
+		isOpen: isOpenApplicants,
+		onClose: onCloseApplicants,
+		onOpen: onOpenApplicants,
+	} = useDisclosure();
 	const [isApplying, setIsApplying] = useState(false);
 
 	const { data, loading, subscribeToMore } = useQuery(GET_JOB_BY_ID, {
@@ -40,7 +46,6 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 			flexDirection="column"
 			mx="auto"
 			my={{ base: 3, md: 5 }}
-			w={{ base: "full", md: "50%" }}
 			gap={5}
 			px={5}
 		>
@@ -49,6 +54,7 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 				textTransform="capitalize"
 				textAlign="center"
 				color="messenger.700"
+				px={{ md: 3 }}
 			>
 				{user?.uid === ownerId
 					? "Job vacancy details that you have created"
@@ -58,6 +64,7 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 			<DetailJobCard
 				{...finalData}
 				onOpen={onOpen}
+				onOpenApplicants={onOpenApplicants}
 				setIsApplying={setIsApplying}
 			/>
 
@@ -68,6 +75,12 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 				jobName={finalData.name}
 				modalType={isApplying ? "apply" : "delete"}
 				setIsApplying={setIsApplying}
+			/>
+
+			<ApplicantsModal
+				isOpen={isOpenApplicants}
+				onClose={onCloseApplicants}
+				applicants={finalData.applicants}
 			/>
 		</Flex>
 	);

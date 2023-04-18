@@ -57,18 +57,30 @@ export const INSERT_APPLICANTS = gql`
 		$jobVacancyId: uuid!
 		$link_url: String!
 		$userId: String!
+		$status: String!
 	) {
 		insert_applicant_one(
 			object: {
 				jobVacancyId: $jobVacancyId
 				link_url: $link_url
 				userId: $userId
+				status: $status
 			}
 		) {
 			id
 			userId
 			jobVacancyId
 			link_url
+			status
+		}
+	}
+`;
+
+export const UPDATE_STATUS_APPLICANT = gql`
+	mutation UpdateStatusApplicant($id: String!, $status: String!) {
+		update_applicant_by_pk(pk_columns: { id: $id }, _set: { status: $status }) {
+			id
+			status
 		}
 	}
 `;
