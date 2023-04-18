@@ -6,7 +6,7 @@ const CreateJob = () => {
 	return (
 		<>
 			<Head>
-				<title>Job Listing Vacancies | Create New Job Vacancy</title>
+				<title>Job Career | Create New Job Vacancy</title>
 			</Head>
 
 			<CreateJobPage />

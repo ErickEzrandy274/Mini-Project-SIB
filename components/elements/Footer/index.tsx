@@ -11,7 +11,7 @@ const Footer = () => {
 			fontWeight="semibold"
 			fontSize={{ base: "sm", md: "md" }}
 		>
-			<Text>© 2022 Job Listing Vacancies</Text>
+			<Text>© 2022 Job Career</Text>
 			<Text>Created by Erick Ezrandy - University of Indonesia</Text>
 		</Flex>
 	);
