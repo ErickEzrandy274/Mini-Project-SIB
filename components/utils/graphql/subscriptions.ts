@@ -52,7 +52,6 @@ export const SUBSCRIPTION_JOB_BY_ID = gql`
 			}
 			applicants {
 				id
-				userId
 				status
 				link_url
 				user {
