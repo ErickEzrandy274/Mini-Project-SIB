@@ -16,7 +16,6 @@ const StatusBadge: React.FC<BadgeProps> = ({ status, text }) => {
 			alignItems="center"
 			textAlign="center"
 			w="fit-content"
-			h="fit-content"
 			rounded="md"
 			textTransform="capitalize"
 			colorScheme={BadgeColorScheme[status]}
