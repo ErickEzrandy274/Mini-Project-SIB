@@ -176,7 +176,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 							>
 								{hasApplied
 									? "Applied"
-									: `Jumlah pelamar : ${applicants.length}`}
+									: `Number of Applicants : ${applicants.length}`}
 								{hasApplied && <CheckIcon />}
 							</Badge>
 						) : (
