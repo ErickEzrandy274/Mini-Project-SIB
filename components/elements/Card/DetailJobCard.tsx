@@ -163,21 +163,25 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 						</Flex>
 
 						{isOwnedByCurrentUser || index !== -1 ? (
-							<Flex flexDirection="column" gap={3}>
+							<Flex
+								flexDirection="column"
+								alignItems={{ base: "flex-start", md: "flex-end" }}
+								gap={3}
+							>
 								<StatusBadge
 									status={
 										isOwnedByCurrentUser ? "none" : applicants[index].status
 									}
 									text={
 										isOwnedByCurrentUser
-											? `Number of Applicants : ${applicants.length}`
+											? `${applicants.length} applicants`
 											: undefined
 									}
 								/>
 
 								{isOwnedByCurrentUser && !!applicants.length && (
 									<Button
-										w={{ base: "fit-content", md: "full" }}
+										w="fit-content"
 										colorScheme="messenger"
 										letterSpacing="0.5px"
 										size="sm"
