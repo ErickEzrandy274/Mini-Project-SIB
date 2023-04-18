@@ -121,14 +121,12 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 			color="gray.200"
 			rounded="2xl"
 			h="full"
-			w={{ base: "full", md: "75%", lg: isEdited ? "full" : "50%" }}
-			mx="auto"
 		>
 			<form onSubmit={formik.handleSubmit}>
 				<CardHeader pb={0}>
 					<Flex
 						justifyContent="space-between"
-						flexDirection={{ base: "column", md: "row" }}
+						flexDirection={width < 768 ? "column" : "row"}
 						gap={3}
 					>
 						<Flex flexDirection="column" gap={isEdited ? 2 : 0}>
@@ -165,7 +163,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 						{isOwnedByCurrentUser || index !== -1 ? (
 							<Flex
 								flexDirection="column"
-								alignItems={{ base: "flex-start", md: "flex-end" }}
+								alignItems={width < 768 ? "flex-start" : "flex-end"}
 								gap={3}
 							>
 								<StatusBadge

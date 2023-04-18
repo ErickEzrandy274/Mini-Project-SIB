@@ -10,13 +10,22 @@ import {
 } from "@chakra-ui/react";
 import { ApplicantsModalProps } from "./interface";
 import { ApplicantCard } from "@elements";
+import { useWindowSize } from "@utils";
 
 const ApplicantsModal: React.FC<ApplicantsModalProps> = ({
 	isOpen,
 	onClose,
 	applicants,
 }) => {
-	const moreThanFive = useMemo(() => applicants.length > 5, [applicants]);
+	const { width } = useWindowSize();
+	const moreThanThree = useMemo(() => applicants.length > 3, [applicants]);
+	const boxHeight: string = useMemo(() => {
+		if (width < 768) {
+			return moreThanThree ? "60vh" : "auto";
+		}
+
+		return moreThanThree ? "50vh" : "auto";
+	}, [width, moreThanThree]);
 
 	const handleCloseModal = () => {
 		onClose();
@@ -51,13 +60,7 @@ const ApplicantsModal: React.FC<ApplicantsModalProps> = ({
 
 				<ModalCloseButton fontWeight="bold" onClick={handleCloseModal} />
 
-				<Box
-					h={{
-						base: moreThanFive ? "70vh" : "auto",
-						md: moreThanFive ? "50vh" : "auto",
-					}}
-					overflowY="auto"
-				>
+				<Box h={boxHeight} overflowY="auto">
 					<ModalBody
 						px={{ base: 3, md: 10 }}
 						display="flex"
