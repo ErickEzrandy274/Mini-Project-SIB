@@ -27,6 +27,7 @@ export const GET_JOB_BY_ID = gql`
 			applicants {
 				userId
 				status
+				link_url
 				user {
 					name
 				}
