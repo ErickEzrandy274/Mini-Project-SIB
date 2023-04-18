@@ -121,6 +121,8 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 			color="gray.200"
 			rounded="2xl"
 			h="full"
+			w={{ base: "full", md: "50%" }}
+			mx="auto"
 		>
 			<form onSubmit={formik.handleSubmit}>
 				<CardHeader pb={0}>

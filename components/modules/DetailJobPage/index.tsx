@@ -46,7 +46,6 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 			flexDirection="column"
 			mx="auto"
 			my={{ base: 3, md: 5 }}
-			w={{ base: "full", md: "50%" }}
 			gap={5}
 			px={5}
 		>
