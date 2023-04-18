@@ -16,7 +16,7 @@ const ApplicantsModal: React.FC<ApplicantsModalProps> = ({
 	onClose,
 	applicants,
 }) => {
-	const moreThanFive = useMemo(() => applicants.length > 5, [applicants]);
+	const moreThanThree = useMemo(() => applicants.length > 3, [applicants]);
 
 	const handleCloseModal = () => {
 		onClose();
@@ -53,8 +53,8 @@ const ApplicantsModal: React.FC<ApplicantsModalProps> = ({
 
 				<Box
 					h={{
-						base: moreThanFive ? "70vh" : "auto",
-						md: moreThanFive ? "50vh" : "auto",
+						base: moreThanThree ? "70vh" : "auto",
+						md: moreThanThree ? "50vh" : "auto",
 					}}
 					overflowY="auto"
 				>
