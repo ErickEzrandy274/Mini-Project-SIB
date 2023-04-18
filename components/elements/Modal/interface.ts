@@ -9,3 +9,7 @@ export interface ModifiedModalProps extends ModalProps {
 	modalType: "delete" | "apply";
 	setIsApplying: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface ApplicantsModalProps extends ModalProps {
+	applicants: any[];
+}
