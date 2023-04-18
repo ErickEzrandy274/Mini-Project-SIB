@@ -52,6 +52,7 @@ const ApplicantsModal: React.FC<ApplicantsModalProps> = ({
 						color="gray.200"
 						fontSize={{ base: "xl", md: "3xl" }}
 						fontWeight="bold"
+						p={2}
 					>
 						List of Applicants
 					</ModalHeader>
@@ -66,17 +67,20 @@ const ApplicantsModal: React.FC<ApplicantsModalProps> = ({
 						overflowY="auto"
 					>
 						<ModalBody
+							p={2}
 							display="flex"
 							justifyContent="center"
 							flexDirection="column"
 							gap={3}
-							w="fit-content"
-							mx="auto"
+							w={{ base: "full", md: "fit-content" }}
+							mx={{ base: 0, md: "auto" }}
 						>
-							{applicants.map(({ status, user: { name }, userId }) => {
-								const props = { status, userId, name };
-								return <ApplicantCard key={`${userId}-${name}`} {...props} />;
-							})}
+							{applicants.map(
+								({ status, user: { name }, userId, link_url }) => {
+									const props = { status, userId, name, link_url };
+									return <ApplicantCard key={`${userId}-${name}`} {...props} />;
+								}
+							)}
 						</ModalBody>
 					</Box>
 				</ModalContent>

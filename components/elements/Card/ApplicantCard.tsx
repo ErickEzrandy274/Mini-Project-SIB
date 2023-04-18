@@ -2,10 +2,12 @@ import React from "react";
 import { Button, Card, CardBody, Flex, Text } from "@chakra-ui/react";
 import { ApplicantCardProps } from "./interface";
 import { StatusBadge } from "@elements";
+import Link from "next/link";
 
 const ApplicantCard: React.FC<ApplicantCardProps> = ({
 	status,
 	name,
+	link_url,
 	userId,
 }) => {
 	return (
@@ -26,8 +28,15 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
 					<Flex alignItems="center" gap={3}>
 						<StatusBadge status={status} />
 
-						<Button colorScheme="facebook" size="sm" rounded="md">
-							Update
+						<Button
+							colorScheme="twitter"
+							letterSpacing="0.1px"
+							size="sm"
+							rounded="md"
+						>
+							<Link href={link_url} target="_blank">
+								Resume
+							</Link>
 						</Button>
 					</Flex>
 				</Flex>

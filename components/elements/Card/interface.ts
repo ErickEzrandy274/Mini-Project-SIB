@@ -28,4 +28,5 @@ export interface ApplicantCardProps {
 		| "position closed";
 	name: string;
 	userId: string;
+	link_url: string;
 }
