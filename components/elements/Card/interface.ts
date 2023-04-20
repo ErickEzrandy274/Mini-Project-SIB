@@ -1,3 +1,5 @@
+import { StatusProps } from "@elements";
+
 export interface JobCardProps {
 	id: string;
 	name: string;
@@ -19,9 +21,8 @@ export interface DetailJobCardProps extends JobCardProps {
 	setIsApplying: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export interface ApplicantCardProps {
+export interface ApplicantCardProps extends StatusProps {
 	id: string;
-	status: "none" | "applied" | "under review" | "interviewing";
 	name: string;
 	link_url: string;
 }
