@@ -11,4 +11,4 @@ export * from "./Card";
 export * from "./Icon";
 export * from "./Loading";
 export * from "./Paginated";
-export { default as StatusBadge } from "./Badge";
+export * from "./Badge";
