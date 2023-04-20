@@ -1,32 +1,35 @@
-import { useSubscription } from "@apollo/client";
+import React, { useEffect, useMemo } from "react";
+import { useQuery } from "@apollo/client";
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import { PaginatedItems, PrimaryLoading } from "@elements";
-import {
-	JOB_VACANCIES_SUBSCRIPTION,
-	JOB_VACANCIES_SUBSCRIPTION_APPLIED_BY_CURRENT_USER,
-	JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER,
-	useAuth,
-} from "@utils";
-import React, { useMemo } from "react";
+import { useAuth } from "@utils";
 import { JobListPageProps } from "./interface";
+import { generateQuerySubscription } from "./constant";
 
 const JobListPage: React.FC<JobListPageProps> = ({
 	isOwnedByCurrentUser = false,
 	isMyApplication = false,
 }) => {
 	const { user } = useAuth();
-	const subscription = useMemo(
-		() =>
-			isMyApplication
-				? JOB_VACANCIES_SUBSCRIPTION_APPLIED_BY_CURRENT_USER
-				: isOwnedByCurrentUser
-				? JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER
-				: JOB_VACANCIES_SUBSCRIPTION,
+	const { query, subscription } = useMemo(
+		() => generateQuerySubscription(isMyApplication, isOwnedByCurrentUser),
 		[isOwnedByCurrentUser, isMyApplication]
 	);
-	const { data, loading } = useSubscription(subscription, {
+
+	const { data, loading, subscribeToMore } = useQuery(query, {
 		variables: { uid: user ? user.uid : "" },
 	});
+
+	useEffect(() => {
+		subscribeToMore({
+			document: subscription,
+			variables: { uid: user ? user.uid : "" },
+			updateQuery: (prev, { subscriptionData: { data } }) => {
+				return data;
+			},
+		});
+	}, [subscription, subscribeToMore, user]);
+
 	return (
 		<Flex flexDirection="column" align="center" justify="center" gap={5} p={5}>
 			<Heading
