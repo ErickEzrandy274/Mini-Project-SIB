@@ -1,0 +1,31 @@
+import {
+	JOB_VACANCIES_QUERY,
+	JOB_VACANCIES_QUERY_APPLIED_BY_CURRENT_USER,
+	JOB_VACANCIES_QUERY_OWNED_BY_CURRENT_USER,
+	JOB_VACANCIES_SUBSCRIPTION,
+	JOB_VACANCIES_SUBSCRIPTION_APPLIED_BY_CURRENT_USER,
+	JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER,
+} from "@utils";
+
+export const generateQuerySubscription = (
+	isMyApplication: boolean,
+	isOwnedByCurrentUser: boolean
+) => {
+	if (isMyApplication)
+		return {
+			query: JOB_VACANCIES_QUERY_APPLIED_BY_CURRENT_USER,
+			subscription: JOB_VACANCIES_SUBSCRIPTION_APPLIED_BY_CURRENT_USER,
+		};
+
+	if (isOwnedByCurrentUser) {
+		return {
+			query: JOB_VACANCIES_QUERY_OWNED_BY_CURRENT_USER,
+			subscription: JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER,
+		};
+	}
+
+	return {
+		query: JOB_VACANCIES_QUERY,
+		subscription: JOB_VACANCIES_SUBSCRIPTION,
+	};
+};
