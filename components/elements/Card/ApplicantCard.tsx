@@ -10,11 +10,11 @@ import {
 } from "@chakra-ui/react";
 import { ApplicantCardProps } from "./interface";
 import { StatusBadge } from "@elements";
-import Link from "next/link";
 import { statusOptions } from "./constant";
 import { useMutation } from "@apollo/client";
 import { UPDATE_STATUS_APPLICANT } from "@utils";
 import { toast } from "react-hot-toast";
+import Link from "next/link";
 
 const ApplicantCard: React.FC<ApplicantCardProps> = ({
 	id,
@@ -44,7 +44,9 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
 		try {
 			await updateApplicantState({ variables: { id, status: newStatus } });
 			toast.dismiss();
-			toast.success(`Successfully updated ${name}'s application status`);
+			toast.success(
+				`Successfully updated ${name}'s application status to ${newStatus}`
+			);
 		} catch (error: any) {
 			toast.dismiss();
 			toast.error(error.message);
@@ -95,10 +97,12 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
 									variant="filled"
 									id="new_status"
 									name="new_status"
-									value={newStatus}
 									color="black"
+									size="sm"
+									rounded="md"
+									w={{ base: "full", md: "fit-content" }}
+									value={newStatus}
 									onChange={handleChange}
-									w={{ base: "full", md: "90%" }}
 								>
 									{statusOptions.map((value) => {
 										return (
@@ -114,7 +118,7 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
 						)}
 
 						{isUpdate ? (
-							<Flex gap={{ base: 1, md: 2 }}>
+							<Flex gap={3}>
 								<Button
 									colorScheme="red"
 									size="sm"
