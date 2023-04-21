@@ -41,21 +41,25 @@ const JobCard: React.FC<JobCardProps> = ({
 			<CardBody display="flex" flexDirection="column" gap={2} pb={0}>
 				<Flex alignItems="center" gap={1}>
 					<LocationIcon />
-					<Text>{location}</Text>
+					<Text fontSize={{ base: "xs", md: "md" }}>{location}</Text>
 				</Flex>
 
 				<Flex alignItems="center" gap={1}>
 					<TimeIcon />
-					<Text>Created on {dateFormat(created_at)}</Text>
+					<Text fontSize={{ base: "xs", md: "md" }}>
+						Created on {dateFormat(created_at)}
+					</Text>
 				</Flex>
 
 				{edited_at && (
 					<Flex alignItems="center" gap={1}>
 						<TimeIcon
-							width={width <= 768 ? 30 : 20}
-							height={width <= 768 ? 30 : 20}
+							width={width < 768 ? 23 : 20}
+							height={width < 768 ? 23 : 20}
 						/>
-						<Text>Updated on {dateFormat(edited_at, true)}</Text>
+						<Text fontSize={{ base: "xs", md: "md" }}>
+							Updated on {dateFormat(edited_at, true)}
+						</Text>
 					</Flex>
 				)}
 			</CardBody>

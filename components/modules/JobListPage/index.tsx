@@ -28,12 +28,40 @@ const JobListPage: React.FC<JobListPageProps> = ({
 				return data;
 			},
 		});
-	}, [subscription, subscribeToMore, user]);
+	}, [subscribeToMore, subscription, user]);
 
 	const { firstHeading, secondHeading, paragraph } = useMemo(
 		() => generateText(isMyApplication, isOwnedByCurrentUser),
 		[isMyApplication, isOwnedByCurrentUser]
 	);
+
+	const renderComponent = () => {
+		if (loading) {
+			return <PrimaryLoading />;
+		}
+
+		return data.job_vacancy.length ? (
+			<PaginatedItems itemsPerPage={4} items={data.job_vacancy} />
+		) : (
+			<Flex flexDirection="column" textAlign="center" gap={2}>
+				<Heading
+					as="h3"
+					color="gray.600"
+					fontSize={{ base: "xl", md: "2xl", xl: "3xl" }}
+				>
+					{secondHeading}
+				</Heading>
+
+				<Text
+					fontWeight="medium"
+					color="gray.500"
+					fontSize={{ base: "md", md: "lg", xl: "xl" }}
+				>
+					{paragraph}
+				</Text>
+			</Flex>
+		);
+	};
 
 	return (
 		<Flex flexDirection="column" align="center" justify="center" gap={5} p={5}>
@@ -48,29 +76,7 @@ const JobListPage: React.FC<JobListPageProps> = ({
 				{firstHeading}
 			</Heading>
 
-			{loading && <PrimaryLoading />}
-
-			{data.job_vacancy.length ? (
-				<PaginatedItems itemsPerPage={4} items={data.job_vacancy} />
-			) : (
-				<Flex flexDirection="column" textAlign="center" gap={2}>
-					<Heading
-						as="h3"
-						color="gray.600"
-						fontSize={{ base: "xl", md: "2xl", xl: "3xl" }}
-					>
-						{secondHeading}
-					</Heading>
-
-					<Text
-						fontWeight="medium"
-						color="gray.500"
-						fontSize={{ base: "md", md: "lg", xl: "xl" }}
-					>
-						{paragraph}
-					</Text>
-				</Flex>
-			)}
+			{renderComponent()}
 		</Flex>
 	);
 };
