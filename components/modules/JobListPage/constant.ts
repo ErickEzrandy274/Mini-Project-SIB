@@ -11,11 +11,12 @@ export const generateQuerySubscription = (
 	isMyApplication: boolean,
 	isOwnedByCurrentUser: boolean
 ) => {
-	if (isMyApplication)
+	if (isMyApplication) {
 		return {
 			query: JOB_VACANCIES_QUERY_APPLIED_BY_CURRENT_USER,
 			subscription: JOB_VACANCIES_SUBSCRIPTION_APPLIED_BY_CURRENT_USER,
 		};
+	}
 
 	if (isOwnedByCurrentUser) {
 		return {
@@ -30,17 +31,17 @@ export const generateQuerySubscription = (
 	};
 };
 
-
 export const generateText = (
 	isMyApplication: boolean,
 	isOwnedByCurrentUser: boolean
 ) => {
-	if (isMyApplication)
+	if (isMyApplication) {
 		return {
 			firstHeading: "List of Job Vacancies That I Have Applied for",
 			secondHeading: "You haven't applied for a job yet",
 			paragraph: "apply a job first!",
 		};
+	}
 
 	if (isOwnedByCurrentUser) {
 		return {
