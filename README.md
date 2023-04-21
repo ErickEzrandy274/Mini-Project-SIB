@@ -1,33 +1,33 @@
 # Mini Project SIB Kampus Merdeka Batch 4 - Erick Ezrandy
 
 ## Feature:
-> ### 1. Authentication (OAuth via Google, Facebook, or GitHub)
-> ### 2. Guest user and authenticated user can read all job vacancies
-> ### 3. Every authenticated user can also see the detailed job vacancy before applying for that job
-> ### 4. Every authenticated user have to upload resume with max size 5 MB before applying the job vacancy
-> ### 5. Every authenticated user can apply for a job (after submitting a resume and the status changed)
-> ### 6. Every authenticated user can see the job vacancy that he/she had already applied before
-> ### 7. Every authenticated user can create a new job
-> ### 8. Every authenticated user can delete a job if the user feels the number of applicants is sufficient
-> ### 9. Every authenticated user can see the job vacancy that he/she had already created before
-> ### 10. Every authenticated user can edit the detail job that he/she had already created before
-> ### 11. Every authenticated user can see people who applied for the job that he/she had already created before
-> ### 12. Every authenticated user who has already created a job vacancy can view applicants uploaded resumes
+> 1. Authentication (OAuth via Google, Facebook, or GitHub)
+> 2. Guest user and authenticated user can read all job vacancies
+> 3. Every authenticated user can also see the detailed job vacancy before applying for that job
+> 4. Every authenticated user have to upload resume with max size 5 MB before applying the job vacancy
+> 5. Every authenticated user can apply for a job (after submitting a resume and the status changed)
+> 6. Every authenticated user can see the job vacancy that he/she had already applied before
+> 7. Every authenticated user can create a new job
+> 8. Every authenticated user can delete a job if the user feels the number of applicants is sufficient
+> 9. Every authenticated user can see the job vacancy that he/she had already created before
+> 10. Every authenticated user can edit the detail job that he/she had already created before
+> 11. Every authenticated user can see people who applied for the job that he/she had already created before
+> 12. Every authenticated user who has already created a job vacancy can view applicants uploaded resumes
 > ### 13. Every authenticated user who has already created a job vacancy can edit the status of the applicant’s uploaded resume
 </br>
 
 ## Tech Stack:
 
-> ### 1. NextJS
-> ### 2. TypeScript
-> ### 3. Chakra UI
-> ### 4. Firebase
-> ### 5. Formik
-> ### 6. Yup
-> ### 7. Apollo Client
-> ### 8. Hasura
-> ### 9. React Hot Toast
-> ### 10. React Paginate 
+> 1. NextJS
+> 2. TypeScript
+> 3. Chakra UI
+> 4. Firebase
+> 5. Formik
+> 6. Yup
+> 7. Apollo Client
+> 8. Hasura
+> 9. React Hot Toast
+> 10. React Paginate 
 </br>
 
 ## SONARCLOUD
