@@ -14,6 +14,30 @@ export default function App({ Component, pageProps }: AppProps) {
 	const { pathname } = useRouter();
 	const noAuthURL = useMemo(() => ["/", "/jobs"], []);
 
+	const renderComponent = () => {
+		if (pathname === "/") {
+			return <Component {...pageProps} />;
+		}
+
+		return (
+			<Layout>
+				<Component {...pageProps} />
+			</Layout>
+		);
+	};
+
+	const renderProtectedRoute = () => (
+		<Layout>
+			<ProtectedRoute>
+				<Component {...pageProps} />
+			</ProtectedRoute>
+		</Layout>
+	);
+
+	const noAuthContent = noAuthURL.includes(pathname)
+		? renderComponent()
+		: renderProtectedRoute();
+
 	return (
 		<ApolloProvider client={client}>
 			<AuthContextProvider>
@@ -24,23 +48,10 @@ export default function App({ Component, pageProps }: AppProps) {
 						<link rel="icon" href="/job-vacancy-logo.png" />
 					</Head>
 
-					{noAuthURL.includes(pathname) ? (
-						pathname === "/" ? (
-							<Component {...pageProps} />
-						) : (
-							<Layout>
-								<Component {...pageProps} />
-							</Layout>
-						)
-					) : (
-						<Layout>
-							<ProtectedRoute>
-								<Component {...pageProps} />
-							</ProtectedRoute>
-						</Layout>
-					)}
+					{noAuthContent}
 				</ChakraProvider>
 			</AuthContextProvider>
 		</ApolloProvider>
 	);
+	
 }

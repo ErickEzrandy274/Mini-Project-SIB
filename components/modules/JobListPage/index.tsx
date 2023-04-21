@@ -4,7 +4,7 @@ import { Flex, Heading, Text } from "@chakra-ui/react";
 import { PaginatedItems, PrimaryLoading } from "@elements";
 import { useAuth } from "@utils";
 import { JobListPageProps } from "./interface";
-import { generateQuerySubscription } from "./constant";
+import { generateQuerySubscription, generateText } from "./constant";
 
 const JobListPage: React.FC<JobListPageProps> = ({
 	isOwnedByCurrentUser = false,
@@ -30,6 +30,11 @@ const JobListPage: React.FC<JobListPageProps> = ({
 		});
 	}, [subscription, subscribeToMore, user]);
 
+	const { firstHeading, secondHeading, paragraph } = useMemo(
+		() => generateText(isMyApplication, isOwnedByCurrentUser),
+		[isMyApplication, isOwnedByCurrentUser]
+	);
+
 	return (
 		<Flex flexDirection="column" align="center" justify="center" gap={5} p={5}>
 			<Heading
@@ -40,16 +45,12 @@ const JobListPage: React.FC<JobListPageProps> = ({
 				bgClip="text"
 				mt={loading ? -10 : 0}
 			>
-				{isMyApplication
-					? "List of Job Vacancies That I Have Applied for"
-					: isOwnedByCurrentUser
-					? "List of Job Vacancies That I Made"
-					: "List of Job Vacancies"}
+				{firstHeading}
 			</Heading>
 
-			{loading ? (
-				<PrimaryLoading />
-			) : !!data.job_vacancy.length ? (
+			{loading && <PrimaryLoading />}
+
+			{data.job_vacancy.length ? (
 				<PaginatedItems itemsPerPage={4} items={data.job_vacancy} />
 			) : (
 				<Flex flexDirection="column" textAlign="center" gap={2}>
@@ -58,11 +59,7 @@ const JobListPage: React.FC<JobListPageProps> = ({
 						color="gray.600"
 						fontSize={{ base: "xl", md: "2xl", xl: "3xl" }}
 					>
-						{isMyApplication
-							? "You haven't applied for a job yet"
-							: isOwnedByCurrentUser
-							? "You have never posted a job posting before"
-							: "There are currently no job vacancies"}
+						{secondHeading}
 					</Heading>
 
 					<Text
@@ -70,11 +67,7 @@ const JobListPage: React.FC<JobListPageProps> = ({
 						color="gray.500"
 						fontSize={{ base: "md", md: "lg", xl: "xl" }}
 					>
-						{isMyApplication
-							? "apply a job first!"
-							: isOwnedByCurrentUser
-							? "create a new job vacancy first!"
-							: "please check our website regularly!"}
+						{paragraph}
 					</Text>
 				</Flex>
 			)}
