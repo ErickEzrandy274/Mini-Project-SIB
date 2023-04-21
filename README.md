@@ -1,6 +1,7 @@
 # Mini Project SIB Kampus Merdeka Batch 4 - Erick Ezrandy
 
 ## Feature:
+
 > 1. Authentication (OAuth via Google, Facebook, or GitHub)
 > 2. Guest user and authenticated user can read all job vacancies
 > 3. Every authenticated user can also see the detailed job vacancy before applying for that job
@@ -14,7 +15,7 @@
 > 11. Every authenticated user can see people who applied for the job that he/she had already created before
 > 12. Every authenticated user who has already created a job vacancy can view applicants uploaded resumes
 > 13. Every authenticated user who has already created a job vacancy can edit the status of the applicant’s uploaded resume
-</br>
+>     </br>
 
 ## Tech Stack:
 
@@ -27,8 +28,8 @@
 > 7. Apollo Client
 > 8. Hasura
 > 9. React Hot Toast
-> 10. React Paginate 
-</br>
+> 10. React Paginate
+>     </br>
 
 ## SONARCLOUD
 
