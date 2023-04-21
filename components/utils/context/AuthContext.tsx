@@ -91,16 +91,18 @@ export const AuthContextProvider: React.FC<LayoutProps> = ({ children }) => {
 		Router.push("/");
 	}, []);
 
+	const contextValue = useMemo(() => {
+		return {
+			user,
+			loginWithProviders,
+			logout,
+			errorAuth,
+			setErrorAuth,
+		};
+	}, [user, loginWithProviders, logout, errorAuth, setErrorAuth]);
+
 	return (
-		<AuthContext.Provider
-			value={{
-				user,
-				loginWithProviders,
-				logout,
-				errorAuth,
-				setErrorAuth,
-			}}
-		>
+		<AuthContext.Provider value={contextValue}>
 			{loading ? null : children}
 		</AuthContext.Provider>
 	);
