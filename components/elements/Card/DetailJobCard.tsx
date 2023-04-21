@@ -115,6 +115,22 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 		onOpen();
 	};
 
+	const { alignItems, size, rows } = useMemo(() => {
+		if (width < 768) {
+			return {
+				alignItems: "flex-start",
+				size: 23,
+				rows: 10,
+			};
+		}
+
+		return {
+			alignItems: "flex-end",
+			size: 20,
+			rows: 5,
+		};
+	}, [width]);
+
 	return (
 		<Card
 			bgGradient="linear(to-b, #334155, #1f2937)"
@@ -161,11 +177,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 						</Flex>
 
 						{isOwnedByCurrentUser || index !== -1 ? (
-							<Flex
-								flexDirection="column"
-								alignItems={width < 768 ? "flex-start" : "flex-end"}
-								gap={3}
-							>
+							<Flex flexDirection="column" alignItems={alignItems} gap={3}>
 								<StatusBadge
 									status={
 										isOwnedByCurrentUser ? "none" : applicants[index].status
@@ -233,7 +245,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 											/>
 										</FormControl>
 									) : (
-										<Text fontSize={{ base: "sm", md: "md" }}>{content}</Text>
+										<Text fontSize={{ base: "xs", md: "md" }}>{content}</Text>
 									)}
 								</Flex>
 							);
@@ -241,11 +253,10 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 
 						{edited_at && (
 							<Flex alignItems="center" gap={2}>
-								<TimeIcon
-									width={width <= 768 ? 25 : 20}
-									height={width <= 768 ? 25 : 20}
-								/>
-								<Text>Updated on {dateFormat(edited_at, true)}</Text>
+								<TimeIcon width={size} height={size} />
+								<Text fontSize={{ base: "xs", md: "md" }}>
+									Updated on {dateFormat(edited_at, true)}
+								</Text>
 							</Flex>
 						)}
 					</Flex>
@@ -266,11 +277,11 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 								<Textarea
 									id="description"
 									name="description"
+									rounded="lg"
 									onChange={formik.handleChange}
 									onBlur={formik.handleBlur}
 									value={formik.values.description}
-									rounded="lg"
-									rows={width <= 768 ? 10 : 5}
+									rows={rows}
 								/>
 
 								{formik.touched.description && formik.errors.description && (
@@ -280,7 +291,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 								)}
 							</FormControl>
 						) : (
-							<Text fontSize={{ base: "sm", md: "md" }}>{description}</Text>
+							<Text fontSize={{ base: "xs", md: "md" }}>{description}</Text>
 						)}
 					</Flex>
 				</CardBody>
