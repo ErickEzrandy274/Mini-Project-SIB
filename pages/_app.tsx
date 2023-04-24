@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import Layout from "components/elements/Layout";
 import { ChakraProvider } from "@chakra-ui/react";
-import { useMemo } from "react";
+import { ReactNode, useMemo } from "react";
 import { useRouter } from "next/router";
 import { ProtectedRoute } from "@elements";
 import { theme, AuthContextProvider, client } from "@utils";
@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
 		</Layout>
 	);
 
-	const noAuthContent = noAuthURL.includes(pathname)
+	const children: ReactNode = noAuthURL.includes(pathname)
 		? renderComponent()
 		: renderProtectedRoute();
 
@@ -48,10 +48,9 @@ export default function App({ Component, pageProps }: AppProps) {
 						<link rel="icon" href="/job-vacancy-logo.png" />
 					</Head>
 
-					{noAuthContent}
+					{children}
 				</ChakraProvider>
 			</AuthContextProvider>
 		</ApolloProvider>
 	);
-	
 }
