@@ -7,6 +7,8 @@ import {
 	JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER,
 } from "@utils";
 
+export const ITEMS_PER_PAGE = 8;
+
 export const generateQuerySubscription = (
 	isMyApplication: boolean,
 	isOwnedByCurrentUser: boolean
