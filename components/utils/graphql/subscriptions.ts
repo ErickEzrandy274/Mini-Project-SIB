@@ -27,7 +27,10 @@ export const JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER = gql`
 
 export const JOB_VACANCIES_SUBSCRIPTION_APPLIED_BY_CURRENT_USER = gql`
 	subscription MySubscription($uid: String!) {
-		job_vacancy(where: { applicants: { userId: { _eq: $uid } } }) {
+		job_vacancy(
+			where: { applicants: { userId: { _eq: $uid } } }
+			order_by: { name: asc }
+		) {
 			...JobVacancyFields
 		}
 	}
