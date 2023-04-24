@@ -20,6 +20,7 @@ import { OTHER_DETAIL_LIST, editJobInputValidation } from "./constant";
 import { useFormik } from "formik";
 import { toast } from "react-hot-toast";
 import { useMutation } from "@apollo/client";
+import { motion } from "framer-motion";
 
 const DetailJobCard: React.FC<DetailJobCardProps> = ({
 	id,
@@ -133,10 +134,14 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 
 	return (
 		<Card
+			as={motion.div}
 			bgGradient="linear(to-b, #334155, #1f2937)"
 			color="gray.200"
 			rounded="2xl"
 			h="full"
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			transition="3s ease-in-out 2s"
 		>
 			<form onSubmit={formik.handleSubmit}>
 				<CardHeader pb={0}>
