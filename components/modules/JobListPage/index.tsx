@@ -4,7 +4,11 @@ import { Flex, Heading, Text } from "@chakra-ui/react";
 import { PaginatedItems, PrimaryLoading } from "@elements";
 import { useAuth } from "@utils";
 import { JobListPageProps } from "./interface";
-import { generateQuerySubscription, generateText } from "./constant";
+import {
+	ITEMS_PER_PAGE,
+	generateQuerySubscription,
+	generateText,
+} from "./constant";
 
 const JobListPage: React.FC<JobListPageProps> = ({
 	isOwnedByCurrentUser = false,
@@ -41,7 +45,7 @@ const JobListPage: React.FC<JobListPageProps> = ({
 		}
 
 		return data.job_vacancy.length ? (
-			<PaginatedItems itemsPerPage={4} items={data.job_vacancy} />
+			<PaginatedItems itemsPerPage={ITEMS_PER_PAGE} items={data.job_vacancy} />
 		) : (
 			<Flex flexDirection="column" textAlign="center" gap={2}>
 				<Heading
