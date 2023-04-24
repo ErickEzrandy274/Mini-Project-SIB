@@ -1,5 +1,5 @@
-import { Box } from "@chakra-ui/react";
 import React from "react";
+import { Box } from "@chakra-ui/react";
 import { MovePageProps } from "./interface";
 
 const PreviousLabel: React.FC<MovePageProps> = ({ name }) => {
@@ -10,7 +10,7 @@ const PreviousLabel: React.FC<MovePageProps> = ({ name }) => {
 			px={2}
 			py={1}
 			rounded="lg"
-			fontSize={{ base: "xs", md: "xl" }}
+			fontSize={{ base: "xs", md: "lg" }}
 			bgGradient="linear(to-br, #7928CA, #FF0080)"
 		>
 			{name}
