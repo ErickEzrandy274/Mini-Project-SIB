@@ -97,7 +97,7 @@ const LandingPage = () => {
 						onClick={() => Router.push("/jobs")}
 						initial={initial}
 						animate={animate}
-						transition="ease-in-out 0.8s"
+						transition="ease-out 0.8s"
 					>
 						Find Job Now
 					</Button>
