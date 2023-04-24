@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Box } from "@chakra-ui/react";
 import { ShapeProps } from "./interface";
+import { motion } from "framer-motion";
+import { opScaleAnimations } from "@utils";
 
 const Circle: React.FC<ShapeProps> = ({
 	height,
@@ -10,9 +12,13 @@ const Circle: React.FC<ShapeProps> = ({
 	bottom = "",
 	right = "",
 	rotate = 0,
+	delay,
 }) => {
+	const { initial, animate } = useMemo(() => opScaleAnimations, []);
+
 	return (
 		<Box
+			as={motion.div}
 			top={top}
 			left={left}
 			bottom={bottom}
@@ -23,7 +29,9 @@ const Circle: React.FC<ShapeProps> = ({
 			borderRadius="50%"
 			backgroundColor="rgba(255, 255, 255, 0.4)"
 			boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
-			transform={`rotate(${rotate}deg)`}
+			initial={{ ...initial, rotate: 0 }}
+			animate={{ ...animate, rotate }}
+			transition={`0.75s ease-in-out ${delay}s`}
 		/>
 	);
 };
