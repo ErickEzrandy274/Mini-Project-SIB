@@ -9,27 +9,35 @@ import {
 	CardFooter,
 } from "@chakra-ui/react";
 import { LocationIcon, TimeIcon } from "@elements";
-import { JobCardProps } from "./interface";
-import { dateFormat, encode, useWindowSize } from "@utils";
+import { JobCardWithDelayProps } from "./interface";
+import { dateFormat, encode, opScaleAnimations, useWindowSize } from "@utils";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
+import { useMemo } from "react";
 
-const JobCard: React.FC<JobCardProps> = ({
+const JobCard: React.FC<JobCardWithDelayProps> = ({
 	id,
 	name,
 	company_name,
 	location,
 	created_at,
 	edited_at,
+	delay,
 }) => {
 	const { push } = useRouter();
 	const { width } = useWindowSize();
+	const { initial, animate } = useMemo(() => opScaleAnimations, []);
 
 	return (
 		<Card
+			as={motion.div}
 			bgGradient="linear(to-b, #334155, #1f2937)"
 			color="gray.200"
 			rounded="2xl"
 			h="full"
+			initial={initial}
+			animate={animate}
+			transition={`0.8s ease-out ${delay * 0.2}s`}
 		>
 			<CardHeader pb={0}>
 				<Flex flexDirection="column" flexWrap="wrap">
