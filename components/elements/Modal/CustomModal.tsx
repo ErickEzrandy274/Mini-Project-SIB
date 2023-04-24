@@ -160,7 +160,7 @@ const CustomModal: React.FC<ModifiedModalProps> = ({
 						{modalType === "delete" ? (
 							<>
 								<Button
-									p={6}
+									p={5}
 									borderRadius="xl"
 									letterSpacing="0.3px"
 									colorScheme="messenger"
@@ -170,7 +170,7 @@ const CustomModal: React.FC<ModifiedModalProps> = ({
 								</Button>
 
 								<Button
-									p={6}
+									p={5}
 									borderRadius="xl"
 									letterSpacing="0.3px"
 									colorScheme="red"
