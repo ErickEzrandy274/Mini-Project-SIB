@@ -36,10 +36,10 @@ const PaginatedItems = ({ itemsPerPage, items }: PaginatedItemsProps) => {
 				justifyContent="center"
 				alignContent="center"
 			>
-				{currentItems.map((item: any) => {
+				{currentItems.map((item: any, index: number) => {
 					return (
 						<GridItem key={item.id}>
-							<JobCard {...item} />
+							<JobCard {...item} delay={index} />
 						</GridItem>
 					);
 				})}
