@@ -9,6 +9,10 @@ export interface JobCardProps {
 	edited_at: string;
 }
 
+export interface JobCardWithDelayProps extends JobCardProps {
+	delay: number;
+}
+
 export interface DetailJobCardProps extends JobCardProps {
 	applicants: any[];
 	description: string;
