@@ -6,4 +6,5 @@ export interface ShapeProps {
 	height: any;
 	width: any;
 	rotate?: number;
+	delay?: number;
 }
