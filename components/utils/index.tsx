@@ -4,3 +4,4 @@ export * from "./context";
 export * from "./graphql";
 export * from "./helper";
 export * from "./hooks";
+export * from "./animation";
