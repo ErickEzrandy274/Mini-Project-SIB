@@ -37,7 +37,7 @@ const JobCard: React.FC<JobCardWithDelayProps> = ({
 			h="full"
 			initial={initial}
 			animate={animate}
-			transition={`0.8s ease-out ${delay * 0.2}s`}
+			transition={`0.8s ease-out ${delay * 0.1}s`}
 		>
 			<CardHeader pb={0}>
 				<Flex flexDirection="column" flexWrap="wrap">
