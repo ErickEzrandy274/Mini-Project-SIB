@@ -62,7 +62,7 @@ const LandingPage = () => {
 						bgClip="text"
 						initial={initial}
 						animate={animate}
-						transition="1s ease-out 0.2s"
+						transition="1s ease-out 0.1s"
 					>
 						Find Your Next Dream Job
 					</Heading>
@@ -73,7 +73,7 @@ const LandingPage = () => {
 							fontSize={{ base: "md", md: "xl" }}
 							initial={initial}
 							animate={animate}
-							transition="1s ease-out 0.3s"
+							transition="1s ease-out 0.2s"
 						>
 							We help you discover exciting opportunities around the world
 						</Text>
@@ -83,7 +83,7 @@ const LandingPage = () => {
 							fontSize={{ base: "md", md: "xl" }}
 							initial={initial}
 							animate={animate}
-							transition="1s ease-out 0.4s"
+							transition="1s ease-out 0.3s"
 						>
 							Make sure you know the latest jobs that suit you
 						</Text>
@@ -97,7 +97,7 @@ const LandingPage = () => {
 						onClick={() => Router.push("/jobs")}
 						initial={initial}
 						animate={animate}
-						transition="ease-out 0.8s"
+						transition="cubic-bezier(.76,.89,.83,.67) 0.8s"
 					>
 						Find Job Now
 					</Button>
