@@ -41,7 +41,7 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 	}
 
 	if (!data?.job_vacancy_by_pk) {
-		return <NotFoundPage />;
+		return <NotFoundPage fromDetailPage />;
 	}
 
 	const {
