@@ -1,5 +1,6 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
-import { useWindowSize } from "@utils";
+import { opScaleAnimations, useWindowSize } from "@utils";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import React, { useMemo } from "react";
 
@@ -16,6 +17,7 @@ const NotFoundPage = () => {
 
 		return 300;
 	}, [width]);
+	const { initial, animate } = useMemo(() => opScaleAnimations, []);
 
 	return (
 		<Flex
@@ -25,7 +27,13 @@ const NotFoundPage = () => {
 			minH="100vh"
 			bgGradient="linear(to-br, white, #EDF2F7)"
 		>
-			<Box mt={{ base: 0, lg: -20 }}>
+			<Box
+				as={motion.div}
+				mt={{ base: 0, lg: -20 }}
+				initial={initial}
+				animate={animate}
+				transition="0.8s ease-out 0.1s"
+			>
 				<svg
 					width={size}
 					height={size}
@@ -477,15 +485,37 @@ const NotFoundPage = () => {
 				gap={2}
 				mt={{ base: 0, lg: -10 }}
 			>
-				<Heading fontSize={{ base: "2xl", md: "4xl" }} color="facebook.700">
+				<Heading
+					as={motion.h1}
+					fontSize={{ base: "2xl", md: "4xl" }}
+					color="facebook.700"
+					initial={initial}
+					animate={animate}
+					transition="0.8s ease-out 0.2s"
+				>
 					It looks like you&apos;re lost
 				</Heading>
 
-				<Text color="facebook.600" fontWeight="semibold" fontSize="lg">
+				<Text
+					as={motion.p}
+					color="facebook.600"
+					fontWeight="semibold"
+					fontSize="lg"
+					initial={initial}
+					animate={animate}
+					transition="0.8s ease-out 0.4s"
+				>
 					That&apos;s a trouble?
 				</Text>
 
-				<Button rounded="xl" colorScheme="linkedin">
+				<Button
+					as={motion.button}
+					rounded="xl"
+					colorScheme="linkedin"
+					initial={initial}
+					animate={animate}
+					transition="0.4s ease-out 0.6s"
+				>
 					<Link href="/">Go Back</Link>
 				</Button>
 			</Flex>
