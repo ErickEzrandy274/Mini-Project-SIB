@@ -3,8 +3,9 @@ import { opScaleAnimations, useWindowSize } from "@utils";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import React, { useMemo } from "react";
+import { NotFoundProps } from "./interface";
 
-const NotFoundPage = () => {
+const NotFoundPage: React.FC<NotFoundProps> = ({ fromDetailPage = false }) => {
 	const { width } = useWindowSize();
 	const size = useMemo(() => {
 		if (width >= 768) {
@@ -18,6 +19,14 @@ const NotFoundPage = () => {
 		return 300;
 	}, [width]);
 	const { initial, animate } = useMemo(() => opScaleAnimations, []);
+	const { marginTopBox, marginTopText } = useMemo(() => {
+		return {
+			marginTopBox: fromDetailPage ? -40 : { base: 0, lg: -20 },
+			marginTopText: fromDetailPage
+				? { base: -10, lg: -20 }
+				: { base: 0, lg: -10 },
+		};
+	}, [fromDetailPage]);
 
 	return (
 		<Flex
@@ -29,7 +38,7 @@ const NotFoundPage = () => {
 		>
 			<Box
 				as={motion.div}
-				mt={{ base: 0, lg: -20 }}
+				mt={marginTopBox}
 				initial={initial}
 				animate={animate}
 				transition="0.8s ease-out 0.1s"
@@ -483,7 +492,7 @@ const NotFoundPage = () => {
 				flexDirection="column"
 				alignItems="center"
 				gap={2}
-				mt={{ base: 0, lg: -10 }}
+				mt={marginTopText}
 			>
 				<Heading
 					as={motion.h1}

@@ -8,7 +8,11 @@ export const encode = (decoded: string) => {
 };
 
 export const decode = (encoded: string) => {
-	return decodeURIComponent(window.atob(encoded));
+	try {
+		return decodeURIComponent(window.atob(encoded));
+	} catch (error) {
+		return undefined;
+	}
 };
 
 export const dateFormat = (date: string, showingTime = false) => {

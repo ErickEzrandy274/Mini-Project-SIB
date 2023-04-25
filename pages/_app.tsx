@@ -13,9 +13,16 @@ import { ApolloProvider } from "@apollo/client";
 export default function App({ Component, pageProps }: AppProps) {
 	const { pathname } = useRouter();
 	const noAuthURL = useMemo(() => ["/", "/jobs"], []);
+	const isValidURL: boolean = useMemo(() => {
+		if (pathname.slice(1).startsWith("jobs/detail")) {
+			return true;
+		}
+
+		return listURL.includes(pathname);
+	}, [pathname]);
 
 	const renderComponent = () => {
-		if (pathname === "/" || !listURL.includes(pathname)) {
+		if (pathname === "/" || !isValidURL) {
 			return <Component {...pageProps} />;
 		}
 
@@ -35,7 +42,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	);
 
 	const children: ReactNode =
-		noAuthURL.includes(pathname) || !listURL.includes(pathname)
+		noAuthURL.includes(pathname) || !isValidURL
 			? renderComponent()
 			: renderProtectedRoute();
 
