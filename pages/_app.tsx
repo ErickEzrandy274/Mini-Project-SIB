@@ -1,12 +1,12 @@
 import "@styles/globals.css";
 import "@styles/loading.css";
+import "@styles/notFound.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import Layout from "components/elements/Layout";
 import { ChakraProvider } from "@chakra-ui/react";
 import { ReactNode, useMemo } from "react";
 import { useRouter } from "next/router";
-import { ProtectedRoute } from "@elements";
+import { Layout, ProtectedRoute, listURL } from "@elements";
 import { theme, AuthContextProvider, client } from "@utils";
 import { ApolloProvider } from "@apollo/client";
 
@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	const noAuthURL = useMemo(() => ["/", "/jobs"], []);
 
 	const renderComponent = () => {
-		if (pathname === "/") {
+		if (pathname === "/" || !listURL.includes(pathname)) {
 			return <Component {...pageProps} />;
 		}
 
@@ -34,9 +34,10 @@ export default function App({ Component, pageProps }: AppProps) {
 		</Layout>
 	);
 
-	const children: ReactNode = noAuthURL.includes(pathname)
-		? renderComponent()
-		: renderProtectedRoute();
+	const children: ReactNode =
+		noAuthURL.includes(pathname) || !listURL.includes(pathname)
+			? renderComponent()
+			: renderProtectedRoute();
 
 	return (
 		<ApolloProvider client={client}>
