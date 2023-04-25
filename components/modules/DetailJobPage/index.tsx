@@ -3,9 +3,14 @@ import React, { useEffect, useState } from "react";
 import { DetailJobPageProps } from "./interface";
 import { GET_JOB_BY_ID, SUBSCRIPTION_JOB_BY_ID, decode, useAuth } from "@utils";
 import { useQuery } from "@apollo/client";
-import { CustomModal, DetailJobCard, PrimaryLoading } from "@elements";
+import {
+	CustomModal,
+	DetailJobCard,
+	PrimaryLoading,
+	ApplicantsModal,
+} from "@elements";
 import { Flex, Heading, useDisclosure } from "@chakra-ui/react";
-import ApplicantsModal from "components/elements/Modal/ApplicantsModal";
+import { NotFoundPage } from "@modules";
 
 const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 	const { user } = useAuth();
@@ -33,6 +38,10 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 
 	if (loading) {
 		return <PrimaryLoading />;
+	}
+
+	if (!data?.job_vacancy_by_pk) {
+		return <NotFoundPage />;
 	}
 
 	const {
