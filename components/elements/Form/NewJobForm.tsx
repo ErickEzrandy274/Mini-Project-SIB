@@ -142,12 +142,16 @@ const NewJobForm = () => {
 									iconColor="gray.700"
 									iconSize="xl"
 									variant="filled"
-									placeholder="Select working type"
 									id="working_type"
 									name="working_type"
 									value={formik.values.working_type}
 									onChange={formik.handleChange}
 									onBlur={formik.handleBlur}
+									sx={{
+										option: {
+											bg: "gray.200",
+										},
+									}}
 								>
 									{workingTypeOptions.map((value) => {
 										return (
