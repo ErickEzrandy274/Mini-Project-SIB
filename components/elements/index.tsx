@@ -13,3 +13,4 @@ export * from "./Icon";
 export * from "./Loading";
 export * from "./Paginated";
 export * from "./Badge";
+export * from "./Input";

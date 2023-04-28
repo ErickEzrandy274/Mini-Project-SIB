@@ -22,45 +22,86 @@ export const NEW_JOB_INPUT: NewJobType = {
 	created_at: "",
 };
 
-type NewJobInputText = {
-	name: keyof NewJobType;
-	type: string;
-	required: boolean;
-	placeholder: string;
+export const newJobInputText = {
+	desktopVersion: {
+		firstColumn: [
+			{
+				name: "name",
+				type: "text",
+				required: true,
+				placeholder: "Write new job name",
+				last: false,
+			},
+			{
+				name: "description",
+				type: "textarea",
+				required: true,
+				placeholder: "Write new job description",
+				last: true,
+			},
+		],
+		secondColumn: [
+			{
+				name: "location",
+				type: "text",
+				required: true,
+				placeholder: "Write new job location",
+				last: false,
+			},
+			{
+				name: "company_name",
+				type: "text",
+				required: true,
+				placeholder: "Write company name",
+				last: false,
+			},
+			{
+				name: "salary",
+				type: "number",
+				required: false,
+				placeholder: "Write new job salary",
+				last: false,
+			},
+		],
+	},
+	mobileVersion: [
+		{
+			name: "name",
+			type: "text",
+			required: true,
+			placeholder: "Write new job name",
+			last: false,
+		},
+		{
+			name: "description",
+			type: "textarea",
+			required: true,
+			placeholder: "Write new job description",
+			last: true,
+		},
+		{
+			name: "location",
+			type: "text",
+			required: true,
+			placeholder: "Write new job location",
+			last: false,
+		},
+		{
+			name: "company_name",
+			type: "text",
+			required: true,
+			placeholder: "Write company name",
+			last: false,
+		},
+		{
+			name: "salary",
+			type: "number",
+			required: false,
+			placeholder: "Write new job salary",
+			last: false,
+		},
+	],
 };
-
-export const newJobInputText: NewJobInputText[] = [
-	{
-		name: "name",
-		type: "text",
-		required: true,
-		placeholder: "Write new job name",
-	},
-	{
-		name: "description",
-		type: "textarea",
-		required: true,
-		placeholder: "Write new job description",
-	},
-	{
-		name: "location",
-		type: "text",
-		required: true,
-		placeholder: "Write new job location",
-	},
-	{
-		name: "company_name",
-		type: "text",
-		required: true,
-		placeholder: "Write company name",
-	},
-	{
-		name: "salary",
-		type: "number",
-		required: false,
-		placeholder: "Write new job salary",
-	},
-];
 
 export const workingTypeOptions = ["On Site", "Remote"];
 
