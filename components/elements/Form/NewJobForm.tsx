@@ -82,7 +82,7 @@ const NewJobForm = () => {
 				New Job Vacancy Form
 			</Heading>
 
-			<Box bg="gray.100" p={6} rounded="xl" w={{ base: "full", md: "xl" }}>
+			<Box bg="gray.200" p={6} rounded="xl" w={{ base: "full", md: "xl" }}>
 				<form onSubmit={formik.handleSubmit}>
 					<VStack spacing={10} align="flex-start">
 						<VStack spacing={4} align="center" w="full">
