@@ -7,7 +7,12 @@ import toastOptions from "../Toaster";
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
 	return (
-		<Flex flexDirection="column" justifyContent="space-between" minH="100vh">
+		<Flex
+			flexDirection="column"
+			justifyContent="space-between"
+			minH="100vh"
+			bgGradient="linear(to-br, #f1f5f9, #f3f4f6)"
+		>
 			<Navbar />
 			{children}
 			<Footer />
