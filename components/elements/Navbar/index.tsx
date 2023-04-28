@@ -57,7 +57,7 @@ const Navbar = () => {
 	};
 
 	return (
-		<Box bg={useColorModeValue("gray.200", "gray.900")} px={4}>
+		<Box bg={useColorModeValue("gray.200", "gray.900")} px={4} shadow="lg">
 			<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
 				<HStack spacing={8} alignItems={"center"}>
 					<Heading
