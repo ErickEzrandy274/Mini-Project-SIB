@@ -58,7 +58,7 @@ const Navbar = () => {
 
 	return (
 		<Box bg={useColorModeValue("gray.200", "gray.900")} px={4} shadow="lg">
-			<Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+			<Flex h={14} alignItems={"center"} justifyContent={"space-between"}>
 				<HStack spacing={8} alignItems={"center"}>
 					<Heading
 						as="h2"
@@ -91,7 +91,7 @@ const Navbar = () => {
 							display={{ base: "none", lg: "flex" }}
 							spacing={0}
 							fontWeight="semibold"
-							fontSize="lg"
+							fontSize="md"
 						>
 							<Text>Hello</Text>
 							<Text>{user.displayName ?? user.email}</Text>
