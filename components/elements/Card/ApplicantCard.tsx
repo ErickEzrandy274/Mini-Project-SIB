@@ -32,6 +32,11 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
 		setNewStatus(e.target.value);
 	};
 
+	const handleCancel = () => {
+		setIsUpdate(false);
+		setNewStatus(status);
+	};
+
 	const handleSubmit = async (e: BaseSyntheticEvent) => {
 		e.preventDefault();
 		toast.loading("Updating applicant status...");
@@ -123,7 +128,7 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
 									colorScheme="red"
 									size="sm"
 									rounded="md"
-									onClick={() => setIsUpdate(false)}
+									onClick={handleCancel}
 								>
 									Cancel
 								</Button>
