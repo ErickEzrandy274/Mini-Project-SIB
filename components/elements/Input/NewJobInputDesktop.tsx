@@ -75,14 +75,18 @@ const NewJobInputDesktop: React.FC<NewJobInputProps> = ({ formik }) => {
 				})}
 			</GridItem>
 
-			<GridItem display="flex" flexDir="column" justifyContent="space-between">
+			<GridItem
+				display="flex"
+				flexDirection="column"
+				justifyContent="space-between"
+			>
 				{secondColumn.map(({ name, type, required, placeholder, last }) => {
 					return (
 						<FormControl
 							key={name}
 							isRequired={required}
 							isInvalid={formik.touched[name] && !!formik.errors[name]}
-							mb={last ? 0 : 2}
+							mb={last ? 0 : 4}
 						>
 							<FormLabel htmlFor={name} textTransform="capitalize">
 								{splitText(name, "_")}
@@ -98,6 +102,7 @@ const NewJobInputDesktop: React.FC<NewJobInputProps> = ({ formik }) => {
 								onBlur={formik.handleBlur}
 								value={formik.values[name]}
 								rounded="lg"
+								mt={-1}
 							/>
 
 							{formik.touched[name] && formik.errors[name] && (
