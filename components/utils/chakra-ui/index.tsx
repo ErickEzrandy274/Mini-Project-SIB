@@ -15,6 +15,7 @@ const field = {
 
 const theme = extendTheme({
 	fonts: {
+		heading: "'Poppins', sans-serif",
 		body: "'Poppins', sans-serif",
 	},
 	components: {
