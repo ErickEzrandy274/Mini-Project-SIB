@@ -8,7 +8,9 @@ const WorkingTypeSelect: React.FC<NewJobInputProps> = ({ formik }) => {
 		<FormControl
 			isInvalid={formik.touched.working_type && !!formik.errors.working_type}
 		>
-			<FormLabel htmlFor="working_type">Working type</FormLabel>
+			<FormLabel htmlFor="working_type" fontWeight="normal">
+				Working type
+			</FormLabel>
 
 			<Select
 				iconColor="gray.700"
