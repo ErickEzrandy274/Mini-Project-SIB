@@ -64,6 +64,7 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 				textTransform="capitalize"
 				textAlign="center"
 				color="messenger.700"
+				fontSize={{ base: "1.75rem", md: "2.1rem" }}
 			>
 				{user?.uid === ownerId
 					? "Job vacancy details that you have created"
