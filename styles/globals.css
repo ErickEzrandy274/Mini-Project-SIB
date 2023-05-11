@@ -34,7 +34,7 @@
 .active, .page-item:hover {
 	background: #4b5563;
 	color: whitesmoke;
-	font-weight: bolder;
+	font-weight: 600;
 }
 
 .page-item {

@@ -33,7 +33,11 @@ const NewJobInputDesktop: React.FC<NewJobInputProps> = ({ formik }) => {
 							isInvalid={formik.touched[name] && !!formik.errors[name]}
 							mb={last ? 0 : 2}
 						>
-							<FormLabel htmlFor={name} textTransform="capitalize">
+							<FormLabel
+								htmlFor={name}
+								textTransform="capitalize"
+								fontWeight="normal"
+							>
 								{splitText(name, "_")}
 							</FormLabel>
 
@@ -88,7 +92,11 @@ const NewJobInputDesktop: React.FC<NewJobInputProps> = ({ formik }) => {
 							isInvalid={formik.touched[name] && !!formik.errors[name]}
 							mb={last ? 0 : 4}
 						>
-							<FormLabel htmlFor={name} textTransform="capitalize">
+							<FormLabel
+								htmlFor={name}
+								textTransform="capitalize"
+								fontWeight="normal"
+							>
 								{splitText(name, "_")}
 							</FormLabel>
 

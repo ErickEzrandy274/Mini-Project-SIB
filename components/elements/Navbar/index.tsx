@@ -28,15 +28,15 @@ const NavLink = ({ children, href, pathname, onClose }: NavLinkProps) => {
 			py={1}
 			borderRadius="lg"
 			fontSize="md"
-			fontWeight={isActive ? "semibold" : "medium"}
+			fontWeight={isActive ? "semibold" : "normal"}
 			bgColor={isActive ? "gray.600" : ""}
-			letterSpacing={isActive ? "0.5px" : 0}
+			letterSpacing={isActive ? "0.3px" : 0}
 			color={isActive ? "white" : "gray.700"}
 			_hover={{
 				bg: "gray.600",
 				color: "white",
 				fontWeight: "semibold",
-				letterSpacing: "0.5px",
+				letterSpacing: "0.3px",
 			}}
 		>
 			<Link href={href} onClick={() => onClose()}>

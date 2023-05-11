@@ -203,13 +203,13 @@ const CustomModal: React.FC<ModifiedModalProps> = ({
 												textAlign="center"
 											>
 												<PDFIcon width={size} height={size} />
-												<Text>{document.name}</Text>
+												<Text fontWeight="normal">{document.name}</Text>
 											</Flex>
 										) : (
 											<>
 												<UploadIcon width={size} height={size} />
-												<Text>Click to upload</Text>
-												<Text>PDF only (MAX 5 MB)</Text>
+												<Text fontWeight="normal">Click to upload</Text>
+												<Text fontWeight="normal">PDF only (MAX 5 MB)</Text>
 											</>
 										)}
 									</Flex>

@@ -23,7 +23,11 @@ const NewJobInputMobile: React.FC<NewJobInputProps> = ({ formik }) => {
 						isRequired={required}
 						isInvalid={formik.touched[name] && !!formik.errors[name]}
 					>
-						<FormLabel htmlFor={name} textTransform="capitalize">
+						<FormLabel
+							htmlFor={name}
+							textTransform="capitalize"
+							fontWeight="normal"
+						>
 							{splitText(name, "_")}
 						</FormLabel>
 
