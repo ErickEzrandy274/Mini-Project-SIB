@@ -9,7 +9,9 @@ export const Links = [
 export const listURL = [
 	"/jobs",
 	"/jobs/create",
-	"/jobs/mine",
 	"/jobs/detail",
+	"/jobs/mine",
+	"/jobs/mine/detail",
 	"/jobs/mine/application",
+	"/jobs/mine/application/detail",
 ];
