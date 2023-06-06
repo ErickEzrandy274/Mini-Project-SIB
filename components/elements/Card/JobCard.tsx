@@ -24,9 +24,20 @@ const JobCard: React.FC<JobCardWithDelayProps> = ({
 	edited_at,
 	delay,
 }) => {
-	const { push } = useRouter();
+	const { push, pathname } = useRouter();
 	const { width } = useWindowSize();
 	const { initial, animate } = useMemo(() => opScaleAnimations, []);
+	const pageURL = useMemo(() => {
+		if (pathname.includes("mine/application")) {
+			return "/jobs/mine/application/detail";
+		}
+
+		if (pathname.includes("mine")) {
+			return "/jobs/mine/detail";
+		}
+
+		return "/jobs/detail";
+	}, [pathname]);
 
 	return (
 		<Card
@@ -80,7 +91,7 @@ const JobCard: React.FC<JobCardWithDelayProps> = ({
 					rounded="xl"
 					letterSpacing="0.5px"
 					boxShadow="0 5px 20px 0px rgb(72 187 120 / 43%)"
-					onClick={() => push(`/jobs/detail/${encode(id)}`)}
+					onClick={() => push(`${pageURL}/${encode(id)}`)}
 					size={{ base: "sm", md: "md" }}
 					_hover={{
 						bg: "green.500",

@@ -14,11 +14,11 @@ export default function App({ Component, pageProps }: AppProps) {
 	const { pathname } = useRouter();
 	const noAuthURL = useMemo(() => ["/", "/jobs"], []);
 	const isValidURL: boolean = useMemo(() => {
-		if (pathname.slice(1).startsWith("jobs/detail")) {
+		if (pathname.slice(1).startsWith("jobs")) {
 			return true;
 		}
 
-		return listURL.includes(pathname);
+		return listURL.includes(pathname.slice(0, pathname.lastIndexOf("/")));
 	}, [pathname]);
 
 	const renderComponent = () => {
