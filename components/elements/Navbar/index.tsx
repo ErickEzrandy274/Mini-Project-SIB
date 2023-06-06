@@ -16,10 +16,30 @@ import { Links } from "./constant";
 import { useRouter } from "next/router";
 import { NavLinkProps } from "./interface";
 import { useAuth } from "@utils";
+import { useMemo } from "react";
 import Link from "next/link";
 
 const NavLink = ({ children, href, pathname, onClose }: NavLinkProps) => {
-	const isActive = pathname === href;
+	const isActive = useMemo(() => {
+		if (pathname === href) {
+			return true;
+		}
+
+		if (pathname.includes("jobs/detail") && href === "/jobs") {
+			return true;
+		}
+
+		if (pathname.includes("mine/detail") && href === "/jobs/mine") {
+			return true;
+		}
+
+		if (
+			pathname.includes("mine/application/detail") &&
+			href === "/jobs/mine/application"
+		) {
+			return true;
+		}
+	}, [pathname, href]);
 
 	return (
 		<Box
@@ -47,7 +67,7 @@ const NavLink = ({ children, href, pathname, onClose }: NavLinkProps) => {
 };
 
 const Navbar = () => {
-	const { pathname } = useRouter();
+	const { pathname, push } = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { user, logout } = useAuth();
 
@@ -67,6 +87,8 @@ const Navbar = () => {
 						bgGradient="linear(to-r, #7928CA, #FF0080)"
 						bgClip="text"
 						textTransform="uppercase"
+						cursor="pointer"
+						onClick={() => push("/")}
 					>
 						Job Career
 					</Heading>
