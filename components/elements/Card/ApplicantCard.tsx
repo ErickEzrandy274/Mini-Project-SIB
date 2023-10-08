@@ -81,7 +81,7 @@ const ApplicantCard: React.FC<ApplicantCardProps> = ({
 							size="sm"
 							rounded="md"
 						>
-							<Link href={link_url} target="_blank">
+							<Link href={link_url} target="_blank" rel="noopener" referrerPolicy="no-referrer">
 								Resume
 							</Link>
 						</Button>
