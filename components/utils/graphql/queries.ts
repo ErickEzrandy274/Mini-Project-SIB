@@ -48,7 +48,7 @@ export const JOB_VACANCIES_QUERY = gql`
 		) {
 			...JobVacancyFields
 		}
-		job_vacancy_aggregate {
+		job_vacancy_aggregate(where: { user: { id: { _neq: $uid } } }) {
 			aggregate {
 				count
 			}
@@ -67,7 +67,7 @@ export const JOB_VACANCIES_QUERY_OWNED_BY_CURRENT_USER = gql`
 		) {
 			...JobVacancyFields
 		}
-		job_vacancy_aggregate {
+		job_vacancy_aggregate(where: { user: { id: { _eq: $uid } } }) {
 			aggregate {
 				count
 			}
