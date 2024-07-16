@@ -2,11 +2,11 @@ import { gql } from "@apollo/client";
 import { JOB_VACANCY_FIELDS_FRAGMENT } from "./fragments";
 
 export const JOB_VACANCIES_SUBSCRIPTION = gql`
-	subscription JobVacanciesSubscription($uid: String!, $offset: Int!) {
+	subscription JobVacanciesSubscription($uid: String!, $limit: Int!, $offset: Int!) {
 		job_vacancy(
-			limit: 8
 			where: { user: { id: { _neq: $uid } } }
 			order_by: { name: asc }
+			limit: $limit
 			offset: $offset
 		) {
 			...JobVacancyFields
@@ -21,11 +21,11 @@ export const JOB_VACANCIES_SUBSCRIPTION = gql`
 `;
 
 export const JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER = gql`
-	subscription JobVacanciesSubscription($uid: String!, $offset: Int!) {
+	subscription JobVacanciesSubscription($uid: String!, $limit: Int!, $offset: Int!) {
 		job_vacancy(
-			limit: 8
 			where: { user: { id: { _eq: $uid } } }
 			order_by: { name: asc }
+			limit: $limit
 			offset: $offset
 		) {
 			...JobVacancyFields
@@ -40,11 +40,11 @@ export const JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER = gql`
 `;
 
 export const JOB_VACANCIES_SUBSCRIPTION_APPLIED_BY_CURRENT_USER = gql`
-	subscription MySubscription($uid: String!, $offset: Int!) {
+	subscription MySubscription($uid: String!, $limit: Int!, $offset: Int!) {
 		job_vacancy(
-			limit: 8
 			where: { applicants: { userId: { _eq: $uid } } }
 			order_by: { name: asc }
+			limit: $limit
 			offset: $offset
 		) {
 			...JobVacancyFields

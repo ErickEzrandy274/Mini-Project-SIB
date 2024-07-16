@@ -39,11 +39,11 @@ export const GET_JOB_BY_ID = gql`
 `;
 
 export const JOB_VACANCIES_QUERY = gql`
-	query JobVacanciesQuery($uid: String!, $offset: Int!) {
+	query JobVacanciesQuery($uid: String!, $limit: Int!, $offset: Int!) {
 		job_vacancy(
-			limit: 8
 			where: { user: { id: { _neq: $uid } } }
 			order_by: { name: asc }
+			limit: $limit
 			offset: $offset
 		) {
 			...JobVacancyFields
@@ -58,11 +58,11 @@ export const JOB_VACANCIES_QUERY = gql`
 `;
 
 export const JOB_VACANCIES_QUERY_OWNED_BY_CURRENT_USER = gql`
-	query JobVacanciesQuery($uid: String!, $offset: Int!) {
+	query JobVacanciesQuery($uid: String!, $limit: Int!, $offset: Int!) {
 		job_vacancy(
-			limit: 8
 			where: { user: { id: { _eq: $uid } } }
 			order_by: { name: asc }
+			limit: $limit
 			offset: $offset
 		) {
 			...JobVacancyFields
@@ -77,11 +77,11 @@ export const JOB_VACANCIES_QUERY_OWNED_BY_CURRENT_USER = gql`
 `;
 
 export const JOB_VACANCIES_QUERY_APPLIED_BY_CURRENT_USER = gql`
-	query JobVacanciesQuery($uid: String!, $offset: Int!) {
+	query JobVacanciesQuery($uid: String!, $limit: Int!, $offset: Int!) {
 		job_vacancy(
-			limit: 8,
-			where: { applicants: { userId: { _eq: $uid } } },
-			order_by: { name: asc },
+			where: { applicants: { userId: { _eq: $uid } } }
+			order_by: { name: asc }
+			limit: $limit
 			offset: $offset
 		) {
 			...JobVacancyFields
