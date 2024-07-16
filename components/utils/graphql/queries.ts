@@ -86,7 +86,7 @@ export const JOB_VACANCIES_QUERY_APPLIED_BY_CURRENT_USER = gql`
 		) {
 			...JobVacancyFields
 		}
-		job_vacancy_aggregate {
+		job_vacancy_aggregate(where: { user: { id: { _eq: $uid } } }) {
 			aggregate {
 				count
 			}
