@@ -39,36 +39,57 @@ export const GET_JOB_BY_ID = gql`
 `;
 
 export const JOB_VACANCIES_QUERY = gql`
-	query JobVacanciesQuery($uid: String!) {
+	query JobVacanciesQuery($uid: String!, $offset: Int!) {
 		job_vacancy(
+			limit: 8
 			where: { user: { id: { _neq: $uid } } }
 			order_by: { name: asc }
+			offset: $offset
 		) {
 			...JobVacancyFields
+		}
+		job_vacancy_aggregate {
+			aggregate {
+				count
+			}
 		}
 	}
 	${JOB_VACANCY_FIELDS_FRAGMENT}
 `;
 
 export const JOB_VACANCIES_QUERY_OWNED_BY_CURRENT_USER = gql`
-	query JobVacanciesQuery($uid: String!) {
+	query JobVacanciesQuery($uid: String!, $offset: Int!) {
 		job_vacancy(
+			limit: 8
 			where: { user: { id: { _eq: $uid } } }
 			order_by: { name: asc }
+			offset: $offset
 		) {
 			...JobVacancyFields
+		}
+		job_vacancy_aggregate {
+			aggregate {
+				count
+			}
 		}
 	}
 	${JOB_VACANCY_FIELDS_FRAGMENT}
 `;
 
 export const JOB_VACANCIES_QUERY_APPLIED_BY_CURRENT_USER = gql`
-	query JobVacanciesQuery($uid: String!) {
+	query JobVacanciesQuery($uid: String!, $offset: Int!) {
 		job_vacancy(
-			where: { applicants: { userId: { _eq: $uid } } }
-			order_by: { name: asc }
+			limit: 8,
+			where: { applicants: { userId: { _eq: $uid } } },
+			order_by: { name: asc },
+			offset: $offset
 		) {
 			...JobVacancyFields
+		}
+		job_vacancy_aggregate {
+			aggregate {
+				count
+			}
 		}
 	}
 	${JOB_VACANCY_FIELDS_FRAGMENT}
