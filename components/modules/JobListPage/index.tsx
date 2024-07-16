@@ -14,6 +14,7 @@ const JobListPage: React.FC<JobListPageProps> = ({
 	isOwnedByCurrentUser = false,
 	isMyApplication = false,
 }) => {
+	const [limit, setLimit] = useState<number>(5);
 	const [offset, setOffset] = useState<number>(0);
 	const { user } = useAuth();
 	const { query, subscription } = useMemo(
@@ -22,22 +23,22 @@ const JobListPage: React.FC<JobListPageProps> = ({
 	);
 
 	const { data, loading, subscribeToMore, fetchMore } = useQuery(query, {
-		variables: { uid: user ? user.uid : "", offset },
+		variables: { uid: user ? user.uid : "", limit, offset },
 	});
 
 	useEffect(() => {
 		fetchMore({
-			variables: { offset },
+			variables: { limit, offset },
 			updateQuery: (_, { fetchMoreResult: { data } }) => {
 				return data;
 			},
 		});
-	}, [offset]);
+	}, [limit, offset]);
 
 	useEffect(() => {
 		subscribeToMore({
 			document: subscription,
-			variables: { uid: user ? user.uid : "", offset },
+			variables: { uid: user ? user.uid : "", limit, offset },
 			updateQuery: (_, { subscriptionData: { data } }) => {
 				return data;
 			},
@@ -56,12 +57,13 @@ const JobListPage: React.FC<JobListPageProps> = ({
 
 		const props = {
 			setOffset,
-			itemsPerPage: ITEMS_PER_PAGE,
-			items: data.job_vacancy,
-			total: data.job_vacancy_aggregate.aggregate.count,
+			setLimit,
+			limit,
+			items: data?.job_vacancy,
+			total: data?.job_vacancy_aggregate?.aggregate?.count,
 		};
 
-		return data.job_vacancy.length ? (
+		return data?.job_vacancy.length ? (
 			<PaginatedItems {...props} />
 		) : (
 			<Flex flexDirection="column" textAlign="center" gap={2}>

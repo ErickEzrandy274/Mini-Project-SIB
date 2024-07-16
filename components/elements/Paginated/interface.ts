@@ -6,8 +6,9 @@ export interface MovePageProps {
 }
 
 export interface PaginatedItemsProps {
-	itemsPerPage: number;
+	limit: number;
 	items: any[];
 	total: number;
 	setOffset: React.Dispatch<React.SetStateAction<number>>;
+	setLimit: React.Dispatch<React.SetStateAction<number>>
 }
