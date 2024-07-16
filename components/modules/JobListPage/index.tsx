@@ -4,11 +4,7 @@ import { Flex, Heading, Text } from "@chakra-ui/react";
 import { PaginatedItems, PrimaryLoading } from "@elements";
 import { useAuth } from "@utils";
 import { JobListPageProps } from "./interface";
-import {
-	ITEMS_PER_PAGE,
-	generateQuerySubscription,
-	generateText,
-} from "./constant";
+import { generateQuerySubscription, generateText } from "./constant";
 
 const JobListPage: React.FC<JobListPageProps> = ({
 	isOwnedByCurrentUser = false,
