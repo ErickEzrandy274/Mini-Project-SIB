@@ -5,22 +5,19 @@ import { PaginatedItemsProps } from "./interface";
 import { useWindowSize } from "@utils";
 import ReactPaginate from "react-paginate";
 
-const PaginatedItems = ({ itemsPerPage, items }: PaginatedItemsProps) => {
+const PaginatedItems = ({ itemsPerPage, items, total, setOffset }: PaginatedItemsProps) => {
 	const { width } = useWindowSize();
-	const [itemOffset, setItemOffset] = useState(0);
-	const endOffset = useMemo(
-		() => itemOffset + itemsPerPage,
-		[itemOffset, itemsPerPage]
-	);
-	const currentItems = items.slice(itemOffset, endOffset);
+	const [currentPage, setCurrentPage] = useState<number>(0)
+	
 	const pageCount = useMemo(
-		() => Math.ceil(items.length / itemsPerPage),
-		[items.length, itemsPerPage]
+		() => Math.ceil(total / itemsPerPage),
+		[total, itemsPerPage]
 	);
 
 	const handlePageClick = (event: any) => {
-		const newOffset = (event.selected * itemsPerPage) % items.length;
-		setItemOffset(newOffset);
+		const newOffset = event.selected * itemsPerPage;
+		setCurrentPage(event.selected)
+		setOffset(newOffset);
 	};
 
 	return (
@@ -36,7 +33,7 @@ const PaginatedItems = ({ itemsPerPage, items }: PaginatedItemsProps) => {
 				justifyContent="center"
 				alignContent="center"
 			>
-				{currentItems.map((item: any, index: number) => {
+				{items.map((item: any, index: number) => {
 					return (
 						<GridItem key={item.id}>
 							<JobCard {...item} delay={index} />
@@ -44,10 +41,10 @@ const PaginatedItems = ({ itemsPerPage, items }: PaginatedItemsProps) => {
 					);
 				})}
 			</Grid>
-
+			
 			<ReactPaginate
-				nextLabel={<MovePageLabel name="Next" />}
-				previousLabel={<MovePageLabel name="Previous" />}
+				nextLabel={<MovePageLabel name="Next" disabled={currentPage === pageCount - 1} />}
+				previousLabel={<MovePageLabel name="Previous" disabled={currentPage === 0} />}
 				onPageChange={handlePageClick}
 				pageRangeDisplayed={width >= 768 ? 3 : 1}
 				marginPagesDisplayed={width > 768 ? 2 : 1}

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import { PaginatedItems, PrimaryLoading } from "@elements";
@@ -14,21 +14,31 @@ const JobListPage: React.FC<JobListPageProps> = ({
 	isOwnedByCurrentUser = false,
 	isMyApplication = false,
 }) => {
+	const [offset, setOffset] = useState<number>(0);
 	const { user } = useAuth();
 	const { query, subscription } = useMemo(
 		() => generateQuerySubscription(isMyApplication, isOwnedByCurrentUser),
 		[isOwnedByCurrentUser, isMyApplication]
 	);
 
-	const { data, loading, subscribeToMore } = useQuery(query, {
-		variables: { uid: user ? user.uid : "" },
+	const { data, loading, subscribeToMore, fetchMore } = useQuery(query, {
+		variables: { uid: user ? user.uid : "", offset },
 	});
+
+	useEffect(() => {
+		fetchMore({
+			variables: { offset },
+			updateQuery: (_, { fetchMoreResult: { data } }) => {
+				return data;
+			},
+		});
+	}, [offset]);
 
 	useEffect(() => {
 		subscribeToMore({
 			document: subscription,
-			variables: { uid: user ? user.uid : "" },
-			updateQuery: (prev, { subscriptionData: { data } }) => {
+			variables: { uid: user ? user.uid : "", offset },
+			updateQuery: (_, { subscriptionData: { data } }) => {
 				return data;
 			},
 		});
@@ -44,8 +54,15 @@ const JobListPage: React.FC<JobListPageProps> = ({
 			return <PrimaryLoading />;
 		}
 
+		const props = {
+			setOffset,
+			itemsPerPage: ITEMS_PER_PAGE,
+			items: data.job_vacancy,
+			total: data.job_vacancy_aggregate.aggregate.count,
+		};
+
 		return data.job_vacancy.length ? (
-			<PaginatedItems itemsPerPage={ITEMS_PER_PAGE} items={data.job_vacancy} />
+			<PaginatedItems {...props} />
 		) : (
 			<Flex flexDirection="column" textAlign="center" gap={2}>
 				<Heading
