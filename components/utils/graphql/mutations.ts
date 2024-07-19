@@ -33,6 +33,7 @@ export const UPDATE_JOB_BY_ID = gql`
 		$salary: bigint = null
 		$description: String!
 		$edited_at: timestamptz!
+		$actively_recruiting: Boolean
 	) {
 		update_job_vacancy_by_pk(
 			pk_columns: { id: $id }
@@ -41,6 +42,7 @@ export const UPDATE_JOB_BY_ID = gql`
 				description: $description
 				salary: $salary
 				edited_at: $edited_at
+				actively_recruiting: $actively_recruiting
 			}
 		) {
 			id
@@ -48,6 +50,7 @@ export const UPDATE_JOB_BY_ID = gql`
 			description
 			salary
 			edited_at
+			actively_recruiting
 		}
 	}
 `;

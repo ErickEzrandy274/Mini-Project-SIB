@@ -11,8 +11,9 @@ import {
 	FormErrorMessage,
 	Input,
 	FormControl,
+	Select,
 } from "@chakra-ui/react";
-import { StatusBadge, TimeIcon } from "@elements";
+import { ActivelyRecruitingIcon, StatusBadge, TimeIcon } from "@elements";
 import { DetailJobCardProps } from "./interface";
 import { UPDATE_JOB_BY_ID, dateFormat, useAuth, useWindowSize } from "@utils";
 import { useMemo, useState } from "react";
@@ -29,6 +30,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 	location,
 	created_at,
 	edited_at,
+	actively_recruiting,
 	applicants,
 	description,
 	salary,
@@ -68,7 +70,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 	}, []);
 
 	const formik = useFormik({
-		initialValues: { name, description, salary },
+		initialValues: { name, description, salary, actively_recruiting },
 
 		validationSchema,
 		onSubmit: async (values) => {
@@ -77,7 +79,8 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 				if (
 					values.name === name &&
 					values.description === description &&
-					values.salary === salary
+					values.salary === salary &&
+					values.actively_recruiting === actively_recruiting
 				) {
 					setIsEdited(false);
 					toast.dismiss();
@@ -93,6 +96,7 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 								description: values.description,
 								salary: values.salary,
 								edited_at: new Date().toISOString(),
+								actively_recruiting: values.actively_recruiting,
 							},
 						});
 
@@ -152,31 +156,67 @@ const DetailJobCard: React.FC<DetailJobCardProps> = ({
 					>
 						<Flex flexDirection="column" gap={isEdited ? 2 : 0}>
 							{isEdited ? (
-								<FormControl
-									display="flex"
-									flexDirection="column"
-									isInvalid={formik.touched.name && !!formik.errors.name}
-								>
-									<Input
-										id="name"
-										name="name"
-										autoFocus
-										onChange={formik.handleChange}
-										onBlur={formik.handleBlur}
-										value={formik.values.name}
-										rounded="lg"
-									/>
+								<Flex gap={3}>
+									<FormControl
+										display="flex"
+										flexDirection="column"
+										isInvalid={formik.touched.name && !!formik.errors.name}
+									>
+										<Input
+											id="name"
+											name="name"
+											autoFocus
+											onChange={formik.handleChange}
+											onBlur={formik.handleBlur}
+											value={formik.values.name}
+											rounded="lg"
+										/>
 
-									{formik.touched.name && formik.errors.name && (
-										<FormErrorMessage fontWeight="semibold" fontSize="md">
-											{formik.errors.name}
-										</FormErrorMessage>
-									)}
-								</FormControl>
+										{formik.touched.name && formik.errors.name && (
+											<FormErrorMessage fontWeight="semibold" fontSize="md">
+												{formik.errors.name}
+											</FormErrorMessage>
+										)}
+									</FormControl>
+
+									<Select
+										id="actively_recruiting"
+										name="actively_recruiting"
+										cursor="pointer"
+										onChange={(e) =>
+											formik.setValues((prev) => ({
+												...prev,
+												actively_recruiting: e.target.value === "true",
+											}))
+										}
+										onBlur={formik.handleBlur}
+										value={formik.values.actively_recruiting ? "true" : "false"}
+										rounded="lg"
+									>
+										<option className="actively_recruiting" value="true">
+											Actively Recruiting
+										</option>
+										<option className="actively_recruiting" value="false">
+											Closed
+										</option>
+									</Select>
+								</Flex>
 							) : (
-								<Heading as="h2" fontSize={{ base: "2xl", md: "3xl" }}>
-									{name}
-								</Heading>
+								<Flex alignItems="center" gap={5}>
+									<Heading as="h2" fontSize={{ base: "2xl", md: "3xl" }}>
+										{name}
+									</Heading>
+									{actively_recruiting ? (
+										<Flex gap={2}>
+											<ActivelyRecruitingIcon width={25} height={25} />
+											<Text fontSize="sm">Actively recruiting</Text>
+										</Flex>
+									) : (
+										<Text px={2} rounded="md" bg="red.500">
+											Closed
+										</Text>
+									)}
+								</Flex>
 							)}
 							<Text fontSize={{ base: "sm", md: "lg" }}>{company_name}</Text>
 						</Flex>

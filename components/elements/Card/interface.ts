@@ -14,6 +14,7 @@ export interface JobCardWithDelayProps extends JobCardProps {
 }
 
 export interface DetailJobCardProps extends JobCardProps {
+	actively_recruiting: boolean;
 	applicants: any[];
 	description: string;
 	salary: number;
