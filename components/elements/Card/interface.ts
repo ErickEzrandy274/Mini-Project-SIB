@@ -10,6 +10,7 @@ export interface JobCardProps {
 }
 
 export interface JobCardWithDelayProps extends JobCardProps {
+	actively_recruiting?: boolean;
 	delay: number;
 }
 

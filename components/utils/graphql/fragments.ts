@@ -8,5 +8,6 @@ export const JOB_VACANCY_FIELDS_FRAGMENT = gql`
 		company_name
 		created_at
 		edited_at
+		actively_recruiting
 	}
 `;
