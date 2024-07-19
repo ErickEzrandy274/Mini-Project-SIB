@@ -4,6 +4,7 @@ import { JobCard, MovePageLabel } from "@elements";
 import { PaginatedItemsProps } from "./interface";
 import { useWindowSize } from "@utils";
 import ReactPaginate from "react-paginate";
+import { options } from "./constant";
 
 const PaginatedItems = ({
 	limit,
@@ -15,10 +16,7 @@ const PaginatedItems = ({
 	const { width } = useWindowSize();
 	const [currentPage, setCurrentPage] = useState<number>(0);
 
-	const pageCount = useMemo(
-		() => Math.ceil(total / limit),
-		[total, limit]
-	);
+	const pageCount = useMemo(() => Math.ceil(total / limit), [total, limit]);
 
 	const handlePageClick = (event: any) => {
 		const newOffset = event.selected * limit;
@@ -56,17 +54,21 @@ const PaginatedItems = ({
 				flexDir={{ base: "column", md: "row" }}
 			>
 				<Select
-					size="md"
-					w="40"
+					w="36"
+					size="sm"
+					cursor="pointer"
 					border="1px"
+					rounded="md"
 					borderColor="#A0AEC0"
 					_hover={{ borderColor: "#718096" }}
 					value={limit}
 					onChange={(e: BaseSyntheticEvent) => setLimit(+e.target.value)}
 				>
-					<option value="5">5 item/page</option>
-					<option value="10">10 item/page</option>
-					<option value="15">15 item/page</option>
+					{options.map(({ value, text }) => (
+						<option key={value} value={value}>
+							{text}
+						</option>
+					))}
 				</Select>
 
 				<ReactPaginate
