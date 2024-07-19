@@ -53,23 +53,25 @@ const PaginatedItems = ({
 				fontSize={{ base: "md", md: "xl" }}
 				flexDir={{ base: "column", md: "row" }}
 			>
-				<Select
-					w="36"
-					size="sm"
-					cursor="pointer"
-					border="1px"
-					rounded="md"
-					borderColor="#A0AEC0"
-					_hover={{ borderColor: "#718096" }}
-					value={limit}
-					onChange={(e: BaseSyntheticEvent) => setLimit(+e.target.value)}
-				>
-					{options.map(({ value, text }) => (
-						<option key={value} value={value}>
-							{text}
-						</option>
-					))}
-				</Select>
+				{!!pageCount && (
+					<Select
+						w="36"
+						size="sm"
+						cursor="pointer"
+						border="1px"
+						rounded="md"
+						borderColor="#A0AEC0"
+						_hover={{ borderColor: "#718096" }}
+						value={limit}
+						onChange={(e: BaseSyntheticEvent) => setLimit(+e.target.value)}
+					>
+						{options.map(({ value, text }) => (
+							<option key={value} value={value}>
+								{text}
+							</option>
+						))}
+					</Select>
+				)}
 
 				<ReactPaginate
 					nextLabel={
