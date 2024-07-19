@@ -10,7 +10,12 @@ import {
 } from "@chakra-ui/react";
 import { LocationIcon, TimeIcon } from "@elements";
 import { JobCardWithDelayProps } from "./interface";
-import { dateFormat, encode, opScaleAnimations, useWindowSize } from "@utils";
+import {
+	dateFormat,
+	encode,
+	getLastEditDate,
+	opScaleAnimations,
+} from "@utils";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
@@ -25,7 +30,6 @@ const JobCard: React.FC<JobCardWithDelayProps> = ({
 	delay,
 }) => {
 	const { push, pathname } = useRouter();
-	const { width } = useWindowSize();
 	const { initial, animate } = useMemo(() => opScaleAnimations, []);
 	const pageURL = useMemo(() => {
 		if (pathname.includes("mine/application")) {
@@ -72,12 +76,9 @@ const JobCard: React.FC<JobCardWithDelayProps> = ({
 
 				{edited_at && (
 					<Flex alignItems="center" gap={1}>
-						<TimeIcon
-							width={width < 768 ? 23 : 20}
-							height={width < 768 ? 23 : 20}
-						/>
-						<Text fontSize={{ base: "xs", md: "md" }}>
-							Updated on {dateFormat(edited_at, true)}
+						<TimeIcon />
+						<Text fontSize="sm" color="gray.400">
+							Last update {getLastEditDate(edited_at)}
 						</Text>
 					</Flex>
 				)}
