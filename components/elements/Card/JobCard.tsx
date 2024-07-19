@@ -10,12 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { LocationIcon, TimeIcon } from "@elements";
 import { JobCardWithDelayProps } from "./interface";
-import {
-	dateFormat,
-	encode,
-	getLastEditDate,
-	opScaleAnimations,
-} from "@utils";
+import { dateFormat, encode, getLastEditDate, opScaleAnimations } from "@utils";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
@@ -27,6 +22,7 @@ const JobCard: React.FC<JobCardWithDelayProps> = ({
 	location,
 	created_at,
 	edited_at,
+	actively_recruiting,
 	delay,
 }) => {
 	const { push, pathname } = useRouter();
@@ -104,6 +100,20 @@ const JobCard: React.FC<JobCardWithDelayProps> = ({
 					See detail
 				</Button>
 			</CardFooter>
+
+			{!actively_recruiting && (
+				<Text
+					opacity={0.75}
+					color="red"
+					fontSize={{ base: '6xl', md: "7xl" }}
+					style={{ transform: "translate(-50%, -50%) rotate(345deg)" }}
+					position="absolute"
+					top="50%"
+					left="50%"
+				>
+					Closed
+				</Text>
+			)}
 		</Card>
 	);
 };
