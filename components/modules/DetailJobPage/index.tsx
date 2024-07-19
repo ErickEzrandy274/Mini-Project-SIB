@@ -9,10 +9,13 @@ import {
 	PrimaryLoading,
 	ApplicantsModal,
 } from "@elements";
-import { Flex, Heading, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Heading, useDisclosure } from "@chakra-ui/react";
 import { NotFoundPage } from "@modules";
+import { ArrowBackIcon } from "@chakra-ui/icons";
+import { useRouter } from "next/router";
 
 const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
+	const { back } = useRouter();
 	const { user } = useAuth();
 	const { isOpen, onClose, onOpen } = useDisclosure();
 	const {
@@ -59,17 +62,30 @@ const DetailJobPage: React.FC<DetailJobPageProps> = ({ id }) => {
 			px={5}
 			w={{ base: "full", md: "75%", lg: "60%" }}
 		>
-			<Heading
-				as="h2"
-				textTransform="capitalize"
-				textAlign="center"
-				color="messenger.700"
-				fontSize={{ base: "1.75rem", md: "2.1rem" }}
-			>
-				{user?.uid === ownerId
-					? "Job vacancy details that you have created"
-					: "Job vacancy details"}
-			</Heading>
+			<Flex gap={2} flexDirection="column">
+				<Box
+					position={{ md: "absolute" }}
+					left="5%"
+					cursor="pointer"
+					fontSize="2xl"
+					px={1.5}
+					_hover={{ bg: "#d2f9f3", rounded: "100%", transition: '0.5s ease-out' }}
+					onClick={() => back()}
+				>
+					<ArrowBackIcon />
+				</Box>
+				<Heading
+					as="h2"
+					textTransform="capitalize"
+					textAlign="center"
+					color="messenger.700"
+					fontSize={{ base: "1.75rem", md: "2.1rem" }}
+				>
+					{user?.uid === ownerId
+						? "Job vacancy details that you have created"
+						: "Job vacancy details"}
+				</Heading>
+			</Flex>
 
 			<DetailJobCard
 				{...finalData}
