@@ -25,7 +25,7 @@ export const JOB_VACANCIES_SUBSCRIPTION = gql`
 `;
 
 export const JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER = gql`
-	subscription JobVacanciesSubscription(
+	subscription JobVacanciesSubscriptionOwnedByCurrentUser(
 		$uid: String!
 		$limit: Int!
 		$offset: Int!
@@ -48,7 +48,7 @@ export const JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER = gql`
 `;
 
 export const JOB_VACANCIES_SUBSCRIPTION_APPLIED_BY_CURRENT_USER = gql`
-	subscription MySubscription($uid: String!, $limit: Int!, $offset: Int!) {
+	subscription JobVacanciesSubscriptionAppliedByCurrentUser($uid: String!, $limit: Int!, $offset: Int!) {
 		job_vacancy(
 			where: { applicants: { userId: { _eq: $uid } } }
 			order_by: { name: asc }
@@ -72,6 +72,7 @@ export const SUBSCRIPTION_JOB_BY_ID = gql`
 			company_name
 			created_at
 			edited_at
+			actively_recruiting
 			description
 			salary
 			name

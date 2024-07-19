@@ -15,6 +15,7 @@ export const GET_JOB_BY_ID = gql`
 			company_name
 			created_at
 			edited_at
+			actively_recruiting
 			description
 			salary
 			name
@@ -41,14 +42,22 @@ export const GET_JOB_BY_ID = gql`
 export const JOB_VACANCIES_QUERY = gql`
 	query JobVacanciesQuery($uid: String!, $limit: Int!, $offset: Int!) {
 		job_vacancy(
-			where: { user: { id: { _neq: $uid } } }
+			where: {
+				user: { id: { _neq: $uid } }
+				actively_recruiting: { _eq: true }
+			}
 			order_by: { name: asc }
 			limit: $limit
 			offset: $offset
 		) {
 			...JobVacancyFields
 		}
-		job_vacancy_aggregate(where: { user: { id: { _neq: $uid } } }) {
+		job_vacancy_aggregate(
+			where: {
+				user: { id: { _neq: $uid } }
+				actively_recruiting: { _eq: true }
+			}
+		) {
 			aggregate {
 				count
 			}
