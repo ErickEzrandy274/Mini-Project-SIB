@@ -31,9 +31,9 @@ export const getLastEditDate = (date: string) => {
 	return formatDuration(Math.floor(seconds));
 };
 
-const formatDuration = (seconds: number): string => {
+const formatDuration = (seconds: number) => {
 	if (seconds === 0) return "just now";
-	let res = "";
+	
 	const dateTime: DateTimeProps = {
 		year: Math.floor(seconds / 31536000),
 		month: Math.floor((seconds % 31536000) / 2592000),
@@ -43,27 +43,36 @@ const formatDuration = (seconds: number): string => {
 		second: seconds % 60,
 	};
 
-	// assign result
-	if (dateTime.year) {
-		if (dateTime.month) res = `${dateTime.year * 12 + dateTime.month} months`;
-		else res = `${dateTime.year} ${dateTime.year > 1 ? "years" : "year"}`;
-	} else if (dateTime.month) {
-		if (dateTime.month === 12) res = "1 year";
-		else res = `${dateTime.month} ${dateTime.month > 1 ? "months" : "month"}`;
-	} else if (dateTime.day) {
-		if (dateTime.day === 30) res = "1 month";
-		else res = `${dateTime.day} ${dateTime.day > 1 ? "days" : "day"}`;
-	} else if (dateTime.hour) {
-		if (dateTime.hour === 24) res = "1 day";
-		else res = `${dateTime.hour} ${dateTime.hour > 1 ? "hours" : "hour"}`;
-	} else if (dateTime.minute) {
-		if (dateTime.minute === 60) res = "1 hour";
-		else
-			res = `${dateTime.minute} ${dateTime.minute > 1 ? "minutes" : "minute"}`;
-	} else if (dateTime.second) {
-		if (dateTime.second === 60) res = "1 minute";
-		else res = `${dateTime.second} ${dateTime.second > 1 ? "seconds" : "second"}`;
-	}
+	const units = [
+		{ value: dateTime.year, upgrade: "", single: "year", plural: "years" },
+		{
+			value: dateTime.month,
+			upgrade: "year",
+			single: "month",
+			plural: "months",
+		},
+		{ value: dateTime.day, upgrade: "month", single: "day", plural: "days" },
+		{ value: dateTime.hour, upgrade: "day", single: "hour", plural: "hours" },
+		{
+			value: dateTime.minute,
+			upgrade: "hour",
+			single: "minute",
+			plural: "minutes",
+		},
+		{
+			value: dateTime.second,
+			upgrade: "minute",
+			single: "second",
+			plural: "seconds",
+		},
+	];
 
-	return `${res} ago`;
+	for (const { value, upgrade, single, plural } of units) {
+		if (value) {
+			const isUpgrade = [12, 24, 30, 60].includes(value);
+			const displayValue = isUpgrade ? 1 : value;
+			if (isUpgrade) return `${displayValue} ${upgrade} ago`;
+			else return value > 1 ? `${displayValue} ${plural} ago` : `${displayValue} ${single} ago`;
+		}
+	}
 };
