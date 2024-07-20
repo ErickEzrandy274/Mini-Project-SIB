@@ -4,7 +4,7 @@ interface OptionProps {
 }
 
 export const options: OptionProps[] = [
-	{ value: 5, text: "5 items/page" },
-	{ value: 10, text: "10 items/page" },
-	{ value: 15, text: "15 items/page" },
+	{ value: 4, text: "4 items/page" },
+	{ value: 8, text: "8 items/page" },
+	{ value: 12, text: "12 items/page" },
 ];
