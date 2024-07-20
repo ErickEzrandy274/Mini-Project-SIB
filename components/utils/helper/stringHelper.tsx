@@ -34,65 +34,36 @@ export const getLastEditDate = (date: string) => {
 const formatDuration = (seconds: number): string => {
 	if (seconds === 0) return "just now";
 	let res = "";
-	const dateTime: DateTimeProps = {};
-
-	// calculate date time details
-	if (seconds >= 31536000) {
-		dateTime.year = Math.floor(seconds / 31536000);
-		seconds = Math.floor(seconds % 31536000);
-	}
-	if (seconds >= 2592000) {
-		dateTime.month = Math.floor(seconds / 2592000);
-		seconds = Math.floor(seconds % 2592000);
-	}
-	if (seconds >= 86400) {
-		dateTime.day = Math.floor(seconds / 86400);
-		seconds = Math.floor(seconds % 86400);
-	}
-	if (seconds >= 3600) {
-		dateTime.hour = Math.floor(seconds / 3600);
-		seconds = Math.floor(seconds % 3600);
-	}
-	if (seconds >= 60) {
-		dateTime.minute = Math.floor(seconds / 60);
-		seconds = Math.floor(seconds % 60);
-	}
-
-	if (seconds) dateTime.second = seconds;
+	const dateTime: DateTimeProps = {
+		year: Math.floor(seconds / 31536000),
+		month: Math.floor((seconds % 31536000) / 2592000),
+		day: Math.floor((seconds % 2592000) / 86400),
+		hour: Math.floor((seconds % 86400) / 3600),
+		minute: Math.floor((seconds % 3600) / 60),
+		second: seconds % 60,
+	};
 
 	// assign result
 	if (dateTime.year) {
-		res = dateTime.month
-			? `${dateTime.year * 12 + dateTime.month} months`
-			: `${dateTime.year} ${dateTime.year > 1 ? "years" : "year"}`;
-	} else if (dateTime.month)
-		res = `${dateTime.month === 12 ? 1 : dateTime.month} ${
-			dateTime.month > 1 ? (dateTime.month === 12 ? "year" : "months") : "month"
-		}`;
-	else if (dateTime.day)
-		res = `${dateTime.day === 30 ? 1 : dateTime.day} ${
-			dateTime.day > 1 ? (dateTime.day === 30 ? "month" : "days") : "day"
-		}`;
-	else if (dateTime.hour)
-		res = `${dateTime.hour === 24 ? 1 : dateTime.hour} ${
-			dateTime.hour > 1 ? (dateTime.hour === 24 ? "day" : "hours") : "hour"
-		}`;
-	else if (dateTime.minute)
-		res = `${dateTime.minute === 60 ? 1 : dateTime.minute} ${
-			dateTime.minute > 1
-				? dateTime.minute === 60
-					? "hour"
-					: "minutes"
-				: "minute"
-		}`;
-	else if (dateTime.second)
-		res = `${dateTime.second === 60 ? 1 : dateTime.second} ${
-			dateTime.second > 1
-				? dateTime.second === 60
-					? "minute"
-					: "seconds"
-				: "second"
-		}`;
+		if (dateTime.month) res = `${dateTime.year * 12 + dateTime.month} months`;
+		else res = `${dateTime.year} ${dateTime.year > 1 ? "years" : "year"}`;
+	} else if (dateTime.month) {
+		if (dateTime.month === 12) res = "1 year";
+		else res = `${dateTime.month} ${dateTime.month > 1 ? "months" : "month"}`;
+	} else if (dateTime.day) {
+		if (dateTime.day === 30) res = "1 month";
+		else res = `${dateTime.day} ${dateTime.day > 1 ? "days" : "day"}`;
+	} else if (dateTime.hour) {
+		if (dateTime.hour === 24) res = "1 day";
+		else res = `${dateTime.hour} ${dateTime.hour > 1 ? "hours" : "hour"}`;
+	} else if (dateTime.minute) {
+		if (dateTime.minute === 60) res = "1 hour";
+		else
+			res = `${dateTime.minute} ${dateTime.minute > 1 ? "minutes" : "minute"}`;
+	} else if (dateTime.second) {
+		if (dateTime.second === 60) res = "1 minute";
+		else res = `${dateTime.second} ${dateTime.second > 1 ? "seconds" : "second"}`;
+	}
 
 	return `${res} ago`;
 };
