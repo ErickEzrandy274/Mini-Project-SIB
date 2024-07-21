@@ -11,3 +11,11 @@ export const JOB_VACANCY_FIELDS_FRAGMENT = gql`
 		actively_recruiting
 	}
 `;
+
+export const JOB_VACANCY_FIELDS_AGGREGATE_FRAGMENT = gql`
+	fragment JobVacancyFieldsAggregate on job_vacancy_aggregate {
+		aggregate {
+			count
+		}
+	}
+`;
