@@ -10,15 +10,29 @@ const JobListPage: React.FC<JobListPageProps> = ({
 	isOwnedByCurrentUser = false,
 	isMyApplication = false,
 }) => {
+	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [limit, setLimit] = useState<number>(4);
-	const [offset, setOffset] = useState<number>(0);
+	const [offset, setOffset] = useState<number>((currentPage - 1) * limit);
 	const { user } = useAuth();
-	const { query, subscription } = useMemo(
+	const { first_query, second_query, first_subs, second_subs } = useMemo(
 		() => generateQuerySubscription(isMyApplication, isOwnedByCurrentUser),
 		[isOwnedByCurrentUser, isMyApplication]
 	);
 
-	const { data, loading, subscribeToMore, fetchMore } = useQuery(query, {
+	const {
+		data: dataAggr,
+		loading: loadingVacancyAggregate,
+		subscribeToMore: subscribeVacancyAggregate,
+	} = useQuery(second_query, {
+		variables: { uid: user ? user.uid : "" },
+	});
+
+	const {
+		data,
+		loading: loadingVacancy,
+		subscribeToMore: subscribeVacancyFields,
+		fetchMore,
+	} = useQuery(first_query, {
 		variables: { uid: user ? user.uid : "", limit, offset },
 	});
 
@@ -32,14 +46,24 @@ const JobListPage: React.FC<JobListPageProps> = ({
 	}, [limit, offset]);
 
 	useEffect(() => {
-		subscribeToMore({
-			document: subscription,
+		subscribeVacancyFields({
+			document: first_subs,
 			variables: { uid: user ? user.uid : "", limit, offset },
 			updateQuery: (_, { subscriptionData: { data } }) => {
 				return data;
 			},
 		});
-	}, [subscribeToMore, subscription, user]);
+	}, [subscribeVacancyFields, first_subs, user]);
+
+	useEffect(() => {
+		subscribeVacancyAggregate({
+			document: second_subs,
+			variables: { uid: user ? user.uid : "" },
+			updateQuery: (_, { subscriptionData: { data } }) => {
+				return data;
+			},
+		});
+	}, [subscribeVacancyAggregate, second_subs, user]);
 
 	const { firstHeading, secondHeading, paragraph } = useMemo(
 		() => generateText(isMyApplication, isOwnedByCurrentUser),
@@ -47,16 +71,18 @@ const JobListPage: React.FC<JobListPageProps> = ({
 	);
 
 	const renderComponent = () => {
-		if (loading) {
+		if (loadingVacancy || loadingVacancyAggregate) {
 			return <PrimaryLoading />;
 		}
 
 		const props = {
-			setOffset,
-			setLimit,
 			limit,
+			setLimit,
+			setOffset,
+			currentPage,
+			setCurrentPage,
 			items: data?.job_vacancy,
-			total: data?.job_vacancy_aggregate?.aggregate?.count,
+			total: dataAggr?.job_vacancy_aggregate?.aggregate?.count,
 		};
 
 		return data?.job_vacancy.length ? (
@@ -90,7 +116,7 @@ const JobListPage: React.FC<JobListPageProps> = ({
 				textAlign="center"
 				bgGradient="linear(to-br, messenger.500, facebook.700)"
 				bgClip="text"
-				mt={loading ? -10 : 0}
+				mt={loadingVacancy || loadingVacancyAggregate ? -10 : 0}
 			>
 				{firstHeading}
 			</Heading>
