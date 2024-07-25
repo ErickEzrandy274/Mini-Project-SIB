@@ -34,6 +34,7 @@ const JobListPage: React.FC<JobListPageProps> = ({
 		fetchMore,
 	} = useQuery(first_query, {
 		variables: { uid: user ? user.uid : "", limit, offset },
+		fetchPolicy: 'cache-and-network'
 	});
 
 	useEffect(() => {
