@@ -46,11 +46,6 @@ const CustomModal: React.FC<ModifiedModalProps> = ({
 	const [document, setDocument] = useState<File | null>(null);
 	const [deleteJob] = useMutation(DELETE_JOB_BY_ID, {
 		variables: { id },
-		update(cache) {
-			const normalizedId = cache.identify({ id, __typename: "job_vacancy" });
-			cache.evict({ id: normalizedId });
-			cache.gc();
-		},
 	});
 	const [insertApplicants] = useMutation(INSERT_APPLICANTS);
 	const size = useMemo(() => (width <= 768 ? 50 : 60), [width]);
