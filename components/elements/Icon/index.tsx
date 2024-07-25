@@ -4,3 +4,4 @@ export { default as SalaryIcon } from "./SalaryIcon";
 export { default as BriefcaseIcon } from "./BriefcaseIcon";
 export { default as UploadIcon } from "./UploadIcon";
 export { default as PDFIcon } from "./PDFIcon";
+export { default as ActivelyRecruitingIcon } from "./ActivelyRecruitingIcon";

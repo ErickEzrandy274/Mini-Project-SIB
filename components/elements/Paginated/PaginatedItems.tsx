@@ -1,26 +1,28 @@
-import React, { useMemo, useState } from "react";
-import { Flex, Grid, GridItem } from "@chakra-ui/react";
-import { JobCard, MovePageLabel } from "@elements";
+import React, { BaseSyntheticEvent } from "react";
+import { Flex, Grid, GridItem, Select } from "@chakra-ui/react";
+import { JobCard } from "@elements";
 import { PaginatedItemsProps } from "./interface";
-import { useWindowSize } from "@utils";
-import ReactPaginate from "react-paginate";
+import { options } from "./constant";
+import Paginate from "../Paginate";
 
-const PaginatedItems = ({ itemsPerPage, items }: PaginatedItemsProps) => {
-	const { width } = useWindowSize();
-	const [itemOffset, setItemOffset] = useState(0);
-	const endOffset = useMemo(
-		() => itemOffset + itemsPerPage,
-		[itemOffset, itemsPerPage]
-	);
-	const currentItems = items.slice(itemOffset, endOffset);
-	const pageCount = useMemo(
-		() => Math.ceil(items.length / itemsPerPage),
-		[items.length, itemsPerPage]
-	);
+const PaginatedItems = ({
+	currentPage,
+	setCurrentPage,
+	limit,
+	setLimit,
+	items,
+	total,
+	setOffset,
+}: PaginatedItemsProps) => {
+	const handlePageClick = (page: number) => {
+		setCurrentPage(page);
+		setOffset((page - 1) * limit);
+	};
 
-	const handlePageClick = (event: any) => {
-		const newOffset = (event.selected * itemsPerPage) % items.length;
-		setItemOffset(newOffset);
+	const handleSelectChange = (e: BaseSyntheticEvent) => {
+		setCurrentPage(1);
+		setLimit(+e.target.value);
+		setOffset(0);
 	};
 
 	return (
@@ -36,7 +38,7 @@ const PaginatedItems = ({ itemsPerPage, items }: PaginatedItemsProps) => {
 				justifyContent="center"
 				alignContent="center"
 			>
-				{currentItems.map((item: any, index: number) => {
+				{items.map((item: any, index: number) => {
 					return (
 						<GridItem key={item.id}>
 							<JobCard {...item} delay={index} />
@@ -44,21 +46,38 @@ const PaginatedItems = ({ itemsPerPage, items }: PaginatedItemsProps) => {
 					);
 				})}
 			</Grid>
+			<Flex
+				gap={5}
+				mx="auto"
+				alignItems="center"
+				fontSize={{ base: "md", md: "xl" }}
+				flexDir={{ base: "column", md: "row" }}
+			>
+				<Select
+					w="36"
+					size="sm"
+					cursor="pointer"
+					border="1px"
+					rounded="md"
+					borderColor="#A0AEC0"
+					_hover={{ borderColor: "#718096" }}
+					value={limit}
+					onChange={handleSelectChange}
+				>
+					{options.map(({ value, text }) => (
+						<option key={value} value={value}>
+							{text}
+						</option>
+					))}
+				</Select>
 
-			<ReactPaginate
-				nextLabel={<MovePageLabel name="Next" />}
-				previousLabel={<MovePageLabel name="Previous" />}
-				onPageChange={handlePageClick}
-				pageRangeDisplayed={width >= 768 ? 3 : 1}
-				marginPagesDisplayed={width > 768 ? 2 : 1}
-				pageCount={pageCount}
-				containerClassName="pagination"
-				breakLabel="..."
-				pageLinkClassName="page-item"
-				breakLinkClassName="page-item breakLabel"
-				activeLinkClassName="active"
-				renderOnZeroPageCount={null}
-			/>
+				<Paginate
+					currentPage={currentPage}
+					handlePageClick={handlePageClick}
+					total={total}
+					limit={limit}
+				/>
+			</Flex>
 		</Flex>
 	);
 };

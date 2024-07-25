@@ -1,23 +1,53 @@
 import { gql } from "@apollo/client";
-import { JOB_VACANCY_FIELDS_FRAGMENT } from "./fragments";
+import {
+	JOB_VACANCY_FIELDS_AGGREGATE_FRAGMENT,
+	JOB_VACANCY_FIELDS_FRAGMENT,
+} from "./fragments";
 
 export const JOB_VACANCIES_SUBSCRIPTION = gql`
-	subscription JobVacanciesSubscription($uid: String!) {
+	subscription JobVacanciesSubscription(
+		$uid: String!
+		$limit: Int!
+		$offset: Int!
+	) {
 		job_vacancy(
-			where: { user: { id: { _neq: $uid } } }
+			where: {
+				user: { id: { _neq: $uid }, actively_recruiting: { _eq: true } }
+			}
 			order_by: { name: asc }
+			limit: $limit
+			offset: $offset
 		) {
 			...JobVacancyFields
 		}
 	}
 	${JOB_VACANCY_FIELDS_FRAGMENT}
+`;
+
+export const JOB_VACANCIES_SUBSCRIPTION_AGGREGATE = gql`
+	subscription JobVacanciesSubscription($uid: String!) {
+		job_vacancy_aggregate(
+			where: {
+				user: { id: { _neq: $uid }, actively_recruiting: { _eq: true } }
+			}
+		) {
+			...JobVacancyFieldsAggregate
+		}
+	}
+	${JOB_VACANCY_FIELDS_AGGREGATE_FRAGMENT}
 `;
 
 export const JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER = gql`
-	subscription JobVacanciesSubscription($uid: String!) {
+	subscription JobVacanciesSubscriptionOwnedByCurrentUser(
+		$uid: String!
+		$limit: Int!
+		$offset: Int!
+	) {
 		job_vacancy(
 			where: { user: { id: { _eq: $uid } } }
 			order_by: { name: asc }
+			limit: $limit
+			offset: $offset
 		) {
 			...JobVacancyFields
 		}
@@ -25,16 +55,40 @@ export const JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER = gql`
 	${JOB_VACANCY_FIELDS_FRAGMENT}
 `;
 
+export const JOB_VACANCIES_SUBSCRIPTION_OWNED_BY_CURRENT_USER_AGGREGATE = gql`
+	subscription JobVacanciesSubscription($uid: String!) {
+		job_vacancy_aggregate(where: { user: { id: { _eq: $uid } } }) {
+			...JobVacancyFieldsAggregate
+		}
+	}
+	${JOB_VACANCY_FIELDS_AGGREGATE_FRAGMENT}
+`;
+
 export const JOB_VACANCIES_SUBSCRIPTION_APPLIED_BY_CURRENT_USER = gql`
-	subscription MySubscription($uid: String!) {
+	subscription JobVacanciesSubscriptionAppliedByCurrentUser(
+		$uid: String!
+		$limit: Int!
+		$offset: Int!
+	) {
 		job_vacancy(
 			where: { applicants: { userId: { _eq: $uid } } }
 			order_by: { name: asc }
+			limit: $limit
+			offset: $offset
 		) {
 			...JobVacancyFields
 		}
 	}
 	${JOB_VACANCY_FIELDS_FRAGMENT}
+`;
+
+export const JOB_VACANCIES_SUBSCRIPTION_APPLIED_BY_CURRENT_USER_AGGREGATE = gql`
+	subscription JobVacanciesSubscription($uid: String!) {
+		job_vacancy(where: { applicants: { userId: { _eq: $uid } } }) {
+			...JobVacancyFieldsAggregate
+		}
+	}
+	${JOB_VACANCY_FIELDS_AGGREGATE_FRAGMENT}
 `;
 
 export const SUBSCRIPTION_JOB_BY_ID = gql`
@@ -43,6 +97,7 @@ export const SUBSCRIPTION_JOB_BY_ID = gql`
 			company_name
 			created_at
 			edited_at
+			actively_recruiting
 			description
 			salary
 			name

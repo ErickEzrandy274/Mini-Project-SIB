@@ -16,29 +16,19 @@ import { Links } from "./constant";
 import { useRouter } from "next/router";
 import { NavLinkProps } from "./interface";
 import { useAuth } from "@utils";
-import { useMemo } from "react";
+import { BaseSyntheticEvent, useMemo } from "react";
 import Link from "next/link";
 
 const NavLink = ({ children, href, pathname, onClose }: NavLinkProps) => {
 	const isActive = useMemo(() => {
-		if (pathname === href) {
-			return true;
-		}
-
-		if (pathname.includes("jobs/detail") && href === "/jobs") {
-			return true;
-		}
-
-		if (pathname.includes("mine/detail") && href === "/jobs/mine") {
-			return true;
-		}
-
+		if (pathname === href) return true;
+		if (pathname.includes("jobs/detail") && href === "/jobs") return true;
+		if (pathname.includes("mine/detail") && href === "/jobs/mine") return true;
 		if (
 			pathname.includes("mine/application/detail") &&
 			href === "/jobs/mine/application"
-		) {
+		)
 			return true;
-		}
 	}, [pathname, href]);
 
 	return (
@@ -59,7 +49,12 @@ const NavLink = ({ children, href, pathname, onClose }: NavLinkProps) => {
 				letterSpacing: "0.3px",
 			}}
 		>
-			<Link href={href} onClick={() => onClose()}>
+			<Link
+				href={href}
+				onClick={(e: BaseSyntheticEvent) =>
+					isActive ? e.preventDefault() : onClose()
+				}
+			>
 				{children}
 			</Link>
 		</Box>

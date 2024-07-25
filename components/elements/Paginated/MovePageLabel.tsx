@@ -2,7 +2,7 @@ import React from "react";
 import { Box } from "@chakra-ui/react";
 import { MovePageProps } from "./interface";
 
-const PreviousLabel: React.FC<MovePageProps> = ({ name }) => {
+const MovePageLabel: React.FC<MovePageProps> = ({ name, disabled, onClick }) => {
 	return (
 		<Box
 			color="white"
@@ -11,11 +11,13 @@ const PreviousLabel: React.FC<MovePageProps> = ({ name }) => {
 			py={1}
 			rounded="lg"
 			fontSize={{ base: "xs", md: "lg" }}
-			bgGradient="linear(to-br, #7928CA, #FF0080)"
+			bgGradient={disabled ? "linear(to-br, #CBD5E0, #A0AEC0)" : "linear(to-br, #7928CA, #FF0080)"}
+			cursor={disabled ? "not-allowed" : "pointer"}
+			onClick={disabled ? undefined : onClick}
 		>
 			{name}
 		</Box>
 	);
 };
 
-export default PreviousLabel;
+export default MovePageLabel;

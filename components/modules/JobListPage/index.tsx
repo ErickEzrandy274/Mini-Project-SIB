@@ -1,38 +1,70 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import { PaginatedItems, PrimaryLoading } from "@elements";
 import { useAuth } from "@utils";
 import { JobListPageProps } from "./interface";
-import {
-	ITEMS_PER_PAGE,
-	generateQuerySubscription,
-	generateText,
-} from "./constant";
+import { generateQuerySubscription, generateText } from "./constant";
 
 const JobListPage: React.FC<JobListPageProps> = ({
 	isOwnedByCurrentUser = false,
 	isMyApplication = false,
 }) => {
+	const [currentPage, setCurrentPage] = useState<number>(1);
+	const [limit, setLimit] = useState<number>(4);
+	const [offset, setOffset] = useState<number>((currentPage - 1) * limit);
 	const { user } = useAuth();
-	const { query, subscription } = useMemo(
+	const { first_query, second_query, first_subs, second_subs } = useMemo(
 		() => generateQuerySubscription(isMyApplication, isOwnedByCurrentUser),
 		[isOwnedByCurrentUser, isMyApplication]
 	);
 
-	const { data, loading, subscribeToMore } = useQuery(query, {
+	const {
+		data: dataAggr,
+		loading: loadingVacancyAggregate,
+		subscribeToMore: subscribeVacancyAggregate,
+	} = useQuery(second_query, {
 		variables: { uid: user ? user.uid : "" },
 	});
 
+	const {
+		data,
+		loading: loadingVacancy,
+		subscribeToMore: subscribeVacancyFields,
+		fetchMore,
+	} = useQuery(first_query, {
+		variables: { uid: user ? user.uid : "", limit, offset },
+		fetchPolicy: 'cache-and-network'
+	});
+
 	useEffect(() => {
-		subscribeToMore({
-			document: subscription,
-			variables: { uid: user ? user.uid : "" },
-			updateQuery: (prev, { subscriptionData: { data } }) => {
+		fetchMore({
+			variables: { limit, offset },
+			updateQuery: (_, { fetchMoreResult: { data } }) => {
 				return data;
 			},
 		});
-	}, [subscribeToMore, subscription, user]);
+	}, [limit, offset]);
+
+	useEffect(() => {
+		subscribeVacancyFields({
+			document: first_subs,
+			variables: { uid: user ? user.uid : "", limit, offset },
+			updateQuery: (_, { subscriptionData: { data } }) => {
+				return data;
+			},
+		});
+	}, [subscribeVacancyFields, first_subs, user]);
+
+	useEffect(() => {
+		subscribeVacancyAggregate({
+			document: second_subs,
+			variables: { uid: user ? user.uid : "" },
+			updateQuery: (_, { subscriptionData: { data } }) => {
+				return data;
+			},
+		});
+	}, [subscribeVacancyAggregate, second_subs, user]);
 
 	const { firstHeading, secondHeading, paragraph } = useMemo(
 		() => generateText(isMyApplication, isOwnedByCurrentUser),
@@ -40,12 +72,22 @@ const JobListPage: React.FC<JobListPageProps> = ({
 	);
 
 	const renderComponent = () => {
-		if (loading) {
+		if (loadingVacancy || loadingVacancyAggregate) {
 			return <PrimaryLoading />;
 		}
 
-		return data.job_vacancy.length ? (
-			<PaginatedItems itemsPerPage={ITEMS_PER_PAGE} items={data.job_vacancy} />
+		const props = {
+			limit,
+			setLimit,
+			setOffset,
+			currentPage,
+			setCurrentPage,
+			items: data?.job_vacancy,
+			total: dataAggr?.job_vacancy_aggregate?.aggregate?.count,
+		};
+
+		return data?.job_vacancy.length ? (
+			<PaginatedItems {...props} />
 		) : (
 			<Flex flexDirection="column" textAlign="center" gap={2}>
 				<Heading
@@ -75,7 +117,7 @@ const JobListPage: React.FC<JobListPageProps> = ({
 				textAlign="center"
 				bgGradient="linear(to-br, messenger.500, facebook.700)"
 				bgClip="text"
-				mt={loading ? -10 : 0}
+				mt={loadingVacancy || loadingVacancyAggregate ? -10 : 0}
 			>
 				{firstHeading}
 			</Heading>

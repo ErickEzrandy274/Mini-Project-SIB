@@ -5,7 +5,7 @@ export type NewJobType = {
 	description: string;
 	location: string;
 	salary: string;
-	working_type: "On Site" | "Remote";
+	working_type: "On Site" | "Remote" | "Hybrid";
 	company_name: string;
 	created_by: string;
 	created_at: "";
@@ -103,7 +103,7 @@ export const newJobInputText = {
 	],
 };
 
-export const workingTypeOptions = ["On Site", "Remote"];
+export const workingTypeOptions = ["On Site", "Remote", "Hybrid"];
 
 export const alphabetOnlyRegex = /^[A-Za-z ]+$/;
 export const alphabetNumericRegex = /^[A-Za-z0-9 ]+$/;
